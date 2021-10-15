@@ -27,6 +27,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 75
   end
   object FDQ_SOFTWARE_A: TFDQuery
+    Active = True
     Connection = FDC_SOFTWARE
     SQL.Strings = (
       'SELECT * FROM ANALISES')
@@ -60,6 +61,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_R: TFDQuery
+    Active = True
     Connection = FDC_SOFTWARE
     SQL.Strings = (
       'SELECT * FROM ROBOS')
@@ -77,6 +79,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_S: TFDQuery
+    Active = True
     Connection = FDC_SOFTWARE
     SQL.Strings = (
       'SELECT * FROM SETUPS')
