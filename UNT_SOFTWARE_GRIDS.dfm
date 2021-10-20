@@ -1,10 +1,10 @@
 object FRM_SOFTWARE: TFRM_SOFTWARE
-  Left = -8
-  Top = -8
+  Left = 161
+  Top = 43
   Align = alClient
   Caption = 'SOFTWARE'
-  ClientHeight = 705
-  ClientWidth = 1366
+  ClientHeight = 645
+  ClientWidth = 941
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,14 +12,13 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  WindowState = wsMaximized
   OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 1366
+    Width = 941
     Height = 705
     ActivePage = Setup
     Align = alTop
@@ -38,11 +37,10 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1358
-        Height = 41
+        Width = 933
+        Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 837
         object DBN_ANALISES: TDBNavigator
           Left = 0
           Top = 10
@@ -55,16 +53,18 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       end
       object PC_Analise: TPageControl
         Left = 0
-        Top = 41
-        Width = 1358
-        Height = 636
+        Top = 129
+        Width = 933
+        Height = 548
         ActivePage = tsDetalhes
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 837
+        ExplicitTop = 57
+        ExplicitHeight = 620
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
           ExplicitWidth = 829
+          ExplicitHeight = 608
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -252,11 +252,38 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 1358
-        Height = 41
+        Width = 933
+        Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 837
+        object Label4: TLabel
+          Left = 325
+          Top = 4
+          Width = 73
+          Height = 13
+          Caption = 'Identificador'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label32: TLabel
+          Left = 422
+          Top = 3
+          Width = 92
+          Height = 13
+          Caption = 'T'#237'tulo da an'#225'lise'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object DBN_ROBOS: TDBNavigator
           Left = 0
           Top = 10
@@ -266,20 +293,44 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 0
           OnClick = DBN_ROBOSClick
         end
+        object DBEdit1: TDBEdit
+          Left = 325
+          Top = 23
+          Width = 91
+          Height = 21
+          DataField = 'ID_ANALISE'
+          DataSource = DM_SOFTWARE.DS_ANALISES
+          Enabled = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object DBEdit2: TDBEdit
+          Left = 422
+          Top = 22
+          Width = 276
+          Height = 21
+          DataField = 'TITULO_DA_ANALISE'
+          DataSource = DM_SOFTWARE.DS_ANALISES
+          Enabled = False
+          ReadOnly = True
+          TabOrder = 2
+        end
       end
       object PC_Robo: TPageControl
         Left = 0
-        Top = 41
-        Width = 1358
-        Height = 636
+        Top = 129
+        Width = 933
+        Height = 548
         ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
+        ExplicitTop = 41
         ExplicitWidth = 1145
         ExplicitHeight = 372
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
           ExplicitWidth = 829
+          ExplicitHeight = 608
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -327,6 +378,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           Caption = 'Detalhes'
           ImageIndex = 1
           ExplicitWidth = 829
+          ExplicitHeight = 608
           object Label9: TLabel
             Left = 20
             Top = 30
@@ -410,11 +462,64 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 1358
-        Height = 41
+        Width = 933
+        Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 837
+        object Label33: TLabel
+          Left = 325
+          Top = 58
+          Width = 73
+          Height = 13
+          Caption = 'Identificador'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label34: TLabel
+          Left = 422
+          Top = 58
+          Width = 74
+          Height = 13
+          Caption = 'Nom do Robo'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label35: TLabel
+          Left = 325
+          Top = 10
+          Width = 73
+          Height = 13
+          Caption = 'Identificador'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label36: TLabel
+          Left = 422
+          Top = 9
+          Width = 92
+          Height = 13
+          Caption = 'T'#237'tulo da an'#225'lise'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object DBN_SETUPS: TDBNavigator
           Left = 0
           Top = 10
@@ -424,19 +529,68 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 0
           OnClick = DBN_SETUPSClick
         end
+        object DBEdit3: TDBEdit
+          Left = 325
+          Top = 81
+          Width = 91
+          Height = 21
+          Ctl3D = True
+          DataField = 'ID_ROBO'
+          DataSource = DM_SOFTWARE.DS_ROBOS
+          Enabled = False
+          ParentCtl3D = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object DBEdit4: TDBEdit
+          Left = 422
+          Top = 81
+          Width = 276
+          Height = 21
+          DataField = 'NOME_DO_ROBO'
+          DataSource = DM_SOFTWARE.DS_ROBOS
+          Enabled = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object DBEdit5: TDBEdit
+          Left = 325
+          Top = 29
+          Width = 91
+          Height = 21
+          DataField = 'ID_ANALISE'
+          DataSource = DM_SOFTWARE.DS_ANALISES
+          Enabled = False
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object DBEdit6: TDBEdit
+          Left = 422
+          Top = 28
+          Width = 276
+          Height = 21
+          DataField = 'TITULO_DA_ANALISE'
+          DataSource = DM_SOFTWARE.DS_ANALISES
+          Enabled = False
+          ReadOnly = True
+          TabOrder = 4
+        end
       end
       object PC_Setup: TPageControl
         Left = 0
-        Top = 41
-        Width = 1358
-        Height = 636
+        Top = 129
+        Width = 933
+        Height = 548
         ActivePage = TS_Setup_Detalhes
         Align = alClient
         TabOrder = 1
+        ExplicitTop = 41
         ExplicitWidth = 837
+        ExplicitHeight = 636
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
           ExplicitWidth = 829
+          ExplicitHeight = 608
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -579,6 +733,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           Caption = 'Detalhes'
           ImageIndex = 1
           ExplicitWidth = 829
+          ExplicitHeight = 608
           object Label12: TLabel
             Left = 20
             Top = 30
@@ -1031,17 +1186,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       end
     end
   end
-  object TABELA_ATUAL: TPanel
-    Left = 458
-    Top = 25
-    Width = 887
-    Height = 34
-    Caption = 'info'
-    TabOrder = 1
-  end
   object DS_ANALISES: TDataSource
     DataSet = DM_SOFTWARE.FDQ_SOFTWARE_A
-    OnDataChange = DS_ANALISESDataChange
     Left = 736
     Top = 72
   end

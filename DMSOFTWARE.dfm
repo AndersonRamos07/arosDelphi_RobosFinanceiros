@@ -104,6 +104,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_S: TFDQuery
+    Active = True
     AfterInsert = FDQ_SOFTWARE_SAfterInsert
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
@@ -123,10 +124,10 @@ object DM_SOFTWARE: TDM_SOFTWARE
         ParamType = ptInput
       end>
     object FDQ_SOFTWARE_SID_SETUP: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_SETUP'
       Origin = 'ID_SETUP'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object FDQ_SOFTWARE_SID_ROBO: TIntegerField
       FieldName = 'ID_ROBO'

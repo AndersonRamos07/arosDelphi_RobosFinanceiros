@@ -74,14 +74,12 @@ type
     DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit;
     Label1: TLabel;
     DBE_NOME_DO_ROBO: TDBEdit;
-    TABELA_ATUAL: TPanel;
     PC_Analise: TPageControl;
     TS_Analise_Lista: TTabSheet;
     L_LISTA_ANALISES: TLabel;
     DBGrid1: TDBGrid;
     tsDetalhes: TTabSheet;
     DS_ANALISES: TDataSource;
-    DBN_ANALISES: TDBNavigator;
     Label3: TLabel;
     Label7: TLabel;
     DBE_SALDO_INICIAL: TDBEdit;
@@ -94,8 +92,21 @@ type
     DBE_DESCRICAO: TDBEdit;
     DBN_ROBOS: TDBNavigator;
     DBN_SETUPS: TDBNavigator;
+    Label4: TLabel;
+    DBEdit1: TDBEdit;
+    Label32: TLabel;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    Label33: TLabel;
+    Label34: TLabel;
+    DBEdit4: TDBEdit;
+    Label35: TLabel;
+    DBEdit5: TDBEdit;
+    Label36: TLabel;
+    DBEdit6: TDBEdit;
+    DBN_ANALISES: TDBNavigator;
     procedure FormActivate(Sender: TObject);
-    procedure DS_ANALISESDataChange(Sender: TObject; Field: TField);
+//    procedure DS_ANALISESDataChange(Sender: TObject; Field: TField);
     procedure PageControl1Change(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
@@ -144,16 +155,16 @@ begin
   end;
 end;
 
-procedure TFRM_SOFTWARE.DS_ANALISESDataChange(Sender: TObject; Field: TField);
-begin
-  tabela_atual.Caption := 'ID Análise: ' + DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + #13
-                          + ';  Título: ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString + #13
-                          + ';  Descrição: ' + DM_SOFTWARE.FDQ_SOFTWARE_ADESCRICAO_DO_PERIODO.AsString;
-end;
+//procedure TFRM_SOFTWARE.DS_ANALISESDataChange(Sender: TObject; Field: TField);
+//begin
+//  tabela_atual.Caption := 'ID Análise: ' + DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + #13
+//                          + ';  Título: ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString + #13
+//                          + ';  Descrição: ' + DM_SOFTWARE.FDQ_SOFTWARE_ADESCRICAO_DO_PERIODO.AsString;
+//end;
 
 procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
 begin
-  TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
+  //TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
   DM_SOFTWARE.FDQ_SOFTWARE_A.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_R.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_S.Open;
@@ -161,7 +172,7 @@ end;
 
 procedure TFRM_SOFTWARE.PageControl1Change(Sender: TObject);
 begin
-  TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
+  //TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
 end;
 
 end.
