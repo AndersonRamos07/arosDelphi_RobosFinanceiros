@@ -1,10 +1,10 @@
 object FRM_SOFTWARE: TFRM_SOFTWARE
-  Left = 221
-  Top = 155
+  Left = 247
+  Top = 42
   Align = alClient
   Caption = 'SOFTWARE'
-  ClientHeight = 556
-  ClientWidth = 845
+  ClientHeight = 645
+  ClientWidth = 941
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,15 +18,17 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 845
+    Width = 941
     Height = 705
-    ActivePage = Analise
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
+    OnChange = PageControl1Change
     ExplicitLeft = 8
     ExplicitTop = 25
+    ExplicitWidth = 845
     ExplicitHeight = 556
-    object Analise: TTabSheet
+    object tsAnalise: TTabSheet
       Caption = 'An'#225'lise'
       ExplicitLeft = 0
       ExplicitTop = 0
@@ -35,30 +37,33 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 837
+        Width = 933
         Height = 41
         Align = alTop
         TabOrder = 0
-        object DBN_ANALISES: TcxDBNavigator
+        ExplicitWidth = 837
+        object DBN_ANALISES: TDBNavigator
           Left = 0
-          Top = 1
-          Width = 270
+          Top = 10
+          Width = 240
           Height = 25
-          Buttons.CustomButtons = <>
-          DataSource = DM_SOFTWARE.DS_ANALISES
+          DataSource = DS_ANALISES
           TabOrder = 0
+          OnClick = DBN_ANALISESClick
         end
       end
       object PC_Analise: TPageControl
         Left = 0
         Top = 41
-        Width = 837
+        Width = 933
         Height = 636
-        ActivePage = Detalhes
+        ActivePage = tsDetalhes
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 837
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitWidth = 829
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -112,209 +117,126 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               end>
           end
         end
-        object Detalhes: TTabSheet
+        object tsDetalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
           ExplicitLeft = 0
           ExplicitTop = 0
           ExplicitWidth = 281
           ExplicitHeight = 165
-          object DBEdit1: TDBEdit
-            Left = 3
-            Top = 43
-            Width = 70
+          object Label3: TLabel
+            Left = 327
+            Top = 108
+            Width = 55
+            Height = 13
+            Caption = 'Descri'#231#227'o'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label7: TLabel
+            Left = 548
+            Top = 30
+            Width = 68
+            Height = 13
+            Caption = 'Saldo Inicial'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label2: TLabel
+            Left = 294
+            Top = 30
+            Width = 104
+            Height = 13
+            Caption = 'Per'#237'odo (em anos)'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label5: TLabel
+            Left = 29
+            Top = 30
+            Width = 73
+            Height = 13
+            Caption = 'Identificador'
+            Color = clBtnFace
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
+          object Label6: TLabel
+            Left = 28
+            Top = 108
+            Width = 92
+            Height = 13
+            Caption = 'T'#237'tulo da an'#225'lise'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object DBE_SALDO_INICIAL: TDBEdit
+            Left = 548
+            Top = 60
+            Width = 121
             Height = 21
-            DataField = 'ID_ANALISE'
+            DataField = 'SALDO_INICIAL'
+            DataSource = DM_SOFTWARE.DS_ANALISES
             TabOrder = 0
           end
-          object PageControl3: TPageControl
-            Left = -16
-            Top = -97
-            Width = 1153
-            Height = 441
-            ActivePage = TabSheet2
+          object DBE_PERIODO_EM_ANOS: TDBEdit
+            Left = 294
+            Top = 60
+            Width = 121
+            Height = 21
+            DataField = 'PERIODO_EM_ANOS'
+            DataSource = DM_SOFTWARE.DS_ANALISES
             TabOrder = 1
-            object TabSheet2: TTabSheet
-              Caption = 'An'#225'lise'
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 281
-              ExplicitHeight = 165
-              object PageControl4: TPageControl
-                Left = 0
-                Top = 41
-                Width = 1145
-                Height = 372
-                ActivePage = TS_Analise_Detalhes
-                Align = alClient
-                TabOrder = 0
-                ExplicitWidth = 761
-                ExplicitHeight = 262
-                object TabSheet3: TTabSheet
-                  Caption = 'Lista'
-                  object Label4: TLabel
-                    Left = 3
-                    Top = 16
-                    Width = 78
-                    Height = 13
-                    Caption = 'Lista de an'#225'lises'
-                  end
-                  object DBGrid4: TDBGrid
-                    Left = 3
-                    Top = 48
-                    Width = 678
-                    Height = 120
-                    TabOrder = 0
-                    TitleFont.Charset = DEFAULT_CHARSET
-                    TitleFont.Color = clWindowText
-                    TitleFont.Height = -11
-                    TitleFont.Name = 'Tahoma'
-                    TitleFont.Style = []
-                  end
-                end
-                object TS_Analise_Detalhes: TTabSheet
-                  Caption = 'Detalhes'
-                  ImageIndex = 1
-                  object Label5: TLabel
-                    Left = 20
-                    Top = 30
-                    Width = 73
-                    Height = 13
-                    Caption = 'Identificador'
-                    Color = clBtnFace
-                    Font.Charset = DEFAULT_CHARSET
-                    Font.Color = clWindowText
-                    Font.Height = -11
-                    Font.Name = 'Tahoma'
-                    Font.Style = [fsBold]
-                    ParentColor = False
-                    ParentFont = False
-                  end
-                  object Label6: TLabel
-                    Left = 20
-                    Top = 100
-                    Width = 92
-                    Height = 13
-                    Caption = 'T'#237'tulo da an'#225'lise'
-                    Font.Charset = DEFAULT_CHARSET
-                    Font.Color = clWindowText
-                    Font.Height = -11
-                    Font.Name = 'Tahoma'
-                    Font.Style = [fsBold]
-                    ParentFont = False
-                  end
-                  object Label2: TLabel
-                    Left = 294
-                    Top = 30
-                    Width = 104
-                    Height = 13
-                    Caption = 'Per'#237'odo (em anos)'
-                    Font.Charset = DEFAULT_CHARSET
-                    Font.Color = clWindowText
-                    Font.Height = -11
-                    Font.Name = 'Tahoma'
-                    Font.Style = [fsBold]
-                    ParentFont = False
-                  end
-                  object Label3: TLabel
-                    Left = 335
-                    Top = 100
-                    Width = 55
-                    Height = 13
-                    Caption = 'Descri'#231#227'o'
-                    Font.Charset = DEFAULT_CHARSET
-                    Font.Color = clWindowText
-                    Font.Height = -11
-                    Font.Name = 'Tahoma'
-                    Font.Style = [fsBold]
-                    ParentFont = False
-                  end
-                  object Label7: TLabel
-                    Left = 548
-                    Top = 30
-                    Width = 68
-                    Height = 13
-                    Caption = 'Saldo Inicial'
-                    Font.Charset = DEFAULT_CHARSET
-                    Font.Color = clWindowText
-                    Font.Height = -11
-                    Font.Name = 'Tahoma'
-                    Font.Style = [fsBold]
-                    ParentFont = False
-                  end
-                  object DBEdit3: TDBEdit
-                    Left = 20
-                    Top = 60
-                    Width = 91
-                    Height = 21
-                    DataField = 'ID_ANALISE'
-                    DataSource = DM_SOFTWARE.DS_ANALISES
-                    TabOrder = 0
-                  end
-                  object DBEdit5: TDBEdit
-                    Left = 294
-                    Top = 60
-                    Width = 121
-                    Height = 21
-                    DataField = 'PERIODO_EM_ANOS'
-                    DataSource = DM_SOFTWARE.DS_ANALISES
-                    TabOrder = 1
-                  end
-                  object DBEdit6: TDBEdit
-                    Left = 548
-                    Top = 60
-                    Width = 121
-                    Height = 21
-                    DataField = 'SALDO_INICIAL'
-                    DataSource = DM_SOFTWARE.DS_ANALISES
-                    TabOrder = 2
-                  end
-                  object DBEdit2: TDBEdit
-                    Left = 21
-                    Top = 130
-                    Width = 276
-                    Height = 21
-                    DataField = 'TITULO_DA_ANALISE'
-                    DataSource = DM_SOFTWARE.DS_ANALISES
-                    TabOrder = 3
-                  end
-                end
-              end
-              object Panel2: TPanel
-                Left = 0
-                Top = 0
-                Width = 1145
-                Height = 41
-                Align = alTop
-                Caption = 'Panel1'
-                TabOrder = 1
-                object cxDBNavigator2: TcxDBNavigator
-                  Left = 0
-                  Top = 1
-                  Width = 270
-                  Height = 25
-                  Buttons.CustomButtons = <>
-                  TabOrder = 0
-                end
-              end
-            end
-            object TabSheet6: TTabSheet
-              Caption = 'Robo'
-              ImageIndex = 1
-            end
-            object TabSheet7: TTabSheet
-              Caption = 'Setup'
-              ImageIndex = 2
-            end
           end
-          object DBEdit4: TDBEdit
+          object DBE_ID_ANALISE: TDBEdit
+            Left = 29
+            Top = 60
+            Width = 91
+            Height = 21
+            DataField = 'ID_ANALISE'
+            DataSource = DM_SOFTWARE.DS_ANALISES
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object DBE_TITULO_DA_ANALISE: TDBEdit
+            Left = 28
+            Top = 138
+            Width = 276
+            Height = 21
+            DataField = 'TITULO_DA_ANALISE'
+            DataSource = DM_SOFTWARE.DS_ANALISES
+            TabOrder = 3
+          end
+          object DBE_DESCRICAO: TDBEdit
             Left = 327
-            Top = 122
+            Top = 138
             Width = 334
             Height = 21
             DataField = 'DESCRICAO_DO_PERIODO'
             DataSource = DM_SOFTWARE.DS_ANALISES
-            TabOrder = 2
+            TabOrder = 4
           end
         end
       end
@@ -329,33 +251,34 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 837
+        Width = 933
         Height = 41
         Align = alTop
         TabOrder = 0
-        object DBN_ROBOS: TcxDBNavigator
+        ExplicitWidth = 837
+        object DBN_ROBOS: TDBNavigator
           Left = 0
-          Top = 1
-          Width = 270
+          Top = 10
+          Width = 240
           Height = 25
-          Buttons.CustomButtons = <>
           DataSource = DM_SOFTWARE.DS_ROBOS
           TabOrder = 0
+          OnClick = DBN_ROBOSClick
         end
       end
       object PC_Robo: TPageControl
         Left = 0
         Top = 41
-        Width = 837
+        Width = 933
         Height = 636
-        ActivePage = TS_Robo_Lista
+        ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 1145
         ExplicitHeight = 372
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitHeight = 459
+          ExplicitWidth = 829
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -402,7 +325,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitHeight = 459
+          ExplicitWidth = 829
           object Label9: TLabel
             Left = 20
             Top = 30
@@ -442,7 +365,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object DBEdit7: TDBEdit
+          object DBE_ID_ROBO: TDBEdit
             Left = 20
             Top = 60
             Width = 91
@@ -450,19 +373,21 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Ctl3D = True
             DataField = 'ID_ROBO'
             DataSource = DM_SOFTWARE.DS_ROBOS
+            Enabled = False
             ParentCtl3D = False
             TabOrder = 0
           end
-          object DBEdit8: TDBEdit
+          object DBE_ID_ANALISE_R: TDBEdit
             Left = 209
             Top = 60
             Width = 121
             Height = 21
             DataField = 'ID_ANALISE'
             DataSource = DM_SOFTWARE.DS_ROBOS
+            Enabled = False
             TabOrder = 1
           end
-          object DBEdit29: TDBEdit
+          object DBE_NOME_DO_ROBO: TDBEdit
             Left = 20
             Top = 132
             Width = 310
@@ -484,31 +409,33 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 837
+        Width = 933
         Height = 41
         Align = alTop
         TabOrder = 0
-        object DBN_SETUPS: TcxDBNavigator
+        ExplicitWidth = 837
+        object DBN_SETUPS: TDBNavigator
           Left = 0
-          Top = 1
-          Width = 270
+          Top = 10
+          Width = 240
           Height = 25
-          Buttons.CustomButtons = <>
           DataSource = DM_SOFTWARE.DS_SETUPS
           TabOrder = 0
+          OnClick = DBN_SETUPSClick
         end
       end
       object PC_Setup: TPageControl
         Left = 0
         Top = 41
-        Width = 837
+        Width = 933
         Height = 636
-        ActivePage = TS_Setup_Lista
+        ActivePage = TS_Setup_Detalhes
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 837
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitHeight = 459
+          ExplicitWidth = 829
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -650,7 +577,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitHeight = 459
+          ExplicitWidth = 829
           object Label12: TLabel
             Left = 20
             Top = 30
@@ -911,34 +838,37 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object DBEdit9: TDBEdit
+          object DBE_ID_SETUP: TDBEdit
             Left = 20
             Top = 60
             Width = 91
             Height = 21
             DataField = 'ID_SETUP'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 0
           end
-          object DBEdit10: TDBEdit
+          object DBE_ID_ROBO_S: TDBEdit
             Left = 160
             Top = 60
             Width = 91
             Height = 21
             DataField = 'ID_ROBO'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 1
           end
-          object DBEdit11: TDBEdit
+          object DBE_ID_ANALISE_S: TDBEdit
             Left = 310
             Top = 60
             Width = 91
             Height = 21
             DataField = 'ID_ANALISE'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 2
           end
-          object DBEdit12: TDBEdit
+          object DBE_MAGIC: TDBEdit
             Left = 450
             Top = 60
             Width = 91
@@ -947,7 +877,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 3
           end
-          object DBEdit13: TDBEdit
+          object DBE_NOME_DO_SETUP: TDBEdit
             Left = 20
             Top = 130
             Width = 381
@@ -956,7 +886,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 4
           end
-          object DBEdit14: TDBEdit
+          object DBE_LUCRO_BRUTO: TDBEdit
             Left = 20
             Top = 230
             Width = 91
@@ -965,7 +895,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 5
           end
-          object DBEdit15: TDBEdit
+          object DBE_LUCRO_LIQUIDO: TDBEdit
             Left = 160
             Top = 230
             Width = 91
@@ -974,16 +904,17 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 6
           end
-          object DBEdit16: TDBEdit
+          object DBE_PERDA_BRUTA: TDBEdit
             Left = 300
             Top = 230
             Width = 91
             Height = 21
             DataField = 'PERDA_BRUTA'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 7
           end
-          object DBEdit17: TDBEdit
+          object DBE_PAY_OFF: TDBEdit
             Left = 450
             Top = 230
             Width = 91
@@ -992,7 +923,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 8
           end
-          object DBEdit18: TDBEdit
+          object DBE_FATOR_LUCRO: TDBEdit
             Left = 160
             Top = 410
             Width = 91
@@ -1001,7 +932,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 9
           end
-          object DBEdit19: TDBEdit
+          object DBE_FATOR_RECUPERACAO: TDBEdit
             Left = 20
             Top = 330
             Width = 91
@@ -1010,7 +941,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 10
           end
-          object DBEdit20: TDBEdit
+          object DBE_SHARPE: TDBEdit
             Left = 160
             Top = 330
             Width = 91
@@ -1019,7 +950,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 11
           end
-          object DBEdit21: TDBEdit
+          object DBE_CORRELACAO: TDBEdit
             Left = 300
             Top = 330
             Width = 91
@@ -1028,7 +959,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 12
           end
-          object DBEdit22: TDBEdit
+          object DBE_DD_FINANCEIRO: TDBEdit
             Left = 450
             Top = 330
             Width = 91
@@ -1037,34 +968,37 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 13
           end
-          object DBEdit23: TDBEdit
+          object DBE_CALMAR_R: TDBEdit
             Left = 300
             Top = 410
             Width = 91
             Height = 21
             DataField = 'CALMAR_R'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 14
           end
-          object DBEdit24: TDBEdit
+          object DBE_RESULTADO: TDBEdit
             Left = 450
             Top = 410
             Width = 91
             Height = 21
             DataField = 'RESULTADO'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 15
           end
-          object DBEdit25: TDBEdit
+          object DBE_INDICE_L_X_P: TDBEdit
             Left = 20
             Top = 410
             Width = 91
             Height = 21
             DataField = 'INDICE_L_X_P'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 16
           end
-          object DBEdit26: TDBEdit
+          object DBE_MEDIA_LUCRO: TDBEdit
             Left = 20
             Top = 480
             Width = 91
@@ -1073,7 +1007,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 17
           end
-          object DBEdit27: TDBEdit
+          object DBE_MEDIA_PREJUIZO: TDBEdit
             Left = 152
             Top = 480
             Width = 91
@@ -1082,13 +1016,14 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataSource = DM_SOFTWARE.DS_SETUPS
             TabOrder = 18
           end
-          object DBEdit28: TDBEdit
+          object DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit
             Left = 310
             Top = 480
             Width = 91
             Height = 21
             DataField = 'RELACAO_MEDL_X_MEDP'
             DataSource = DM_SOFTWARE.DS_SETUPS
+            Enabled = False
             TabOrder = 19
           end
         end
@@ -1102,5 +1037,11 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
     Height = 34
     Caption = 'info'
     TabOrder = 1
+  end
+  object DS_ANALISES: TDataSource
+    DataSet = DM_SOFTWARE.FDQ_SOFTWARE_A
+    OnDataChange = DS_ANALISESDataChange
+    Left = 736
+    Top = 72
   end
 end

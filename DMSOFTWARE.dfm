@@ -28,8 +28,11 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 75
   end
   object FDQ_SOFTWARE_A: TFDQuery
-    Active = True
+    AfterInsert = FDQ_SOFTWARE_AAfterInsert
     Connection = FDC_SOFTWARE
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.GeneratorName = 'NOVO_ID_ANALISE'
+    UpdateOptions.AutoIncFields = 'ID_ANALISE'
     SQL.Strings = (
       'SELECT * FROM ANALISES')
     Left = 269
@@ -62,12 +65,16 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_R: TFDQuery
+    AfterInsert = FDQ_SOFTWARE_RAfterInsert
     MasterSource = DS_ANALISES
     MasterFields = 'ID_ANALISE'
     DetailFields = 'ID_ANALISE'
     Connection = FDC_SOFTWARE
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
+    UpdateOptions.AssignedValues = [uvGeneratorName]
+    UpdateOptions.GeneratorName = 'NOVO_ID_ROBO'
+    UpdateOptions.AutoIncFields = 'ID_ROBO'
     SQL.Strings = (
       'SELECT * FROM ROBOS where ID_ANALISE =:"ID_ANALISE"')
     Left = 269
@@ -97,10 +104,13 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_S: TFDQuery
-    Active = True
+    AfterInsert = FDQ_SOFTWARE_SAfterInsert
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
     Connection = FDC_SOFTWARE
+    UpdateOptions.AssignedValues = [uvGeneratorName]
+    UpdateOptions.GeneratorName = 'NOVO_ID_SETUP'
+    UpdateOptions.AutoIncFields = 'ID_SETUP'
     SQL.Strings = (
       'SELECT * FROM SETUPS WHERE ID_ROBO =:"ID_ROBO"')
     Left = 272

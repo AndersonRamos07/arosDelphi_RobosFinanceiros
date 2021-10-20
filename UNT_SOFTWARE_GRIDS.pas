@@ -12,24 +12,21 @@ uses
 type
   TFRM_SOFTWARE = class(TForm)
     PageControl1: TPageControl;
-    Analise: TTabSheet;
+    tsAnalise: TTabSheet;
     Robo: TTabSheet;
     Setup: TTabSheet;
     Panel1: TPanel;
-    DBN_ANALISES: TcxDBNavigator;
     Panel3: TPanel;
-    DBN_ROBOS: TcxDBNavigator;
     PC_Robo: TPageControl;
     TS_Robo_Lista: TTabSheet;
     TS_Robo_Detalhes: TTabSheet;
     DBGrid2: TDBGrid;
     Label8: TLabel;
     Label9: TLabel;
-    DBEdit7: TDBEdit;
-    DBEdit8: TDBEdit;
+    DBE_ID_ROBO: TDBEdit;
+    DBE_ID_ANALISE_R: TDBEdit;
     Label10: TLabel;
     Panel4: TPanel;
-    DBN_SETUPS: TcxDBNavigator;
     PC_Setup: TPageControl;
     TS_Setup_Lista: TTabSheet;
     TS_Setup_Detalhes: TTabSheet;
@@ -55,57 +52,55 @@ type
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
-    DBEdit9: TDBEdit;
-    DBEdit10: TDBEdit;
-    DBEdit11: TDBEdit;
-    DBEdit12: TDBEdit;
-    DBEdit13: TDBEdit;
-    DBEdit14: TDBEdit;
-    DBEdit15: TDBEdit;
-    DBEdit16: TDBEdit;
-    DBEdit17: TDBEdit;
-    DBEdit18: TDBEdit;
-    DBEdit19: TDBEdit;
-    DBEdit20: TDBEdit;
-    DBEdit21: TDBEdit;
-    DBEdit22: TDBEdit;
-    DBEdit23: TDBEdit;
-    DBEdit24: TDBEdit;
-    DBEdit25: TDBEdit;
-    DBEdit26: TDBEdit;
-    DBEdit27: TDBEdit;
-    DBEdit28: TDBEdit;
+    DBE_ID_SETUP: TDBEdit;
+    DBE_ID_ROBO_S: TDBEdit;
+    DBE_ID_ANALISE_S: TDBEdit;
+    DBE_MAGIC: TDBEdit;
+    DBE_NOME_DO_SETUP: TDBEdit;
+    DBE_LUCRO_BRUTO: TDBEdit;
+    DBE_LUCRO_LIQUIDO: TDBEdit;
+    DBE_PERDA_BRUTA: TDBEdit;
+    DBE_PAY_OFF: TDBEdit;
+    DBE_FATOR_LUCRO: TDBEdit;
+    DBE_FATOR_RECUPERACAO: TDBEdit;
+    DBE_SHARPE: TDBEdit;
+    DBE_CORRELACAO: TDBEdit;
+    DBE_DD_FINANCEIRO: TDBEdit;
+    DBE_CALMAR_R: TDBEdit;
+    DBE_RESULTADO: TDBEdit;
+    DBE_INDICE_L_X_P: TDBEdit;
+    DBE_MEDIA_LUCRO: TDBEdit;
+    DBE_MEDIA_PREJUIZO: TDBEdit;
+    DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit;
     Label1: TLabel;
-    DBEdit29: TDBEdit;
+    DBE_NOME_DO_ROBO: TDBEdit;
     TABELA_ATUAL: TPanel;
     PC_Analise: TPageControl;
     TS_Analise_Lista: TTabSheet;
     L_LISTA_ANALISES: TLabel;
     DBGrid1: TDBGrid;
-    Detalhes: TTabSheet;
-    DBEdit1: TDBEdit;
-    PageControl3: TPageControl;
-    TabSheet2: TTabSheet;
-    PageControl4: TPageControl;
-    TabSheet3: TTabSheet;
-    Label4: TLabel;
-    DBGrid4: TDBGrid;
-    TS_Analise_Detalhes: TTabSheet;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label2: TLabel;
+    tsDetalhes: TTabSheet;
+    DS_ANALISES: TDataSource;
+    DBN_ANALISES: TDBNavigator;
     Label3: TLabel;
     Label7: TLabel;
-    DBEdit3: TDBEdit;
-    DBEdit5: TDBEdit;
-    DBEdit6: TDBEdit;
-    DBEdit2: TDBEdit;
-    Panel2: TPanel;
-    cxDBNavigator2: TcxDBNavigator;
-    TabSheet6: TTabSheet;
-    TabSheet7: TTabSheet;
-    DBEdit4: TDBEdit;
+    DBE_SALDO_INICIAL: TDBEdit;
+    Label2: TLabel;
+    DBE_PERIODO_EM_ANOS: TDBEdit;
+    Label5: TLabel;
+    DBE_ID_ANALISE: TDBEdit;
+    Label6: TLabel;
+    DBE_TITULO_DA_ANALISE: TDBEdit;
+    DBE_DESCRICAO: TDBEdit;
+    DBN_ROBOS: TDBNavigator;
+    DBN_SETUPS: TDBNavigator;
     procedure FormActivate(Sender: TObject);
+    procedure DS_ANALISESDataChange(Sender: TObject; Field: TField);
+    procedure PageControl1Change(Sender: TObject);
+    procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
+    procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
+    procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
+//    procedure TFRM_SOFTWARE.DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
   private
     { Private declarations }
   public
@@ -121,12 +116,50 @@ implementation
 
 uses DMSOFTWARE;
 
+procedure TFRM_SOFTWARE.DBN_ANALISESClick(Sender: TObject;
+  Button: TNavigateBtn);
+begin
+  if Button in [nbInsert, nbEdit] then
+  begin
+    PC_Analise.ActivePage := tsDetalhes;
+    DBE_TITULO_DA_ANALISE.SetFocus;
+  end;
+end;
+
+procedure TFRM_SOFTWARE.DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
+begin
+  if Button in [nbInsert, nbEdit] then
+  begin
+    PC_Robo.ActivePage := TS_Robo_Detalhes;
+    DBE_NOME_DO_ROBO.SetFocus;
+  end;
+end;
+
+procedure TFRM_SOFTWARE.DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
+begin
+  if Button in [nbInsert, nbEdit] then
+  begin
+    PC_Setup.ActivePage := TS_Setup_Detalhes;
+    DBE_NOME_DO_SETUP.SetFocus;
+  end;
+end;
+
+procedure TFRM_SOFTWARE.DS_ANALISESDataChange(Sender: TObject; Field: TField);
+begin
+  tabela_atual.Caption := DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + ' ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString;
+end;
 
 procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
 begin
+  TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
   DM_SOFTWARE.FDQ_SOFTWARE_A.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_R.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_S.Open;
+end;
+
+procedure TFRM_SOFTWARE.PageControl1Change(Sender: TObject);
+begin
+  TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
 end;
 
 end.

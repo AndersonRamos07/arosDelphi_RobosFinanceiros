@@ -51,6 +51,9 @@ type
     DS_ROBOS: TDataSource;
     DS_SETUPS: TDataSource;
     FDQ_SOFTWARE_RNOME_DO_ROBO: TStringField;
+    procedure FDQ_SOFTWARE_AAfterInsert(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_RAfterInsert(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -65,5 +68,20 @@ implementation
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
 {$R *.dfm}
+
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_AAfterInsert(DataSet: TDataSet);
+begin
+  FDQ_SOFTWARE_AID_ANALISE.AsInteger := 0;
+end;
+
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_RAfterInsert(DataSet: TDataSet);
+begin
+  FDQ_SOFTWARE_RID_ROBO.AsInteger := 0;
+end;
+
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
+begin
+  FDQ_SOFTWARE_SID_SETUP.AsInteger := 0;
+end;
 
 end.
