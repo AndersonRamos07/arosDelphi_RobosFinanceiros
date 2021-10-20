@@ -1,17 +1,17 @@
 object DM_SOFTWARE: TDM_SOFTWARE
   OldCreateOrder = False
-  Left = 377
-  Top = 161
+  Left = 360
+  Top = 130
   Height = 418
-  Width = 504
+  Width = 547
   object FDC_SOFTWARE: TFDConnection
     Params.Strings = (
-      'Database=C:\Projetos\FDBs\SOFTWARE.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'Server=localhost'
       'Port=3050'
-      'DriverID=FB')
+      'DriverID=FB'
+      'Database=C:\Projetos\FDBs\SOFTWARE.FDB')
     Connected = True
     LoginPrompt = False
     Left = 37
@@ -23,6 +23,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 11
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    ScreenCursor = gcrHourGlass
     Left = 157
     Top = 75
   end
@@ -61,12 +62,25 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_R: TFDQuery
-    Active = True
+    MasterSource = DS_ANALISES
+    MasterFields = 'ID_ANALISE'
+    DetailFields = 'ID_ANALISE'
     Connection = FDC_SOFTWARE
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
     SQL.Strings = (
-      'SELECT * FROM ROBOS')
+      'SELECT * FROM ROBOS where ID_ANALISE =:"ID_ANALISE"')
     Left = 269
     Top = 75
+    ParamData = <
+      item
+        Name = 'ID_ANALISE'
+        IsCaseSensitive = True
+        DataType = ftInteger
+        ParamType = ptInput
+        Size = 4
+        Value = 7
+      end>
     object FDQ_SOFTWARE_RID_ROBO: TIntegerField
       FieldName = 'ID_ROBO'
       Origin = 'ID_ROBO'
@@ -77,14 +91,27 @@ object DM_SOFTWARE: TDM_SOFTWARE
       FieldName = 'ID_ANALISE'
       Origin = 'ID_ANALISE'
     end
+    object FDQ_SOFTWARE_RNOME_DO_ROBO: TStringField
+      FieldName = 'NOME_DO_ROBO'
+      Origin = 'NOME_DO_ROBO'
+    end
   end
   object FDQ_SOFTWARE_S: TFDQuery
     Active = True
+    MasterSource = DS_ROBOS
+    MasterFields = 'ID_ROBO'
     Connection = FDC_SOFTWARE
     SQL.Strings = (
-      'SELECT * FROM SETUPS')
+      'SELECT * FROM SETUPS WHERE ID_ROBO =:"ID_ROBO"')
     Left = 272
-    Top = 160
+    Top = 144
+    ParamData = <
+      item
+        Name = 'ID_ROBO'
+        IsCaseSensitive = True
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object FDQ_SOFTWARE_SID_SETUP: TIntegerField
       FieldName = 'ID_SETUP'
       Origin = 'ID_SETUP'
@@ -205,5 +232,20 @@ object DM_SOFTWARE: TDM_SOFTWARE
       Origin = 'RELACAO_MEDL_X_MEDP'
       Precision = 18
     end
+  end
+  object DS_ANALISES: TDataSource
+    DataSet = FDQ_SOFTWARE_A
+    Left = 400
+    Top = 16
+  end
+  object DS_ROBOS: TDataSource
+    DataSet = FDQ_SOFTWARE_R
+    Left = 400
+    Top = 80
+  end
+  object DS_SETUPS: TDataSource
+    DataSet = FDQ_SOFTWARE_S
+    Left = 400
+    Top = 144
   end
 end

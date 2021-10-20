@@ -47,6 +47,10 @@ type
     FDQ_SOFTWARE_SMEDIA_LUCRO: TBCDField;
     FDQ_SOFTWARE_SMEDIA_PREJUIZO: TBCDField;
     FDQ_SOFTWARE_SRELACAO_MEDL_X_MEDP: TBCDField;
+    DS_ANALISES: TDataSource;
+    DS_ROBOS: TDataSource;
+    DS_SETUPS: TDataSource;
+    FDQ_SOFTWARE_RNOME_DO_ROBO: TStringField;
   private
     { Private declarations }
   public

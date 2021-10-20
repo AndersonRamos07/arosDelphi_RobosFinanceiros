@@ -41,3 +41,7 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+
+# Alguns que não são necessários também
+*.vlb
+tokenGit*

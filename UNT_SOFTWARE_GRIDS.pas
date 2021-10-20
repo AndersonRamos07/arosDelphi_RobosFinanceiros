@@ -11,47 +11,17 @@ uses
 
 type
   TFRM_SOFTWARE = class(TForm)
-    DS_SOFTWARE_ANALISES: TDataSource;
-    DS_SOFTWARE_ROBOS: TDataSource;
-    DS_SOFTWARE_SETUPS: TDataSource;
     PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
+    Analise: TTabSheet;
     Robo: TTabSheet;
     Setup: TTabSheet;
-    PageControl2: TPageControl;
-    TabSheet4: TTabSheet;
-    Detalhes: TTabSheet;
-    DBGrid1: TDBGrid;
-    DBEdit1: TDBEdit;
     Panel1: TPanel;
     DBN_ANALISES: TcxDBNavigator;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    PageControl3: TPageControl;
-    TabSheet2: TTabSheet;
-    PageControl4: TPageControl;
-    TabSheet3: TTabSheet;
-    Label4: TLabel;
-    DBGrid4: TDBGrid;
-    TabSheet5: TTabSheet;
-    Label5: TLabel;
-    Label6: TLabel;
-    DBEdit3: TDBEdit;
-    Panel2: TPanel;
-    cxDBNavigator2: TcxDBNavigator;
-    TabSheet6: TTabSheet;
-    TabSheet7: TTabSheet;
-    DBEdit4: TDBEdit;
-    DBEdit5: TDBEdit;
-    Label7: TLabel;
-    DBEdit6: TDBEdit;
-    DBEdit2: TDBEdit;
     Panel3: TPanel;
     DBN_ROBOS: TcxDBNavigator;
-    PageControl5: TPageControl;
-    TabSheet8: TTabSheet;
-    TabSheet9: TTabSheet;
+    PC_Robo: TPageControl;
+    TS_Robo_Lista: TTabSheet;
+    TS_Robo_Detalhes: TTabSheet;
     DBGrid2: TDBGrid;
     Label8: TLabel;
     Label9: TLabel;
@@ -60,9 +30,9 @@ type
     Label10: TLabel;
     Panel4: TPanel;
     DBN_SETUPS: TcxDBNavigator;
-    PageControl6: TPageControl;
-    Lista: TTabSheet;
-    TabSheet11: TTabSheet;
+    PC_Setup: TPageControl;
+    TS_Setup_Lista: TTabSheet;
+    TS_Setup_Detalhes: TTabSheet;
     DBGrid3: TDBGrid;
     Label11: TLabel;
     Label12: TLabel;
@@ -105,6 +75,37 @@ type
     DBEdit26: TDBEdit;
     DBEdit27: TDBEdit;
     DBEdit28: TDBEdit;
+    Label1: TLabel;
+    DBEdit29: TDBEdit;
+    TABELA_ATUAL: TPanel;
+    PC_Analise: TPageControl;
+    TS_Analise_Lista: TTabSheet;
+    L_LISTA_ANALISES: TLabel;
+    DBGrid1: TDBGrid;
+    Detalhes: TTabSheet;
+    DBEdit1: TDBEdit;
+    PageControl3: TPageControl;
+    TabSheet2: TTabSheet;
+    PageControl4: TPageControl;
+    TabSheet3: TTabSheet;
+    Label4: TLabel;
+    DBGrid4: TDBGrid;
+    TS_Analise_Detalhes: TTabSheet;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label7: TLabel;
+    DBEdit3: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit6: TDBEdit;
+    DBEdit2: TDBEdit;
+    Panel2: TPanel;
+    cxDBNavigator2: TcxDBNavigator;
+    TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
+    DBEdit4: TDBEdit;
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -119,5 +120,13 @@ implementation
 {$R *.dfm}
 
 uses DMSOFTWARE;
+
+
+procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
+begin
+  DM_SOFTWARE.FDQ_SOFTWARE_A.Open;
+  DM_SOFTWARE.FDQ_SOFTWARE_R.Open;
+  DM_SOFTWARE.FDQ_SOFTWARE_S.Open;
+end;
 
 end.
