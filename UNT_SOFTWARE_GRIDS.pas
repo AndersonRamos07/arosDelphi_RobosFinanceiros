@@ -146,7 +146,9 @@ end;
 
 procedure TFRM_SOFTWARE.DS_ANALISESDataChange(Sender: TObject; Field: TField);
 begin
-  tabela_atual.Caption := DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + ' ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString;
+  tabela_atual.Caption := 'ID Análise: ' + DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + #13
+                          + ';  Título: ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString + #13
+                          + ';  Descrição: ' + DM_SOFTWARE.FDQ_SOFTWARE_ADESCRICAO_DO_PERIODO.AsString;
 end;
 
 procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);

@@ -1,10 +1,10 @@
 object FRM_SOFTWARE: TFRM_SOFTWARE
-  Left = 247
-  Top = 42
+  Left = -8
+  Top = -8
   Align = alClient
   Caption = 'SOFTWARE'
-  ClientHeight = 645
-  ClientWidth = 941
+  ClientHeight = 705
+  ClientWidth = 1366
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,13 +12,14 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 941
+    Width = 1366
     Height = 705
     ActivePage = Setup
     Align = alTop
@@ -37,7 +38,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 41
         Align = alTop
         TabOrder = 0
@@ -55,7 +56,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object PC_Analise: TPageControl
         Left = 0
         Top = 41
-        Width = 933
+        Width = 1358
         Height = 636
         ActivePage = tsDetalhes
         Align = alClient
@@ -251,7 +252,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 41
         Align = alTop
         TabOrder = 0
@@ -269,7 +270,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object PC_Robo: TPageControl
         Left = 0
         Top = 41
-        Width = 933
+        Width = 1358
         Height = 636
         ActivePage = TS_Robo_Detalhes
         Align = alClient
@@ -409,7 +410,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 41
         Align = alTop
         TabOrder = 0
@@ -427,7 +428,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
       object PC_Setup: TPageControl
         Left = 0
         Top = 41
-        Width = 933
+        Width = 1358
         Height = 636
         ActivePage = TS_Setup_Detalhes
         Align = alClient
@@ -619,9 +620,9 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           end
           object Label15: TLabel
             Left = 450
-            Top = 30
+            Top = 100
             Width = 38
-            Height = 13
+            Height = 41
             Caption = 'MAGIC'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -670,7 +671,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             ParentFont = False
           end
           object Label19: TLabel
-            Left = 300
+            Left = 450
             Top = 200
             Width = 67
             Height = 13
@@ -683,7 +684,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             ParentFont = False
           end
           object Label20: TLabel
-            Left = 450
+            Left = 310
             Top = 200
             Width = 47
             Height = 13
@@ -696,7 +697,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             ParentFont = False
           end
           object Label21: TLabel
-            Left = 160
+            Left = 20
             Top = 380
             Width = 64
             Height = 13
@@ -787,7 +788,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             ParentFont = False
           end
           object Label28: TLabel
-            Left = 20
+            Left = 160
             Top = 380
             Width = 128
             Height = 13
@@ -846,7 +847,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'ID_SETUP'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 0
+            TabOrder = 2
           end
           object DBE_ID_ROBO_S: TDBEdit
             Left = 160
@@ -856,7 +857,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'ID_ROBO'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 1
+            TabOrder = 14
           end
           object DBE_ID_ANALISE_S: TDBEdit
             Left = 310
@@ -866,16 +867,16 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'ID_ANALISE'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 2
+            TabOrder = 15
           end
           object DBE_MAGIC: TDBEdit
             Left = 450
-            Top = 60
+            Top = 130
             Width = 91
             Height = 21
             DataField = 'MAGIC'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 3
+            TabOrder = 1
           end
           object DBE_NOME_DO_SETUP: TDBEdit
             Left = 20
@@ -884,7 +885,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'NOME_DO_SETUP'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 4
+            TabOrder = 0
           end
           object DBE_LUCRO_BRUTO: TDBEdit
             Left = 20
@@ -893,7 +894,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'LUCRO_BRUTO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 5
+            TabOrder = 3
           end
           object DBE_LUCRO_LIQUIDO: TDBEdit
             Left = 160
@@ -902,35 +903,35 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'LUCRO_LIQUIDO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 6
+            TabOrder = 4
           end
           object DBE_PERDA_BRUTA: TDBEdit
-            Left = 300
+            Left = 450
             Top = 230
             Width = 91
             Height = 21
             DataField = 'PERDA_BRUTA'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 7
+            TabOrder = 13
           end
           object DBE_PAY_OFF: TDBEdit
-            Left = 450
+            Left = 310
             Top = 230
             Width = 91
             Height = 21
             DataField = 'PAY_OFF'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 8
+            TabOrder = 5
           end
           object DBE_FATOR_LUCRO: TDBEdit
-            Left = 160
+            Left = 20
             Top = 410
             Width = 91
             Height = 21
             DataField = 'FATOR_LUCRO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 9
+            TabOrder = 10
           end
           object DBE_FATOR_RECUPERACAO: TDBEdit
             Left = 20
@@ -939,7 +940,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'FATOR_RECUPERACAO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 10
+            TabOrder = 6
           end
           object DBE_SHARPE: TDBEdit
             Left = 160
@@ -948,7 +949,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'SHARPE'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 11
+            TabOrder = 7
           end
           object DBE_CORRELACAO: TDBEdit
             Left = 300
@@ -957,7 +958,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'CORRELACAO_LR'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 12
+            TabOrder = 8
           end
           object DBE_DD_FINANCEIRO: TDBEdit
             Left = 450
@@ -966,7 +967,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'DD_FINANCEIRO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 13
+            TabOrder = 9
           end
           object DBE_CALMAR_R: TDBEdit
             Left = 300
@@ -976,7 +977,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'CALMAR_R'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 14
+            TabOrder = 16
           end
           object DBE_RESULTADO: TDBEdit
             Left = 450
@@ -986,17 +987,17 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'RESULTADO'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 15
+            TabOrder = 17
           end
           object DBE_INDICE_L_X_P: TDBEdit
-            Left = 20
+            Left = 160
             Top = 410
             Width = 91
             Height = 21
             DataField = 'INDICE_L_X_P'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 16
+            TabOrder = 18
           end
           object DBE_MEDIA_LUCRO: TDBEdit
             Left = 20
@@ -1005,7 +1006,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'MEDIA_LUCRO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 17
+            TabOrder = 11
           end
           object DBE_MEDIA_PREJUIZO: TDBEdit
             Left = 152
@@ -1014,7 +1015,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Height = 21
             DataField = 'MEDIA_PREJUIZO'
             DataSource = DM_SOFTWARE.DS_SETUPS
-            TabOrder = 18
+            TabOrder = 12
           end
           object DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit
             Left = 310
@@ -1031,9 +1032,9 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
     end
   end
   object TABELA_ATUAL: TPanel
-    Left = 652
+    Left = 458
     Top = 25
-    Width = 185
+    Width = 887
     Height = 34
     Caption = 'info'
     TabOrder = 1
