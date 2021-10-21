@@ -27,8 +27,6 @@ type
     FDQ_SOFTWARE_RID_ANALISE: TIntegerField;
     FDQ_SOFTWARE_SID_SETUP: TIntegerField;
     FDQ_SOFTWARE_SID_ROBO: TIntegerField;
-    FDQ_SOFTWARE_SID_ANALISE: TIntegerField;
-    FDQ_SOFTWARE_SPERIODO_EM_ANOS: TIntegerField;
     FDQ_SOFTWARE_SMAGIC: TStringField;
     FDQ_SOFTWARE_SNOME_DO_SETUP: TStringField;
     FDQ_SOFTWARE_SLUCRO_BRUTO: TBCDField;
@@ -51,10 +49,10 @@ type
     DS_ROBOS: TDataSource;
     DS_SETUPS: TDataSource;
     FDQ_SOFTWARE_RNOME_DO_ROBO: TStringField;
-    procedure FDQ_SOFTWARE_AAfterInsert(DataSet: TDataSet);
-    procedure FDQ_SOFTWARE_RAfterInsert(DataSet: TDataSet);
-    procedure FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_SBeforeInsert(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_RBeforeInsert(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_RBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -73,19 +71,19 @@ uses
 
 {$R *.dfm}
 
-procedure TDM_SOFTWARE.FDQ_SOFTWARE_AAfterInsert(DataSet: TDataSet);
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_RBeforeInsert(DataSet: TDataSet);
 begin
-  FDQ_SOFTWARE_AID_ANALISE.AsInteger := 0;
+  showMessage('BeforeInsert - R');
 end;
 
-procedure TDM_SOFTWARE.FDQ_SOFTWARE_RAfterInsert(DataSet: TDataSet);
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_RBeforePost(DataSet: TDataSet);
 begin
-  FDQ_SOFTWARE_RID_ROBO.AsInteger := 0;
+  showMessage('BeforePost - R');
 end;
 
-procedure TDM_SOFTWARE.FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_SBeforeInsert(DataSet: TDataSet);
 begin
-  FDQ_SOFTWARE_SID_SETUP.AsInteger := 0;
+  showMessage('BeforeInsert');
 end;
 
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);

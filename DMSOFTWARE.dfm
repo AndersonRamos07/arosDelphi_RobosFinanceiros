@@ -1,8 +1,8 @@
 object DM_SOFTWARE: TDM_SOFTWARE
   OldCreateOrder = False
   Left = 360
-  Top = 130
-  Height = 418
+  Top = 123
+  Height = 425
   Width = 547
   object FDC_SOFTWARE: TFDConnection
     Params.Strings = (
@@ -10,8 +10,8 @@ object DM_SOFTWARE: TDM_SOFTWARE
       'Password=masterkey'
       'Server=localhost'
       'Port=3050'
-      'DriverID=FB'
-      'Database=C:\Projetos\FDBs\SOFTWARE.FDB')
+      'Database=C:\Projetos\FDBs\BASE_DE_DADOS.FDB'
+      'DriverID=FB')
     Connected = True
     LoginPrompt = False
     Left = 37
@@ -29,7 +29,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 75
   end
   object FDQ_SOFTWARE_A: TFDQuery
-    AfterInsert = FDQ_SOFTWARE_AAfterInsert
+    Active = True
     Connection = FDC_SOFTWARE
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.GeneratorName = 'NOVO_ID_ANALISE'
@@ -39,10 +39,10 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Left = 269
     Top = 11
     object FDQ_SOFTWARE_AID_ANALISE: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_ANALISE'
       Origin = 'ID_ANALISE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object FDQ_SOFTWARE_ATITULO_DA_ANALISE: TStringField
       FieldName = 'TITULO_DA_ANALISE'
@@ -66,7 +66,8 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_R: TFDQuery
-    AfterInsert = FDQ_SOFTWARE_RAfterInsert
+    Active = True
+    BeforeInsert = FDQ_SOFTWARE_RBeforeInsert
     MasterSource = DS_ANALISES
     MasterFields = 'ID_ANALISE'
     DetailFields = 'ID_ANALISE'
@@ -87,13 +88,13 @@ object DM_SOFTWARE: TDM_SOFTWARE
         DataType = ftInteger
         ParamType = ptInput
         Size = 4
-        Value = 7
+        Value = Null
       end>
     object FDQ_SOFTWARE_RID_ROBO: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_ROBO'
       Origin = 'ID_ROBO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object FDQ_SOFTWARE_RID_ANALISE: TIntegerField
       FieldName = 'ID_ANALISE'
@@ -105,8 +106,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_S: TFDQuery
-    Active = True
-    AfterInsert = FDQ_SOFTWARE_SAfterInsert
+    BeforeInsert = FDQ_SOFTWARE_SBeforeInsert
     BeforePost = FDQ_SOFTWARE_SBeforePost
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
@@ -124,6 +124,8 @@ object DM_SOFTWARE: TDM_SOFTWARE
         IsCaseSensitive = True
         DataType = ftInteger
         ParamType = ptInput
+        Size = 4
+        Value = Null
       end>
     object FDQ_SOFTWARE_SID_SETUP: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -134,14 +136,6 @@ object DM_SOFTWARE: TDM_SOFTWARE
     object FDQ_SOFTWARE_SID_ROBO: TIntegerField
       FieldName = 'ID_ROBO'
       Origin = 'ID_ROBO'
-    end
-    object FDQ_SOFTWARE_SID_ANALISE: TIntegerField
-      FieldName = 'ID_ANALISE'
-      Origin = 'ID_ANALISE'
-    end
-    object FDQ_SOFTWARE_SPERIODO_EM_ANOS: TIntegerField
-      FieldName = 'PERIODO_EM_ANOS'
-      Origin = 'PERIODO_EM_ANOS'
     end
     object FDQ_SOFTWARE_SMAGIC: TStringField
       FieldName = 'MAGIC'

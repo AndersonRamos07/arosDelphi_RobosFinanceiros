@@ -20,7 +20,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = tsAnalise
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PageControl1Change
@@ -97,18 +97,19 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               item
                 Expanded = False
                 FieldName = 'TITULO_DA_ANALISE'
+                Width = 115
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DESCRICAO_DO_PERIODO'
-                Width = 64
+                Width = 143
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERIODO_EM_ANOS'
-                Width = 64
+                Width = 108
                 Visible = True
               end
               item
@@ -254,8 +255,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         Align = alTop
         TabOrder = 0
         object Label4: TLabel
-          Left = 325
-          Top = 4
+          Left = 330
+          Top = 10
           Width = 73
           Height = 13
           Caption = 'Identificador'
@@ -269,8 +270,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           ParentFont = False
         end
         object Label32: TLabel
-          Left = 422
-          Top = 3
+          Left = 440
+          Top = 10
           Width = 92
           Height = 13
           Caption = 'T'#237'tulo da an'#225'lise'
@@ -291,8 +292,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           OnClick = DBN_ROBOSClick
         end
         object DBEdit1: TDBEdit
-          Left = 325
-          Top = 23
+          Left = 330
+          Top = 30
           Width = 91
           Height = 21
           DataField = 'ID_ANALISE'
@@ -302,8 +303,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 1
         end
         object DBEdit2: TDBEdit
-          Left = 422
-          Top = 22
+          Left = 440
+          Top = 30
           Width = 276
           Height = 21
           DataField = 'TITULO_DA_ANALISE'
@@ -318,7 +319,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Robo_Detalhes
+        ActivePage = TS_Robo_Lista
         Align = alClient
         TabOrder = 1
         ExplicitTop = 41
@@ -460,8 +461,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         Align = alTop
         TabOrder = 0
         object Label33: TLabel
-          Left = 325
-          Top = 58
+          Left = 330
+          Top = 60
           Width = 73
           Height = 13
           Caption = 'Identificador'
@@ -473,8 +474,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           ParentFont = False
         end
         object Label34: TLabel
-          Left = 422
-          Top = 58
+          Left = 440
+          Top = 60
           Width = 74
           Height = 13
           Caption = 'Nom do Robo'
@@ -486,7 +487,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           ParentFont = False
         end
         object Label35: TLabel
-          Left = 325
+          Left = 330
           Top = 10
           Width = 73
           Height = 13
@@ -501,8 +502,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           ParentFont = False
         end
         object Label36: TLabel
-          Left = 422
-          Top = 9
+          Left = 440
+          Top = 10
           Width = 92
           Height = 13
           Caption = 'T'#237'tulo da an'#225'lise'
@@ -523,8 +524,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           OnClick = DBN_SETUPSClick
         end
         object DBEdit3: TDBEdit
-          Left = 325
-          Top = 81
+          Left = 330
+          Top = 80
           Width = 91
           Height = 21
           Ctl3D = True
@@ -536,8 +537,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 1
         end
         object DBEdit4: TDBEdit
-          Left = 422
-          Top = 81
+          Left = 440
+          Top = 80
           Width = 276
           Height = 21
           DataField = 'NOME_DO_ROBO'
@@ -547,8 +548,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 2
         end
         object DBEdit5: TDBEdit
-          Left = 325
-          Top = 29
+          Left = 330
+          Top = 30
           Width = 91
           Height = 21
           DataField = 'ID_ANALISE'
@@ -558,8 +559,8 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
           TabOrder = 3
         end
         object DBEdit6: TDBEdit
-          Left = 422
-          Top = 28
+          Left = 440
+          Top = 30
           Width = 276
           Height = 21
           DataField = 'TITULO_DA_ANALISE'
@@ -1003,16 +1004,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Enabled = False
             TabOrder = 14
           end
-          object DBE_ID_ANALISE_S: TDBEdit
-            Left = 310
-            Top = 60
-            Width = 91
-            Height = 21
-            DataField = 'ID_ANALISE'
-            DataSource = DM_SOFTWARE.DS_SETUPS
-            Enabled = False
-            TabOrder = 15
-          end
           object DBE_MAGIC: TDBEdit
             Left = 450
             Top = 130
@@ -1121,7 +1112,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'CALMAR_R'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 16
+            TabOrder = 15
           end
           object DBE_RESULTADO: TDBEdit
             Left = 450
@@ -1131,7 +1122,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'RESULTADO'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 17
+            TabOrder = 16
           end
           object DBE_INDICE_L_X_P: TDBEdit
             Left = 160
@@ -1141,7 +1132,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'INDICE_L_X_P'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
-            TabOrder = 18
+            TabOrder = 17
           end
           object DBE_MEDIA_LUCRO: TDBEdit
             Left = 20
@@ -1169,6 +1160,17 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             DataField = 'RELACAO_MEDL_X_MEDP'
             DataSource = DM_SOFTWARE.DS_SETUPS
             Enabled = False
+            TabOrder = 18
+          end
+          object DBEdit7: TDBEdit
+            Left = 310
+            Top = 60
+            Width = 91
+            Height = 21
+            DataField = 'ID_ANALISE'
+            DataSource = DM_SOFTWARE.DS_ANALISES
+            Enabled = False
+            ReadOnly = True
             TabOrder = 19
           end
         end

@@ -54,7 +54,6 @@ type
     Label31: TLabel;
     DBE_ID_SETUP: TDBEdit;
     DBE_ID_ROBO_S: TDBEdit;
-    DBE_ID_ANALISE_S: TDBEdit;
     DBE_MAGIC: TDBEdit;
     DBE_NOME_DO_SETUP: TDBEdit;
     DBE_LUCRO_BRUTO: TDBEdit;
@@ -105,13 +104,12 @@ type
     Label36: TLabel;
     DBEdit6: TDBEdit;
     DBN_ANALISES: TDBNavigator;
+    DBEdit7: TDBEdit;
     procedure FormActivate(Sender: TObject);
-//    procedure DS_ANALISESDataChange(Sender: TObject; Field: TField);
     procedure PageControl1Change(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
-//    procedure TFRM_SOFTWARE.DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
   private
     { Private declarations }
   public
@@ -158,7 +156,6 @@ end;
 
 procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
 begin
-  //TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
   DM_SOFTWARE.FDQ_SOFTWARE_A.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_R.Open;
   DM_SOFTWARE.FDQ_SOFTWARE_S.Open;
