@@ -20,7 +20,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = Setup
+    ActivePage = tsAnalise
     Align = alTop
     TabOrder = 0
     OnChange = PageControl1Change
@@ -56,15 +56,13 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = tsDetalhes
+        ActivePage = TS_Analise_Lista
         Align = alClient
         TabOrder = 1
         ExplicitTop = 57
         ExplicitHeight = 620
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 829
-          ExplicitHeight = 608
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -104,16 +102,19 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               item
                 Expanded = False
                 FieldName = 'DESCRICAO_DO_PERIODO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERIODO_EM_ANOS'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SALDO_INICIAL'
+                Width = 64
                 Visible = True
               end>
           end
@@ -121,10 +122,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         object tsDetalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 281
-          ExplicitHeight = 165
           object Label3: TLabel
             Left = 327
             Top = 108
@@ -329,8 +326,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         ExplicitHeight = 372
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 829
-          ExplicitHeight = 608
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -377,8 +372,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitWidth = 829
-          ExplicitHeight = 608
           object Label9: TLabel
             Left = 20
             Top = 30
@@ -589,8 +582,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         ExplicitHeight = 636
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 829
-          ExplicitHeight = 608
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -732,8 +723,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitWidth = 829
-          ExplicitHeight = 608
           object Label12: TLabel
             Left = 20
             Top = 30
@@ -777,7 +766,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
             Left = 450
             Top = 100
             Width = 38
-            Height = 41
+            Height = 13
             Caption = 'MAGIC'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText

@@ -111,6 +111,7 @@ type
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
+//    procedure PageControl1Changing(Sender: TObject; var AllowChange: Boolean);
 //    procedure TFRM_SOFTWARE.DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
   private
     { Private declarations }
@@ -172,7 +173,35 @@ end;
 
 procedure TFRM_SOFTWARE.PageControl1Change(Sender: TObject);
 begin
-  //TABELA_ATUAL.Visible   := PageControl1.ActivePage <> tsAnalise;
+     if PageControl1.ActivePageIndex = 0 then
+      begin
+        PC_Analise.ActivePage := TS_Analise_Lista;
+      end;
+     if PageControl1.ActivePageIndex = 1 then
+      begin
+        PC_Robo.ActivePage := TS_Robo_Lista;
+      end;
+     if PageControl1.ActivePageIndex = 2 then
+      begin
+        PC_Setup.ActivePage := TS_Setup_Lista;
+      end;
 end;
+
+//procedure TFRM_SOFTWARE.PageControl1Changing(Sender: TObject;
+//  var AllowChange: Boolean);
+//begin
+//     if PageControl1.ActivePageIndex = 0 then
+//      begin
+//        PC_Analise.ActivePage := TS_Analise_Lista;
+//      end;
+//     if PageControl1.ActivePageIndex = 1 then
+//      begin
+//        PC_Robo.ActivePage := TS_Robo_Lista;
+//      end;
+//     if PageControl1.ActivePageIndex = 2 then
+//      begin
+//        PC_Setup.ActivePage := TS_Setup_Lista;
+//      end;
+//end;
 
 end.

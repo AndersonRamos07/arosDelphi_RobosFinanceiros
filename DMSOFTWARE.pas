@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FireDAC.Comp.UI, FireDAC.Phys.IBBase;
+  FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait;
 
 type
   TDM_SOFTWARE = class(TDataModule)
@@ -54,6 +54,7 @@ type
     procedure FDQ_SOFTWARE_AAfterInsert(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_RAfterInsert(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
+    procedure FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -64,6 +65,9 @@ var
   DM_SOFTWARE : TDM_SOFTWARE;
 
 implementation
+
+uses
+  Vcl.Dialogs;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
@@ -82,6 +86,11 @@ end;
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_SAfterInsert(DataSet: TDataSet);
 begin
   FDQ_SOFTWARE_SID_SETUP.AsInteger := 0;
+end;
+
+procedure TDM_SOFTWARE.FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);
+begin
+  showMessage('BeforePost');
 end;
 
 end.

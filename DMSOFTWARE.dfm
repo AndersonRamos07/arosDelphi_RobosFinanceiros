@@ -23,6 +23,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 11
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
     ScreenCursor = gcrHourGlass
     Left = 157
     Top = 75
@@ -106,6 +107,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
   object FDQ_SOFTWARE_S: TFDQuery
     Active = True
     AfterInsert = FDQ_SOFTWARE_SAfterInsert
+    BeforePost = FDQ_SOFTWARE_SBeforePost
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
     Connection = FDC_SOFTWARE
