@@ -111,7 +111,6 @@ type
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
-//    procedure PageControl1Changing(Sender: TObject; var AllowChange: Boolean);
 //    procedure TFRM_SOFTWARE.DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
   private
     { Private declarations }
@@ -156,12 +155,6 @@ begin
   end;
 end;
 
-//procedure TFRM_SOFTWARE.DS_ANALISESDataChange(Sender: TObject; Field: TField);
-//begin
-//  tabela_atual.Caption := 'ID Análise: ' + DM_SOFTWARE.FDQ_SOFTWARE_AID_ANALISE.AsString + #13
-//                          + ';  Título: ' + DM_SOFTWARE.FDQ_SOFTWARE_ATITULO_DA_ANALISE.AsString + #13
-//                          + ';  Descrição: ' + DM_SOFTWARE.FDQ_SOFTWARE_ADESCRICAO_DO_PERIODO.AsString;
-//end;
 
 procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
 begin
@@ -186,22 +179,5 @@ begin
         PC_Setup.ActivePage := TS_Setup_Lista;
       end;
 end;
-
-//procedure TFRM_SOFTWARE.PageControl1Changing(Sender: TObject;
-//  var AllowChange: Boolean);
-//begin
-//     if PageControl1.ActivePageIndex = 0 then
-//      begin
-//        PC_Analise.ActivePage := TS_Analise_Lista;
-//      end;
-//     if PageControl1.ActivePageIndex = 1 then
-//      begin
-//        PC_Robo.ActivePage := TS_Robo_Lista;
-//      end;
-//     if PageControl1.ActivePageIndex = 2 then
-//      begin
-//        PC_Setup.ActivePage := TS_Setup_Lista;
-//      end;
-//end;
 
 end.
