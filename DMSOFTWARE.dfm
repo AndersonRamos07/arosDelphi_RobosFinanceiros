@@ -1,7 +1,8 @@
 object DM_SOFTWARE: TDM_SOFTWARE
   OldCreateOrder = False
-  Left = 360
-  Top = 123
+  OnCreate = DataModuleCreate
+  Left = 226
+  Top = 70
   Height = 425
   Width = 547
   object FDC_SOFTWARE: TFDConnection
@@ -29,7 +30,6 @@ object DM_SOFTWARE: TDM_SOFTWARE
     Top = 75
   end
   object FDQ_SOFTWARE_A: TFDQuery
-    Active = True
     Connection = FDC_SOFTWARE
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.GeneratorName = 'NOVO_ID_ANALISE'
@@ -66,8 +66,8 @@ object DM_SOFTWARE: TDM_SOFTWARE
     end
   end
   object FDQ_SOFTWARE_R: TFDQuery
-    Active = True
     BeforeInsert = FDQ_SOFTWARE_RBeforeInsert
+    IndexFieldNames = 'ID_ANALISE'
     MasterSource = DS_ANALISES
     MasterFields = 'ID_ANALISE'
     DetailFields = 'ID_ANALISE'
@@ -78,7 +78,7 @@ object DM_SOFTWARE: TDM_SOFTWARE
     UpdateOptions.GeneratorName = 'NOVO_ID_ROBO'
     UpdateOptions.AutoIncFields = 'ID_ROBO'
     SQL.Strings = (
-      'SELECT * FROM ROBOS where ID_ANALISE =:"ID_ANALISE"')
+      'SELECT * FROM ROBOS WHERE ID_ANALISE = :"ID_ANALISE"')
     Left = 269
     Top = 75
     ParamData = <
@@ -87,7 +87,6 @@ object DM_SOFTWARE: TDM_SOFTWARE
         IsCaseSensitive = True
         DataType = ftInteger
         ParamType = ptInput
-        Size = 4
         Value = Null
       end>
     object FDQ_SOFTWARE_RID_ROBO: TIntegerField
@@ -108,24 +107,25 @@ object DM_SOFTWARE: TDM_SOFTWARE
   object FDQ_SOFTWARE_S: TFDQuery
     BeforeInsert = FDQ_SOFTWARE_SBeforeInsert
     BeforePost = FDQ_SOFTWARE_SBeforePost
+    IndexFieldNames = 'ID_ROBO'
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
+    DetailFields = 'ID_ROBO'
     Connection = FDC_SOFTWARE
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
     UpdateOptions.AssignedValues = [uvGeneratorName]
     UpdateOptions.GeneratorName = 'NOVO_ID_SETUP'
     UpdateOptions.AutoIncFields = 'ID_SETUP'
     SQL.Strings = (
-      'SELECT * FROM SETUPS WHERE ID_ROBO =:"ID_ROBO"')
+      'SELECT * FROM SETUPS WHERE ID_ROBO = :"ID_ROBO"')
     Left = 272
     Top = 144
     ParamData = <
       item
         Name = 'ID_ROBO'
         IsCaseSensitive = True
-        DataType = ftInteger
         ParamType = ptInput
-        Size = 4
-        Value = Null
       end>
     object FDQ_SOFTWARE_SID_SETUP: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -205,12 +205,6 @@ object DM_SOFTWARE: TDM_SOFTWARE
       Origin = 'CALMAR_R'
       Precision = 18
     end
-    object FDQ_SOFTWARE_SCAGR____: TBCDField
-      FieldName = 'CAGR____'
-      Origin = 'CAGR____'
-      Precision = 18
-      Size = 2
-    end
     object FDQ_SOFTWARE_SRESULTADO: TBCDField
       FieldName = 'RESULTADO'
       Origin = 'RESULTADO'
@@ -238,6 +232,12 @@ object DM_SOFTWARE: TDM_SOFTWARE
       FieldName = 'RELACAO_MEDL_X_MEDP'
       Origin = 'RELACAO_MEDL_X_MEDP'
       Precision = 18
+    end
+    object FDQ_SOFTWARE_SCAGR: TBCDField
+      FieldName = 'CAGR'
+      Origin = 'CAGR'
+      Precision = 18
+      Size = 2
     end
   end
   object DS_ANALISES: TDataSource

@@ -39,7 +39,6 @@ type
     FDQ_SOFTWARE_SCORRELACAO_LR: TBCDField;
     FDQ_SOFTWARE_SDD_FINANCEIRO: TBCDField;
     FDQ_SOFTWARE_SCALMAR_R: TBCDField;
-    FDQ_SOFTWARE_SCAGR____: TBCDField;
     FDQ_SOFTWARE_SRESULTADO: TBCDField;
     FDQ_SOFTWARE_SINDICE_L_X_P: TBCDField;
     FDQ_SOFTWARE_SMEDIA_LUCRO: TBCDField;
@@ -49,10 +48,12 @@ type
     DS_ROBOS: TDataSource;
     DS_SETUPS: TDataSource;
     FDQ_SOFTWARE_RNOME_DO_ROBO: TStringField;
+    FDQ_SOFTWARE_SCAGR: TBCDField;
     procedure FDQ_SOFTWARE_SBeforeInsert(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_RBeforeInsert(DataSet: TDataSet);
     procedure FDQ_SOFTWARE_RBeforePost(DataSet: TDataSet);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -71,24 +72,31 @@ uses
 
 {$R *.dfm}
 
+procedure TDM_SOFTWARE.DataModuleCreate(Sender: TObject);
+begin
+  FDQ_SOFTWARE_A.Open;
+  FDQ_SOFTWARE_R.Open;
+  FDQ_SOFTWARE_S.Open;
+end;
+
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_RBeforeInsert(DataSet: TDataSet);
 begin
-  showMessage('BeforeInsert - R');
+ // showMessage('BeforeInsert - R');
 end;
 
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_RBeforePost(DataSet: TDataSet);
 begin
-  showMessage('BeforePost - R');
+ // showMessage('BeforePost - R');
 end;
 
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_SBeforeInsert(DataSet: TDataSet);
 begin
-  showMessage('BeforeInsert');
+ // showMessage('BeforeInsert');
 end;
 
 procedure TDM_SOFTWARE.FDQ_SOFTWARE_SBeforePost(DataSet: TDataSet);
 begin
-  showMessage('BeforePost');
+ // showMessage('BeforePost');
 end;
 
 end.

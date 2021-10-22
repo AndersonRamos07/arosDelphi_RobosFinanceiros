@@ -1,6 +1,6 @@
 object FRM_SOFTWARE: TFRM_SOFTWARE
-  Left = 161
-  Top = 43
+  Left = 116
+  Top = 145
   Align = alClient
   Caption = 'SOFTWARE'
   ClientHeight = 645
@@ -12,10 +12,9 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
-  object PageControl1: TPageControl
+  object PC_Principal: TPageControl
     Left = 0
     Top = 0
     Width = 941
@@ -23,7 +22,7 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
     ActivePage = Setup
     Align = alTop
     TabOrder = 0
-    OnChange = PageControl1Change
+    OnChange = PC_PrincipalChange
     ExplicitLeft = 8
     ExplicitTop = 25
     ExplicitWidth = 845
@@ -115,7 +114,6 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               item
                 Expanded = False
                 FieldName = 'SALDO_INICIAL'
-                Width = 64
                 Visible = True
               end>
           end
@@ -637,56 +635,67 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               item
                 Expanded = False
                 FieldName = 'NOME_DO_SETUP'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_BRUTO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_LIQUIDO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PAY_OFF'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_RECUPERACAO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SHARPE'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CORRELACAO_LR'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DD_FINANCEIRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CALMAR_R'
+                Width = 64
                 Visible = True
               end
               item
@@ -697,26 +706,31 @@ object FRM_SOFTWARE: TFRM_SOFTWARE
               item
                 Expanded = False
                 FieldName = 'RESULTADO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INDICE_L_X_P'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_PREJUIZO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
+                Width = 64
                 Visible = True
               end>
           end

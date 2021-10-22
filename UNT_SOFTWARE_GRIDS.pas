@@ -11,7 +11,7 @@ uses
 
 type
   TFRM_SOFTWARE = class(TForm)
-    PageControl1: TPageControl;
+    PC_Principal: TPageControl;
     tsAnalise: TTabSheet;
     Robo: TTabSheet;
     Setup: TTabSheet;
@@ -105,8 +105,7 @@ type
     DBEdit6: TDBEdit;
     DBN_ANALISES: TDBNavigator;
     DBEdit7: TDBEdit;
-    procedure FormActivate(Sender: TObject);
-    procedure PageControl1Change(Sender: TObject);
+    procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
@@ -125,8 +124,7 @@ implementation
 
 uses DMSOFTWARE;
 
-procedure TFRM_SOFTWARE.DBN_ANALISESClick(Sender: TObject;
-  Button: TNavigateBtn);
+procedure TFRM_SOFTWARE.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
 begin
   if Button in [nbInsert, nbEdit] then
   begin
@@ -153,25 +151,17 @@ begin
   end;
 end;
 
-
-procedure TFRM_SOFTWARE.FormActivate(Sender: TObject);
+procedure TFRM_SOFTWARE.PC_PrincipalChange(Sender: TObject);
 begin
-  DM_SOFTWARE.FDQ_SOFTWARE_A.Open;
-  DM_SOFTWARE.FDQ_SOFTWARE_R.Open;
-  DM_SOFTWARE.FDQ_SOFTWARE_S.Open;
-end;
-
-procedure TFRM_SOFTWARE.PageControl1Change(Sender: TObject);
-begin
-     if PageControl1.ActivePageIndex = 0 then
+     if PC_Principal.ActivePageIndex = 0 then
       begin
         PC_Analise.ActivePage := TS_Analise_Lista;
       end;
-     if PageControl1.ActivePageIndex = 1 then
+     if PC_Principal.ActivePageIndex = 1 then
       begin
         PC_Robo.ActivePage := TS_Robo_Lista;
       end;
-     if PageControl1.ActivePageIndex = 2 then
+     if PC_Principal.ActivePageIndex = 2 then
       begin
         PC_Setup.ActivePage := TS_Setup_Lista;
       end;
