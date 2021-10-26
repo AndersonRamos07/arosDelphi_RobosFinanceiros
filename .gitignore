@@ -45,3 +45,5 @@ modules/
 # Alguns que não são necessários também
 *.vlb
 tokenGit*
+.trash/
+*.scc
