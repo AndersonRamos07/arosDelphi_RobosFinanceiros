@@ -1,8 +1,8 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 352
-  Top = 132
+  Left = 360
+  Top = 194
   Height = 382
   Width = 630
   object FDC_RobosFinanceiros: TFDConnection
@@ -67,6 +67,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     end
   end
   object FDQ_RobosFinanceiros_R: TFDQuery
+    Active = True
     BeforeInsert = FDQ_RobosFinanceiros_RBeforeInsert
     IndexFieldNames = 'ID_ANALISE'
     MasterSource = DS_ANALISES
@@ -107,6 +108,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     end
   end
   object FDQ_RobosFinanceiros_S: TFDQuery
+    Active = True
     BeforeInsert = FDQ_RobosFinanceiros_SBeforeInsert
     BeforePost = FDQ_RobosFinanceiros_SBeforePost
     IndexFieldNames = 'ID_ROBO'

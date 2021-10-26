@@ -11,5 +11,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFRM_RobosFinanceiros, FRM_RobosFinanceiros);
+  Application.CreateForm(TDM_Robos_Financeiros, DM_Robos_Financeiros);
   Application.Run;
 end.

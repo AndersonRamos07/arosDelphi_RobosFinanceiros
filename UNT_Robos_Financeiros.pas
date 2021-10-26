@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
   FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Comp.UI,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
-  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls;
+  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
+
 
 type
   TFRM_RobosFinanceiros = class(TForm)
@@ -34,7 +35,6 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
-    Label14: TLabel;
     Label15: TLabel;
     Label16: TLabel;
     Label17: TLabel;
@@ -104,12 +104,16 @@ type
     Label36: TLabel;
     DBEdit6: TDBEdit;
     DBN_ANALISES: TDBNavigator;
-    DBEdit7: TDBEdit;
+    SB_ImportaExcel: TSpeedButton;
+    OD_Importar_Planilha: TOpenDialog;
+    SG_Importar_Planilha: TStringGrid;
     procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
+    procedure SB_ImportaExcelClick(Sender: TObject);
   private
+    function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -122,8 +126,10 @@ implementation
 
 {$R *.dfm}
 
-uses DM_RobosFinanceiros;
+uses DM_RobosFinanceiros,
+  ComObj;                                                                             // trabalhar com o "Create Ole Object";
 
+{$region 'Setando o primeiro imput do registro'}
 procedure TFRM_RobosFinanceiros.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
 begin
   if Button in [nbInsert, nbEdit] then
@@ -150,21 +156,82 @@ begin
     DBE_NOME_DO_SETUP.SetFocus;
   end;
 end;
+{$endregion}
 
+{$region 'Mostrando a Grid ao mudar a Page'}
 procedure TFRM_RobosFinanceiros.PC_PrincipalChange(Sender: TObject);
 begin
-     if PC_Principal.ActivePageIndex = 0 then
-      begin
-        PC_Analise.ActivePage := TS_Analise_Lista;
-      end;
-     if PC_Principal.ActivePageIndex = 1 then
-      begin
-        PC_Robo.ActivePage := TS_Robo_Lista;
-      end;
-     if PC_Principal.ActivePageIndex = 2 then
-      begin
-        PC_Setup.ActivePage := TS_Setup_Lista;
-      end;
+  if PC_Principal.ActivePageIndex = 0 then
+  begin
+    PC_Analise.ActivePage := TS_Analise_Lista;
+  end;
+  if PC_Principal.ActivePageIndex = 1 then
+  begin
+    PC_Robo.ActivePage := TS_Robo_Lista;
+  end;
+  if PC_Principal.ActivePageIndex = 2 then
+  begin
+    PC_Setup.ActivePage := TS_Setup_Lista;
+  end;
 end;
+{$endregion}
+
+{$region 'Importando Planilha Excel'}
+procedure TFRM_RobosFinanceiros.SB_ImportaExcelClick(Sender: TObject);
+begin
+  if OD_Importar_Planilha.Execute then
+    XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName)
+end;
+
+Function TFRM_RobosFinanceiros.XlsToStringGrid(xStringGrid: TStringGrid; xFileXLS: string): Boolean;
+const
+   xlCellTypeLastCell = $0000000B;
+var
+   XLSAplicacao, AbaXLS: OLEVariant;
+   RangeMatrix: Variant;
+   x, y, k, r: Integer;
+   resultado: String;
+begin
+   Result := False;
+
+   XLSAplicacao := CreateOleObject('Excel.Application');                              // Cria Excel- OLE Object
+   try
+    XLSAplicacao.Visible := False;                                                  // Esconde Excel
+    XLSAplicacao.Workbooks.Open(xFileXLS);                                          // Abre o Workbook
+                                                                                      {Selecione aqui a aba que você deseja abrir primeiro - 1,2,3,4....}
+    XLSAplicacao.WorkSheets[1].Activate;                                            // abrir a aba
+
+    AbaXLS := XLSAplicacao.Workbooks[ExtractFileName(xFileXLS)].WorkSheets[1];      {Selecione aqui a aba que você deseja ativar - começando sempre no 1 (1,2,3,4) }
+    AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate;
+
+    x := XLSAplicacao.ActiveCell.Row;                                               // Pegar o número da última linha
+
+    y := XLSAplicacao.ActiveCell.Column;                                            // Pegar o número da última coluna
+
+    XStringGrid.RowCount := x;                                                      // Seta xStringGrid linha e coluna
+    XStringGrid.ColCount := y;
+
+    RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;   // Associaca a variant WorkSheet com a variant do Delphi
+    k := 1;
+    repeat                                                                          // Cria o loop para listar os registros no TStringGrid
+      for r := 1 to y do
+        XStringGrid.Cells[(r - 1), (k - 1)] := RangeMatrix[k, r];
+        if XStringGrid.Cells[(r - 1), (k - 1)] = 'texto' then
+             showMessage('Deu certo!');
+        Inc(k, 1);
+    until k > x;
+    RangeMatrix := Unassigned;
+    finally
+      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
+      begin
+        XLSAplicacao.Quit;
+        XLSAplicacao := Unassigned;
+        AbaXLS := Unassigned;
+        Result := True;
+      end;
+   end;
+end;
+{$endregion}
+
 
 end.

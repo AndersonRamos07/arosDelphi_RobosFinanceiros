@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 229
-  Top = 16
+  Left = 189
+  Top = 60
   Align = alClient
   Caption = 'Robos Financeiros'
   ClientHeight = 645
@@ -25,6 +25,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     OnChange = PC_PrincipalChange
     object tsAnalise: TTabSheet
       Caption = 'An'#225'lise'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -32,6 +36,20 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
+        object SB_ImportaExcel: TSpeedButton
+          Left = 40
+          Top = 56
+          Width = 153
+          Height = 39
+          Caption = 'Importar Planilha'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold, fsUnderline]
+          ParentFont = False
+          OnClick = SB_ImportaExcelClick
+        end
         object DBN_ANALISES: TDBNavigator
           Left = 0
           Top = 10
@@ -222,10 +240,21 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           end
         end
       end
+      object SG_Importar_Planilha: TStringGrid
+        Left = 568
+        Top = 512
+        Width = 320
+        Height = 120
+        TabOrder = 2
+      end
     end
     object Robo: TTabSheet
       Caption = 'Robo'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -301,6 +330,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         TabOrder = 1
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitLeft = -36
+          ExplicitTop = -153
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -420,6 +451,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     object Setup: TTabSheet
       Caption = 'Setup'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -538,7 +573,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Setup_Lista
+        ActivePage = TS_Setup_Detalhes
         Align = alClient
         TabOrder = 1
         object TS_Setup_Lista: TTabSheet
@@ -592,7 +627,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'MAGIC'
-                Width = 64
                 Visible = True
               end
               item
@@ -616,6 +650,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
+                Width = 64
                 Visible = True
               end
               item
@@ -719,19 +754,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 45
             Height = 13
             Caption = 'Robo ID'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object Label14: TLabel
-            Left = 310
-            Top = 30
-            Width = 57
-            Height = 13
-            Caption = 'An'#225'lise ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -1123,17 +1145,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Enabled = False
             TabOrder = 18
           end
-          object DBEdit7: TDBEdit
-            Left = 310
-            Top = 60
-            Width = 91
-            Height = 21
-            DataField = 'ID_ANALISE'
-            DataSource = DM_Robos_Financeiros.DS_SETUPS
-            Enabled = False
-            ReadOnly = True
-            TabOrder = 19
-          end
         end
       end
     end
@@ -1141,5 +1152,9 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   object DS_ANALISES: TDataSource
     Left = 736
     Top = 72
+  end
+  object OD_Importar_Planilha: TOpenDialog
+    Left = 252
+    Top = 80
   end
 end
