@@ -68,7 +68,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
   end
   object FDQ_RobosFinanceiros_R: TFDQuery
     Active = True
-    BeforeInsert = FDQ_RobosFinanceiros_RBeforeInsert
     IndexFieldNames = 'ID_ANALISE'
     MasterSource = DS_ANALISES
     MasterFields = 'ID_ANALISE'
@@ -109,8 +108,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
   end
   object FDQ_RobosFinanceiros_S: TFDQuery
     Active = True
-    BeforeInsert = FDQ_RobosFinanceiros_SBeforeInsert
-    BeforePost = FDQ_RobosFinanceiros_SBeforePost
     IndexFieldNames = 'ID_ROBO'
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'

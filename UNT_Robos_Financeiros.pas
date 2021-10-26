@@ -16,42 +16,42 @@ type
     tsAnalise: TTabSheet;
     Robo: TTabSheet;
     Setup: TTabSheet;
-    Panel1: TPanel;
-    Panel3: TPanel;
+    P_Analise: TPanel;
+    P_Robo: TPanel;
     PC_Robo: TPageControl;
     TS_Robo_Lista: TTabSheet;
     TS_Robo_Detalhes: TTabSheet;
     DB_ROBOS: TDBGrid;
     Label8: TLabel;
-    Label9: TLabel;
+    L_Identificador_Robo: TLabel;
     DBE_ID_ROBO: TDBEdit;
     DBE_ID_ANALISE_R: TDBEdit;
-    Label10: TLabel;
-    Panel4: TPanel;
+    L_AnaliseID_Robo: TLabel;
+    P_Setup: TPanel;
     PC_Setup: TPageControl;
     TS_Setup_Lista: TTabSheet;
     TS_Setup_Detalhes: TTabSheet;
     DB_SETUPS: TDBGrid;
     Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
-    Label20: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
-    Label23: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
-    Label27: TLabel;
-    Label28: TLabel;
-    Label29: TLabel;
-    Label30: TLabel;
-    Label31: TLabel;
+    L_Identificador_Setup: TLabel;
+    L_RoboID_Setup: TLabel;
+    L_Magic_Setup: TLabel;
+    L_NomeDoSetup_Setup: TLabel;
+    L_LucroBruto_Setup: TLabel;
+    L_LucroLiquido_Setup: TLabel;
+    L_PerdaBruta_Setup: TLabel;
+    L_PayOff_Setup: TLabel;
+    L_FatorLucro_Setup: TLabel;
+    L_FatorRecuperacao_Setup: TLabel;
+    L_Sharpe_Setup: TLabel;
+    L_CorrelacaoLR_Setup: TLabel;
+    L_DDFinanceiro_Setup: TLabel;
+    L_CalmarR_Setup: TLabel;
+    L_Resultado_Setup: TLabel;
+    L_IndiceLucroXPrejuizo_Setup: TLabel;
+    L_MediaLucro_Setup: TLabel;
+    L_MediaPrejuizo_Setup: TLabel;
+    L_RelacaoMediaMLXMP_Setup: TLabel;
     DBE_ID_SETUP: TDBEdit;
     DBE_ID_ROBO_S: TDBEdit;
     DBE_MAGIC: TDBEdit;
@@ -71,42 +71,43 @@ type
     DBE_MEDIA_LUCRO: TDBEdit;
     DBE_MEDIA_PREJUIZO: TDBEdit;
     DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit;
-    Label1: TLabel;
+    L_NomeDoRobo_Robo: TLabel;
     DBE_NOME_DO_ROBO: TDBEdit;
     PC_Analise: TPageControl;
     TS_Analise_Lista: TTabSheet;
     L_LISTA_ANALISES: TLabel;
     DB_ANALISES: TDBGrid;
-    tsDetalhes: TTabSheet;
+    TS_Detalhes: TTabSheet;
     DS_ANALISES: TDataSource;
-    Label3: TLabel;
-    Label7: TLabel;
+    L_Descricao_Analise: TLabel;
+    L_SaldoInicial_Analise: TLabel;
     DBE_SALDO_INICIAL: TDBEdit;
-    Label2: TLabel;
+    L_PeriodoEmAnos_Analise: TLabel;
     DBE_PERIODO_EM_ANOS: TDBEdit;
-    Label5: TLabel;
+    L_Identificador_Analise: TLabel;
     DBE_ID_ANALISE: TDBEdit;
-    Label6: TLabel;
+    L_TituloDaAnalise_Analise: TLabel;
     DBE_TITULO_DA_ANALISE: TDBEdit;
     DBE_DESCRICAO: TDBEdit;
     DBN_ROBOS: TDBNavigator;
     DBN_SETUPS: TDBNavigator;
     Label4: TLabel;
-    DBEdit1: TDBEdit;
+    DBE_IDENTIFICADOR_RA: TDBEdit;
     Label32: TLabel;
-    DBEdit2: TDBEdit;
-    DBEdit3: TDBEdit;
-    Label33: TLabel;
-    Label34: TLabel;
-    DBEdit4: TDBEdit;
-    Label35: TLabel;
-    DBEdit5: TDBEdit;
-    Label36: TLabel;
-    DBEdit6: TDBEdit;
+    DBE_TITULO_DA_ANALISE_RA: TDBEdit;
+    DBE_IDENTIFICADOR_SR: TDBEdit;
+    L_IdentificadorRobo_Setup: TLabel;
+    L_NomeDoRobo_Setup: TLabel;
+    DBE_NOME_DO_ROBO_SR: TDBEdit;
+    L_IdentificadorAnalise_Setup: TLabel;
+    DBE_IDENTIFICADOR_SA: TDBEdit;
+    L_TituloDaAnalise_Setup: TLabel;
+    DBE_TITULO_DA_ANALISE_SA: TDBEdit;
     DBN_ANALISES: TDBNavigator;
     SB_ImportaExcel: TSpeedButton;
     OD_Importar_Planilha: TOpenDialog;
     SG_Importar_Planilha: TStringGrid;
+    OD_Importar_BD: TOpenDialog;
     procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
@@ -127,7 +128,11 @@ implementation
 {$R *.dfm}
 
 uses DM_RobosFinanceiros,
-  ComObj;                                                                             // trabalhar com o "Create Ole Object";
+  ComObj,                                                                             // trabalhar com o "Create Ole Object";
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase;
 
 {$region 'Setando o primeiro imput do registro'}
 procedure TFRM_RobosFinanceiros.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
@@ -176,13 +181,18 @@ begin
 end;
 {$endregion}
 
-{$region 'Importando Planilha Excel'}
+{$region 'Selecionando o arquivo/planilha Excel'}
 procedure TFRM_RobosFinanceiros.SB_ImportaExcelClick(Sender: TObject);
 begin
-  if OD_Importar_Planilha.Execute then
-    XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName)
+  OD_Importar_Planilha.Title := 'Selecione o Excel';
+  OD_Importar_Planilha.FileName := 'Arquivo Excel';
+  OD_Importar_Planilha.Filter := '*.xls|*.xlsx';
+  if OD_Importar_Planilha.Execute = True then
+   XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName);
 end;
+{$endregion}
 
+{$region 'Importando os dados da planilha'}
 Function TFRM_RobosFinanceiros.XlsToStringGrid(xStringGrid: TStringGrid; xFileXLS: string): Boolean;
 const
    xlCellTypeLastCell = $0000000B;
@@ -232,6 +242,5 @@ begin
    end;
 end;
 {$endregion}
-
 
 end.

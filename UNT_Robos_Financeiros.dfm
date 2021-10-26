@@ -25,11 +25,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     OnChange = PC_PrincipalChange
     object tsAnalise: TTabSheet
       Caption = 'An'#225'lise'
+      OnContextPopup = tsAnaliseContextPopup
       ExplicitLeft = 0
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Panel1: TPanel
+      object P_Analise: TPanel
         Left = 0
         Top = 0
         Width = 933
@@ -65,7 +66,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Analise_Lista
+        ActivePage = TS_Detalhes
         Align = alClient
         TabOrder = 1
         object TS_Analise_Lista: TTabSheet
@@ -126,10 +127,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               end>
           end
         end
-        object tsDetalhes: TTabSheet
+        object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          object Label3: TLabel
+          object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
             Width = 55
@@ -142,7 +143,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label7: TLabel
+          object L_SaldoInicial_Analise: TLabel
             Left = 548
             Top = 30
             Width = 68
@@ -155,7 +156,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label2: TLabel
+          object L_PeriodoEmAnos_Analise: TLabel
             Left = 294
             Top = 30
             Width = 104
@@ -168,7 +169,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label5: TLabel
+          object L_Identificador_Analise: TLabel
             Left = 29
             Top = 30
             Width = 73
@@ -183,7 +184,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentColor = False
             ParentFont = False
           end
-          object Label6: TLabel
+          object L_TituloDaAnalise_Analise: TLabel
             Left = 28
             Top = 108
             Width = 92
@@ -255,7 +256,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Panel3: TPanel
+      object P_Robo: TPanel
         Left = 0
         Top = 0
         Width = 933
@@ -299,7 +300,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 0
           OnClick = DBN_ROBOSClick
         end
-        object DBEdit1: TDBEdit
+        object DBE_IDENTIFICADOR_RA: TDBEdit
           Left = 330
           Top = 30
           Width = 91
@@ -309,7 +310,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ReadOnly = True
           TabOrder = 1
         end
-        object DBEdit2: TDBEdit
+        object DBE_TITULO_DA_ANALISE_RA: TDBEdit
           Left = 440
           Top = 30
           Width = 276
@@ -325,13 +326,11 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Robo_Lista
+        ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = -36
-          ExplicitTop = -153
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -378,7 +377,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          object Label9: TLabel
+          object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
             Width = 73
@@ -391,7 +390,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label10: TLabel
+          object L_AnaliseID_Robo: TLabel
             Left = 209
             Top = 30
             Width = 57
@@ -404,12 +403,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label1: TLabel
+          object L_NomeDoRobo_Robo: TLabel
             Left = 20
             Top = 102
-            Width = 74
+            Width = 81
             Height = 13
-            Caption = 'Nom do Robo'
+            Caption = 'Nome do Robo'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -455,14 +454,14 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object Panel4: TPanel
+      object P_Setup: TPanel
         Left = 0
         Top = 0
         Width = 933
         Height = 129
         Align = alTop
         TabOrder = 0
-        object Label33: TLabel
+        object L_IdentificadorRobo_Setup: TLabel
           Left = 330
           Top = 60
           Width = 73
@@ -475,12 +474,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Label34: TLabel
+        object L_NomeDoRobo_Setup: TLabel
           Left = 440
           Top = 60
-          Width = 74
+          Width = 81
           Height = 13
-          Caption = 'Nom do Robo'
+          Caption = 'Nome do Robo'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -488,7 +487,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Label35: TLabel
+        object L_IdentificadorAnalise_Setup: TLabel
           Left = 330
           Top = 10
           Width = 73
@@ -503,7 +502,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentColor = False
           ParentFont = False
         end
-        object Label36: TLabel
+        object L_TituloDaAnalise_Setup: TLabel
           Left = 440
           Top = 10
           Width = 92
@@ -525,7 +524,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 0
           OnClick = DBN_SETUPSClick
         end
-        object DBEdit3: TDBEdit
+        object DBE_IDENTIFICADOR_SR: TDBEdit
           Left = 330
           Top = 80
           Width = 91
@@ -537,7 +536,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ReadOnly = True
           TabOrder = 1
         end
-        object DBEdit4: TDBEdit
+        object DBE_NOME_DO_ROBO_SR: TDBEdit
           Left = 440
           Top = 80
           Width = 276
@@ -547,7 +546,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ReadOnly = True
           TabOrder = 2
         end
-        object DBEdit5: TDBEdit
+        object DBE_IDENTIFICADOR_SA: TDBEdit
           Left = 330
           Top = 30
           Width = 91
@@ -557,7 +556,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ReadOnly = True
           TabOrder = 3
         end
-        object DBEdit6: TDBEdit
+        object DBE_TITULO_DA_ANALISE_SA: TDBEdit
           Left = 440
           Top = 30
           Width = 276
@@ -632,67 +631,56 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'NOME_DO_SETUP'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_BRUTO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_LIQUIDO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PAY_OFF'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_LUCRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_RECUPERACAO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SHARPE'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CORRELACAO_LR'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DD_FINANCEIRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CALMAR_R'
-                Width = 64
                 Visible = True
               end
               item
@@ -703,31 +691,26 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'RESULTADO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INDICE_L_X_P'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_LUCRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_PREJUIZO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
-                Width = 64
                 Visible = True
               end>
           end
@@ -735,7 +718,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          object Label12: TLabel
+          object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30
             Width = 73
@@ -748,7 +731,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label13: TLabel
+          object L_RoboID_Setup: TLabel
             Left = 160
             Top = 30
             Width = 45
@@ -761,7 +744,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label15: TLabel
+          object L_Magic_Setup: TLabel
             Left = 450
             Top = 100
             Width = 38
@@ -774,7 +757,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label16: TLabel
+          object L_NomeDoSetup_Setup: TLabel
             Left = 20
             Top = 100
             Width = 85
@@ -787,7 +770,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label17: TLabel
+          object L_LucroBruto_Setup: TLabel
             Left = 20
             Top = 200
             Width = 65
@@ -800,7 +783,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label18: TLabel
+          object L_LucroLiquido_Setup: TLabel
             Left = 160
             Top = 200
             Width = 74
@@ -813,7 +796,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label19: TLabel
+          object L_PerdaBruta_Setup: TLabel
             Left = 450
             Top = 200
             Width = 67
@@ -826,7 +809,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label20: TLabel
+          object L_PayOff_Setup: TLabel
             Left = 310
             Top = 200
             Width = 47
@@ -839,7 +822,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label21: TLabel
+          object L_FatorLucro_Setup: TLabel
             Left = 20
             Top = 380
             Width = 64
@@ -852,7 +835,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label22: TLabel
+          object L_FatorRecuperacao_Setup: TLabel
             Left = 20
             Top = 300
             Width = 107
@@ -865,7 +848,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label23: TLabel
+          object L_Sharpe_Setup: TLabel
             Left = 160
             Top = 300
             Width = 40
@@ -878,7 +861,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label24: TLabel
+          object L_CorrelacaoLR_Setup: TLabel
             Left = 300
             Top = 300
             Width = 78
@@ -891,7 +874,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label25: TLabel
+          object L_DDFinanceiro_Setup: TLabel
             Left = 450
             Top = 300
             Width = 77
@@ -904,7 +887,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label26: TLabel
+          object L_CalmarR_Setup: TLabel
             Left = 300
             Top = 380
             Width = 51
@@ -917,7 +900,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label27: TLabel
+          object L_Resultado_Setup: TLabel
             Left = 450
             Top = 380
             Width = 57
@@ -930,7 +913,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label28: TLabel
+          object L_IndiceLucroXPrejuizo_Setup: TLabel
             Left = 160
             Top = 380
             Width = 128
@@ -943,7 +926,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label29: TLabel
+          object L_MediaLucro_Setup: TLabel
             Left = 20
             Top = 450
             Width = 68
@@ -956,7 +939,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label30: TLabel
+          object L_MediaPrejuizo_Setup: TLabel
             Left = 160
             Top = 450
             Width = 83
@@ -969,8 +952,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label31: TLabel
-            Left = 310
+          object L_RelacaoMediaMLXMP_Setup: TLabel
+            Left = 312
             Top = 450
             Width = 205
             Height = 13
@@ -1154,7 +1137,11 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 72
   end
   object OD_Importar_Planilha: TOpenDialog
-    Left = 252
-    Top = 80
+    Left = 204
+    Top = 96
+  end
+  object OD_Importar_BD: TOpenDialog
+    Left = 172
+    Top = 576
   end
 end
