@@ -259,4 +259,13 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Left = 400
     Top = 144
   end
+  object IBTransactionAuxiliar: TIBTransaction
+    DefaultAction = TACommitRetaining
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 512
+    Top = 16
+  end
 end

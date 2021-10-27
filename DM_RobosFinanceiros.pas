@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait;
+  FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, IBX.IBDatabase;
 
 type
   TDM_Robos_Financeiros = class(TDataModule)
@@ -49,6 +49,7 @@ type
     DS_SETUPS: TDataSource;
     FDQ_RobosFinanceiros_RNOME_DO_ROBO: TStringField;
     FDQ_RobosFinanceiros_SCAGR: TBCDField;
+    IBTransactionAuxiliar: TIBTransaction;
     {$region 'Deprecated'}
     {
     procedure FDQ_RobosFinanceiros_SBeforeInsert(DataSet: TDataSet);

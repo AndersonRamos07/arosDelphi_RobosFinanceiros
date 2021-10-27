@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 189
-  Top = 60
+  Left = 182
+  Top = 41
   Align = alClient
   Caption = 'Robos Financeiros'
   ClientHeight = 645
@@ -19,13 +19,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = tsAnalise
+    ActivePage = TS_Analise
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
-    object tsAnalise: TTabSheet
+    object TS_Analise: TTabSheet
       Caption = 'An'#225'lise'
-      OnContextPopup = tsAnaliseContextPopup
       ExplicitLeft = 0
       ExplicitTop = 0
       ExplicitWidth = 0
@@ -51,6 +50,20 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentFont = False
           OnClick = SB_ImportaExcelClick
         end
+        object SpeedButton1: TSpeedButton
+          Left = 331
+          Top = 32
+          Width = 153
+          Height = 39
+          Caption = 'Importar Planilha'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold, fsUnderline]
+          ParentFont = False
+          OnClick = SpeedButton1Click
+        end
         object DBN_ANALISES: TDBNavigator
           Left = 0
           Top = 10
@@ -66,7 +79,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Detalhes
+        ActivePage = TS_Analise_Lista
         Align = alClient
         TabOrder = 1
         object TS_Analise_Lista: TTabSheet
@@ -242,8 +255,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         end
       end
       object SG_Importar_Planilha: TStringGrid
-        Left = 568
-        Top = 512
+        Left = 552
+        Top = 504
         Width = 320
         Height = 120
         TabOrder = 2
@@ -326,7 +339,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Robo_Detalhes
+        ActivePage = TS_Robo_Lista
         Align = alClient
         TabOrder = 1
         object TS_Robo_Lista: TTabSheet
