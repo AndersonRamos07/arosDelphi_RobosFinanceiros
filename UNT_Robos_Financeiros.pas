@@ -107,7 +107,6 @@ type
     OD_Importar_Planilha: TOpenDialog;
     SG_Importar_Planilha: TStringGrid;
     OD_Importar_BD: TOpenDialog;
-    SpeedButton1: TSpeedButton;
     procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
@@ -200,20 +199,21 @@ Function TFRM_RobosFinanceiros.XlsToStringGrid(xStringGrid: TStringGrid; xFileXL
 const
    xlCellTypeLastCell = $0000000B;
 var
-   XLSAplicacao, AbaXLS: OLEVariant;
-   RangeMatrix: Variant;
-   x, y, k, r: Integer;
+   XLSAplicacao, AbaXLS : OLEVariant;
+   RangeMatrix : Variant;
+   x, y, k, r : Integer;
 
-   vQuery_A : TFDQuery;
-   resultado, vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial: String;
-   A, vPeriodoEmAnos, lFound, Lnh: Integer;
-   ClickedOK: Boolean;
+   vQuery_A, vQuery_R : TFDQuery;
+   vID_Analise, vID_Robo, vID_Setup : Integer;
+   vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial : String;
+   vNomeDoRobo : String;
+   ClickedOK : Boolean;
 begin
 
-    vQuantosAnos := '';
-    ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
-    vSaldoInicial := '';
-    ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
+  vQuantosAnos := '';
+  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
+  vSaldoInicial := '';
+  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
 
    Result := False;
    XLSAplicacao := CreateOleObject('Excel.Application');
@@ -231,37 +231,77 @@ begin
 
     XStringGrid.RowCount := x;
     XStringGrid.ColCount := y;
-
+    // "RangeMatrix" é a planilha Excel em uma variável Delphi
     RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
-    k := 1;
 
 {$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
 
-//          XStringGrid.Cells[r, k] := RangeMatrix[k, r];
-          vTituloDaAnalise := RangeMatrix[2,1];       //XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[1, 0]].Value;
-          vDescricaoDoPeriodo := RangeMatrix[6,4]; //XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[5, 3]].Value; // XStringGrid.Cells[3, 5];
-  vQuery_A := DM_Robos_Financeiros.FDQ_RobosFinanceiros_A;
-      with vQuery_A do
+    try
       begin
-       Close;
-       SQL.Clear;
-       SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
-       SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
+        vQuery_A := TFDQuery.Create(nil);
+        with vQuery_A do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
+         SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
 
-       ParamByName('ID_ANALISE').Value := GeneratorIncrementado('NOVO_ID_ANALISE');
-       ParamByName('TITULO_DA_ANALISE').Value := vTituloDaAnalise;
-       ParamByName('DESCRICAO_DO_PERIODO').Value := vDescricaoDoPeriodo;
-       ParamByName('PERIODO_EM_ANOS').Value := StrToInt(vQuantosAnos);
-       ParamByName('SALDO_INICIAL').Value := StrToFloat(vSaldoInicial);
+         vID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
+         vTituloDaAnalise := RangeMatrix[2,1];
+         vDescricaoDoPeriodo := RangeMatrix[6,4];
+         ParamByName('ID_ANALISE').Value := vID_Analise;
+         ParamByName('TITULO_DA_ANALISE').Value := vTituloDaAnalise;
+         ParamByName('DESCRICAO_DO_PERIODO').Value := vDescricaoDoPeriodo;
+         ParamByName('PERIODO_EM_ANOS').Value := StrToInt(vQuantosAnos);
+         ParamByName('SALDO_INICIAL').Value := StrToFloat(vSaldoInicial);
 
-       Prepare;
-       ExecSQL;
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      showMessage('Registrado!');
+      FreeAndNil(vQuery_A);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Open;
+    end;
 
-       Close;
-       Open;
-      end;
+    try
+      begin
+        vQuery_R := TFDQuery.Create(nil);
+        with vQuery_R do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
+         SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
 
-    A := 0;
+         vNomeDoRobo := RangeMatrix[4,4];
+         ParamByName('ID_ROBO').Value :=  GeneratorIncrementado('NOVO_ID_ROBO');
+         ParamByName('ID_ANALISE').Value := vID_Analise;
+         ParamByName('NOME_DO_ROBO').Value := vNomeDoRobo;
+
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      FreeAndNil(vQuery_R);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Open;
+    end;
+
+{$region 'Deprecated'}
+    //Início da gravação do robô.
+    //Encontrando os campos.
+//    Criar o vQuery_B
+//    Insert into robô,
+//    Param id_robo := generratorincremano
+//    Param id_anlise := v_ID_Anslie;
+//    Param_Descrico :=
+//    A := 0;
 //    repeat
 ////      for r := 1 to y do
 ////        begin
@@ -288,6 +328,8 @@ begin
 ////        end;
 //        Inc(k, 1);
 //    until k > x;
+{$endregion}
+
     RangeMatrix := Unassigned;
     finally
 {$region 'Inserindo dados na Tabela BD'}
@@ -305,7 +347,7 @@ begin
    {$endregion}
 end;
 
-
+{$region 'function demonstração'}
 {
 function inserir em analise(valor, id, )
 
@@ -320,7 +362,9 @@ begin
    commitretaineg
 end;
 }
+{$endregion}
 
+{$region 'procedure SBC'}
 procedure TFRM_RobosFinanceiros.SpeedButton1Click(Sender: TObject);
 begin
 {
@@ -331,6 +375,7 @@ begin
    fd.post;
    }
 end;
+{$endregion}
 
 {$region 'Função Importada "GeneratorIncrementado()"'}
 function TFRM_RobosFinanceiros.GeneratorIncrementado(qGenerator:String) : Integer;

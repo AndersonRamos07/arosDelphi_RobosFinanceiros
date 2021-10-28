@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 182
-  Top = 41
+  Left = 218
+  Top = 271
   Align = alClient
   Caption = 'Robos Financeiros'
   ClientHeight = 645
@@ -49,20 +49,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Font.Style = [fsBold, fsUnderline]
           ParentFont = False
           OnClick = SB_ImportaExcelClick
-        end
-        object SpeedButton1: TSpeedButton
-          Left = 331
-          Top = 32
-          Width = 153
-          Height = 39
-          Caption = 'Importar Planilha'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold, fsUnderline]
-          ParentFont = False
-          OnClick = SpeedButton1Click
         end
         object DBN_ANALISES: TDBNavigator
           Left = 0
@@ -118,19 +104,19 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'TITULO_DA_ANALISE'
-                Width = 115
+                Width = 178
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DESCRICAO_DO_PERIODO'
-                Width = 143
+                Width = 190
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERIODO_EM_ANOS'
-                Width = 108
+                Width = 105
                 Visible = True
               end
               item
@@ -260,6 +246,13 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Width = 320
         Height = 120
         TabOrder = 2
+        Visible = False
+        ColWidths = (
+          64
+          64
+          64
+          64
+          64)
       end
     end
     object Robo: TTabSheet

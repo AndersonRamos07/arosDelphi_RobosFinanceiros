@@ -50,14 +50,7 @@ type
     FDQ_RobosFinanceiros_RNOME_DO_ROBO: TStringField;
     FDQ_RobosFinanceiros_SCAGR: TBCDField;
     IBTransactionAuxiliar: TIBTransaction;
-    {$region 'Deprecated'}
-    {
-    procedure FDQ_RobosFinanceiros_SBeforeInsert(DataSet: TDataSet);
-    procedure FDQ_RobosFinanceiros_SBeforePost(DataSet: TDataSet);
-    procedure FDQ_RobosFinanceiros_RBeforeInsert(DataSet: TDataSet);
-    procedure FDQ_RobosFinanceiros_RBeforePost(DataSet: TDataSet);
-    }
-    {$endregion}
+
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -107,5 +100,6 @@ begin
 end;
 }
 {$endregion}
+
 
 end.

@@ -89,7 +89,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
         DataType = ftInteger
         ParamType = ptInput
         Size = 4
-        Value = 1
+        Value = Null
       end>
     object FDQ_RobosFinanceiros_RID_ROBO: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -129,7 +129,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
         DataType = ftInteger
         ParamType = ptInput
         Size = 4
-        Value = 1
+        Value = Null
       end>
     object FDQ_RobosFinanceiros_SID_SETUP: TIntegerField
       AutoGenerateValue = arAutoInc
