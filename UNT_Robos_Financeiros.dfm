@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 218
-  Top = 271
+  Left = 91
+  Top = 206
   Align = alClient
   Caption = 'Robos Financeiros'
   ClientHeight = 645
@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = TS_Analise
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -1015,6 +1015,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'LUCRO_BRUTO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 3
           end
           object DBE_LUCRO_LIQUIDO: TDBEdit
@@ -1023,6 +1024,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'LUCRO_LIQUIDO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 4
           end
           object DBE_PERDA_BRUTA: TDBEdit
@@ -1031,6 +1033,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'PERDA_BRUTA'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
             TabOrder = 13
           end
@@ -1040,6 +1043,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'PAY_OFF'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 5
           end
           object DBE_FATOR_LUCRO: TDBEdit
@@ -1048,6 +1052,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'FATOR_LUCRO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 10
           end
           object DBE_FATOR_RECUPERACAO: TDBEdit
@@ -1056,6 +1061,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'FATOR_RECUPERACAO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 6
           end
           object DBE_SHARPE: TDBEdit
@@ -1064,6 +1070,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'SHARPE'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 7
           end
           object DBE_CORRELACAO: TDBEdit
@@ -1072,6 +1079,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'CORRELACAO_LR'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 8
           end
           object DBE_DD_FINANCEIRO: TDBEdit
@@ -1080,6 +1088,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'DD_FINANCEIRO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 9
           end
           object DBE_CALMAR_R: TDBEdit
@@ -1088,6 +1097,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'CALMAR_R'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
             TabOrder = 15
           end
@@ -1097,6 +1107,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'RESULTADO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
             TabOrder = 16
           end
@@ -1106,6 +1117,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'INDICE_L_X_P'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
             TabOrder = 17
           end
@@ -1115,6 +1127,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'MEDIA_LUCRO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 11
           end
           object DBE_MEDIA_PREJUIZO: TDBEdit
@@ -1123,6 +1136,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'MEDIA_PREJUIZO'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             TabOrder = 12
           end
           object DBE_RELACAO_MEDIA_ML_X_MP: TDBEdit
@@ -1131,6 +1145,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'RELACAO_MEDL_X_MEDP'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
             TabOrder = 18
           end

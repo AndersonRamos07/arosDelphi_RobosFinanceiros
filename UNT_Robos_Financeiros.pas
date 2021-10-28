@@ -203,10 +203,14 @@ var
    RangeMatrix : Variant;
    x, y, k, r : Integer;
 
-   vQuery_A, vQuery_R : TFDQuery;
+   vQuery_A, vQuery_R, vQuery_S : TFDQuery;
    vID_Analise, vID_Robo, vID_Setup : Integer;
    vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial : String;
    vNomeDoRobo : String;
+   vNomeDoSetup, vMagic: String;
+   vLucroBruto, vLucroLiquido, vPerdaBruta, vPayOff, vFatorLucro, vFatorRecuperacao : Double;
+   vSharpe, vCorrelacaoLR, vDDFinanceiro, vCalmaRR, vCagr, vResultado : Double;
+   vIndiceLXP, vMediaLucro, vMediaPrejuizo, vRelacaoMLXMP : Double;
    ClickedOK : Boolean;
 begin
 
@@ -234,8 +238,32 @@ begin
     // "RangeMatrix" é a planilha Excel em uma variável Delphi
     RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
 
-{$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
+{$region 'Preenchendo variaveis com dados da Planilha'}
+    vTituloDaAnalise :=     RangeMatrix[2,1];
+    vDescricaoDoPeriodo :=  RangeMatrix[6,4];
+    vNomeDoRobo :=          RangeMatrix[4,4];
+    vNomeDoSetup :=         RangeMatrix[5,4];
+    vLucroBruto :=          RangeMatrix[611,4];
+    vLucroLiquido :=        RangeMatrix[610,4];
+    vPerdaBruta :=          RangeMatrix[612,4];
+    vPayOff :=              RangeMatrix[614,8];
+    vFatorLucro :=          RangeMatrix[614,4];
+    vFatorRecuperacao :=    RangeMatrix[615,4];
+    vSharpe :=              RangeMatrix[615,8];
+    vCorrelacaoLR :=        RangeMatrix[616,8];
+    vDDFinanceiro :=        7; //RangeMatrix[5,4];
+    vCalmaRR :=             7; //RangeMatrix[5,4];
+    vCagr :=                7; //RangeMatrix[5,4];
+    vResultado :=           7; //RangeMatrix[5,4];
+    vIndiceLXP :=           7; //RangeMatrix[5,4];
+    vMediaLucro :=          7; //RangeMatrix[5,4];
+    vMediaPrejuizo :=       7; //RangeMatrix[5,4];
+    vRelacaoMLXMP :=        7; //RangeMatrix[5,4];
 
+{$endregion}
+
+{$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
+    // Inserindo informações na Tabela ANALISES
     try
       begin
         vQuery_A := TFDQuery.Create(nil);
@@ -248,8 +276,6 @@ begin
          SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
 
          vID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
-         vTituloDaAnalise := RangeMatrix[2,1];
-         vDescricaoDoPeriodo := RangeMatrix[6,4];
          ParamByName('ID_ANALISE').Value := vID_Analise;
          ParamByName('TITULO_DA_ANALISE').Value := vTituloDaAnalise;
          ParamByName('DESCRICAO_DO_PERIODO').Value := vDescricaoDoPeriodo;
@@ -261,12 +287,12 @@ begin
         end;
       end
     finally
-      showMessage('Registrado!');
       FreeAndNil(vQuery_A);
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Close;
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Open;
     end;
 
+    // Inserindo informações na Tabela ROBOS
     try
       begin
         vQuery_R := TFDQuery.Create(nil);
@@ -278,8 +304,8 @@ begin
          SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
          SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
 
-         vNomeDoRobo := RangeMatrix[4,4];
-         ParamByName('ID_ROBO').Value :=  GeneratorIncrementado('NOVO_ID_ROBO');
+         vID_Robo := GeneratorIncrementado('NOVO_ID_ROBO');
+         ParamByName('ID_ROBO').Value := vID_Robo;
          ParamByName('ID_ANALISE').Value := vID_Analise;
          ParamByName('NOME_DO_ROBO').Value := vNomeDoRobo;
 
@@ -293,47 +319,56 @@ begin
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Open;
     end;
 
-{$region 'Deprecated'}
-    //Início da gravação do robô.
-    //Encontrando os campos.
-//    Criar o vQuery_B
-//    Insert into robô,
-//    Param id_robo := generratorincremano
-//    Param id_anlise := v_ID_Anslie;
-//    Param_Descrico :=
-//    A := 0;
-//    repeat
-////      for r := 1 to y do
-////        begin
-//           XStringGrid.Cells[0, (k - 1)] := RangeMatrix[k, r];
-//           if XStringGrid.Cells[0, (k - 1)] = 'Qualidade do histórico:' then
-//            begin
-////              repeat
-//                for Lnh := 1 to x do
-//                begin
-//                lFound := r + Lnh;
-//                  if (XStringGrid.Cells[ lFound , k ] <> '') then
-//                    vDescricaoDoPeriodo := XStringGrid.Cells[ (lFound - 1) , k ];
-//                    vTituloDaAnalise := '-1 e -1! ' + IntToStr(k) + ' , ' + IntToStr(lFound) + ' e o r é: ' + IntToStr(r);
-//                    Abort;
-//                end;
-//                Inc(Lnh, 1);
-////              until Lnh > 20;
-//            end;
-////           if XStringGrid.Cells[(r - 1), (k - 1) = 'anderson' then
-////             begin
-////              vDescricaoDoPeriodo := 'r = ' + IntToStr(r) + ' e k= ' + IntToStr(k);
-//              vPeriodoEmAnos := A;
-//            Inc(A, 1);
-////        end;
-//        Inc(k, 1);
-//    until k > x;
-{$endregion}
+    // Inserindo informações na Tabela SETUPS
+    try
+      begin
+        vQuery_S := TFDQuery.Create(nil);
+        with vQuery_S do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO SETUPS');
+         SQL.Add(' (ID_SETUP, ID_ROBO, MAGIC, NOME_DO_SETUP, LUCRO_BRUTO, LUCRO_LIQUIDO,'); //PERDA_BRUTA
+         SQL.Add(' PAY_OFF, FATOR_LUCRO, FATOR_RECUPERACAO, SHARPE, CORRELACAO_LR, DD_FINANCEIRO,');
+         SQL.Add(' CAGR, MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P,, RELACAO_MEDL_X_MEDP
+         SQL.Add('VALUES (:ID_SETUP, :ID_ROBO, :MAGIC, :NOME_DO_SETUP, :LUCRO_BRUTO, :LUCRO_LIQUIDO, '); //, :PERDA_BRUTA
+         SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
+         SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
 
+         ParamByName('ID_SETUP').Value :=  GeneratorIncrementado('NOVO_ID_SETUP');
+         ParamByName('ID_ROBO').Value := vID_Robo;
+         ParamByName('NOME_DO_SETUP').Value := vNomeDoSetup;
+         ParamByName('MAGIC').Value := vMagic;
+         ParamByName('LUCRO_BRUTO').Value := vLucroBruto;
+         ParamByName('LUCRO_LIQUIDO').Value := vLucroLiquido;
+         //ParamByName('PERDA_BRUTA').Value := vPerdaBruta;   //aqui na Tabela BD está contido um cálculo, impossibilitando a sobescrita
+         ParamByName('PAY_OFF').Value := vPayOff;
+         ParamByName('FATOR_LUCRO').Value := vFatorLucro;
+         ParamByName('FATOR_RECUPERACAO').Value := vFatorRecuperacao;
+         ParamByName('SHARPE').Value := vSharpe;
+         ParamByName('CORRELACAO_LR').Value := vCorrelacaoLR;
+         ParamByName('DD_FINANCEIRO').Value := vDDFinanceiro;
+         //ParamByName('CALMAR_R').Value := vCalmaRR;
+         ParamByName('CAGR').Value := vCagr;
+         //ParamByName('RESULTADO').Value := vResultado;
+         //ParamByName('INDICE_L_X_P').Value := vIndiceLXP;
+         ParamByName('MEDIA_LUCRO').Value := vMediaLucro;
+         ParamByName('MEDIA_PREJUIZO').Value := vMediaPrejuizo;
+         //ParamByName('RELACAO_MEDL_X_MEDP').Value := vRelacaoMLXMP;
+
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      FreeAndNil(vQuery_S);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+    end;
     RangeMatrix := Unassigned;
     finally
-{$region 'Inserindo dados na Tabela BD'}
-{$endregion}
+      showMessage('Registrado com sucesso!');
    end;
       if not VarIsEmpty(XLSAplicacao) then
       begin
