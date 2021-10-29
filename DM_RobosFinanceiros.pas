@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, IBX.IBDatabase;
+  FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, IBX.IBDatabase,
+  IniFiles;     // para realizar a leitura do arquivo *.INI
 
 type
   TDM_Robos_Financeiros = class(TDataModule)
@@ -52,10 +53,13 @@ type
     IBTransactionAuxiliar: TIBTransaction;
 
     procedure DataModuleCreate(Sender: TObject);
+//    procedure FDPhysFBDriverLink1DriverCreated(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    user, porta, ip, fBD, conexao, conexaoFB : String;
+    procedure CodificarINI();
   end;
 
 var
@@ -64,7 +68,10 @@ var
 implementation
 
 uses
-  Vcl.Dialogs;
+ Winapi.Windows, Winapi.Messages, System.Variants, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
+  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
@@ -72,34 +79,36 @@ uses
 
 procedure TDM_Robos_Financeiros.DataModuleCreate(Sender: TObject);
 begin
+ {$region 'Realizar a conexão conforme o que consta no arquivo INI'}
+  conexao := ExtractFilePath(Application.ExeName) + 'BASE_DE_DADOS.FDB';
+  //CodificarINI();
+  FDC_RobosFinanceiros.Params.Database := conexao;
+  {$endregion}
+
   FDQ_RobosFinanceiros_A.Open;
   FDQ_RobosFinanceiros_R.Open;
   FDQ_RobosFinanceiros_S.Open;
 end;
 
-{$region 'Deprecated'}
-{
-procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_RBeforeInsert(DataSet: TDataSet);
-begin
- // showMessage('BeforeInsert - R');
-end;
+//procedure TDM_Robos_Financeiros.FDPhysFBDriverLink1DriverCreated(Sender: TObject);
+//begin
+//  FDPhysFBDriverLink1.VendorLib := ExtractFilePath(Application.ExeName) + 'fbclient.dll';
+//end;
 
-procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_RBeforePost(DataSet: TDataSet);
+{$region 'Realizar a leitura do arquivo CONFIG.INI'}
+procedure TDM_Robos_Financeiros.CodificarINI;
+var
+  arquivoIni : TIniFile;
 begin
- // showMessage('BeforePost - R');
-end;
+    arquivoIni := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'Config.INI');
+    user := arquivoIni.ReadString('Configuracoes', 'nomeUsuario', user);
+    porta := arquivoIni.ReadString('Configuracoes', 'porta', porta);
+    ip := arquivoIni.ReadString('Configuracoes', 'ip', ip);
 
-procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_SBeforeInsert(DataSet: TDataSet);
-begin
- // showMessage('BeforeInsert');
+    fBD := arquivoIni.ReadString('Configuracoes', 'nomeBD', fBD);
+    conexaoFB := ExtractFilePath(Application.ExeName) + fBD;
+    arquivoIni.Free;
 end;
-
-procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_SBeforePost(DataSet: TDataSet);
-begin
- // showMessage('BeforePost');
-end;
-}
 {$endregion}
-
 
 end.

@@ -137,6 +137,7 @@ uses DM_RobosFinanceiros,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase;
 
 {$region 'Setando o primeiro imput do registro'}
+
 procedure TFRM_RobosFinanceiros.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
 begin
   if Button in [nbInsert, nbEdit] then

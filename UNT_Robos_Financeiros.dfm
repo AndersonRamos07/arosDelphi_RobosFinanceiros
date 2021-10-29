@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 194
-  Top = 37
+  Left = 200
+  Top = 32
   Align = alClient
   Caption = 'Robos Financeiros'
   ClientHeight = 670
@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = Setup
+    ActivePage = Robo
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -65,7 +65,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Detalhes
+        ActivePage = TS_Analise_Lista
         Align = alClient
         TabOrder = 1
         object TS_Analise_Lista: TTabSheet

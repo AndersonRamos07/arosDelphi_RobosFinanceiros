@@ -1,8 +1,8 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 65518
-  Top = 239
+  Left = 305
+  Top = 160
   Height = 382
   Width = 630
   object FDC_RobosFinanceiros: TFDConnection
@@ -11,9 +11,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
       'Password=masterkey'
       'Server=localhost'
       'Port=3050'
-      'Database=C:\Projetos\FDBs\BASE_DE_DADOS.FDB'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Left = 37
     Top = 11
@@ -30,7 +28,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 75
   end
   object FDQ_RobosFinanceiros_A: TFDQuery
-    Active = True
     Connection = FDC_RobosFinanceiros
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.GeneratorName = 'NOVO_ID_ANALISE'
@@ -67,7 +64,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     end
   end
   object FDQ_RobosFinanceiros_R: TFDQuery
-    Active = True
     IndexFieldNames = 'ID_ANALISE'
     MasterSource = DS_ANALISES
     MasterFields = 'ID_ANALISE'
@@ -89,7 +85,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
         DataType = ftInteger
         ParamType = ptInput
         Size = 4
-        Value = Null
+        Value = 1
       end>
     object FDQ_RobosFinanceiros_RID_ROBO: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -107,7 +103,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     end
   end
   object FDQ_RobosFinanceiros_S: TFDQuery
-    Active = True
     IndexFieldNames = 'ID_ROBO'
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
@@ -129,7 +124,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
         DataType = ftInteger
         ParamType = ptInput
         Size = 4
-        Value = Null
+        Value = 1
       end>
     object FDQ_RobosFinanceiros_SID_SETUP: TIntegerField
       AutoGenerateValue = arAutoInc
