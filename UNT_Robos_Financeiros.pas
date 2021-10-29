@@ -242,7 +242,7 @@ begin
 {$region 'Preenchendo variaveis com dados da Planilha'}
     vTituloDaAnalise :=     RangeMatrix[2,1];
     vDescricaoDoPeriodo :=  RangeMatrix[6,4];
-    vNomeDoRobo :=          RangeMatrix[4,4];
+    vNomeDoRobo :=          RangeMatrix[4,4];           // linha x coluna
     vNomeDoSetup :=         RangeMatrix[5,4];
     vLucroBruto :=          RangeMatrix[611,4];
     vLucroLiquido :=        RangeMatrix[610,4];

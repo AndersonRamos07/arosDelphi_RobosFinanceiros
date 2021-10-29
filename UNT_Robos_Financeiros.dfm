@@ -1,7 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 200
-  Top = 32
-  Align = alClient
+  Left = 162
+  Top = 175
   Caption = 'Robos Financeiros'
   ClientHeight = 670
   ClientWidth = 941
@@ -12,6 +11,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object PC_Principal: TPageControl
