@@ -208,9 +208,9 @@ var
    vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial : String;
    vNomeDoRobo : String;
    vNomeDoSetup, vMagic: String;
-   vLucroBruto, vLucroLiquido, vPerdaBruta, vPayOff, vFatorLucro, vFatorRecuperacao : Double;
-   vSharpe, vCorrelacaoLR, vDDFinanceiro, vCalmaRR, vCagr, vResultado : Double;
-   vIndiceLXP, vMediaLucro, vMediaPrejuizo, vRelacaoMLXMP : Double;
+   vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
+   vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
+   vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo : Double;
    ClickedOK : Boolean;
 begin
 
@@ -245,20 +245,16 @@ begin
     vNomeDoSetup :=         RangeMatrix[5,4];
     vLucroBruto :=          RangeMatrix[611,4];
     vLucroLiquido :=        RangeMatrix[610,4];
-    vPerdaBruta :=          RangeMatrix[612,4];
+    //vPerdaBruta :=          RangeMatrix[612,4];
     vPayOff :=              RangeMatrix[614,8];
     vFatorLucro :=          RangeMatrix[614,4];
     vFatorRecuperacao :=    RangeMatrix[615,4];
     vSharpe :=              RangeMatrix[615,8];
     vCorrelacaoLR :=        RangeMatrix[616,8];
     vDDFinanceiro :=        7; //RangeMatrix[5,4];
-    vCalmaRR :=             7; //RangeMatrix[5,4];
     vCagr :=                7; //RangeMatrix[5,4];
-    vResultado :=           7; //RangeMatrix[5,4];
-    vIndiceLXP :=           7; //RangeMatrix[5,4];
     vMediaLucro :=          7; //RangeMatrix[5,4];
     vMediaPrejuizo :=       7; //RangeMatrix[5,4];
-    vRelacaoMLXMP :=        7; //RangeMatrix[5,4];
 
 {$endregion}
 
@@ -336,7 +332,8 @@ begin
          SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
          SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
 
-         ParamByName('ID_SETUP').Value :=  GeneratorIncrementado('NOVO_ID_SETUP');
+         vID_Setup := GeneratorIncrementado('NOVO_ID_SETUP');
+         ParamByName('ID_SETUP').Value := vID_Setup;
          ParamByName('ID_ROBO').Value := vID_Robo;
          ParamByName('NOME_DO_SETUP').Value := vNomeDoSetup;
          ParamByName('MAGIC').Value := vMagic;

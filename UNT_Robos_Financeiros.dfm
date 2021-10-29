@@ -1,9 +1,9 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 91
-  Top = 206
+  Left = 194
+  Top = 37
   Align = alClient
   Caption = 'Robos Financeiros'
-  ClientHeight = 645
+  ClientHeight = 670
   ClientWidth = 941
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -65,7 +65,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Analise_Lista
+        ActivePage = TS_Detalhes
         Align = alClient
         TabOrder = 1
         object TS_Analise_Lista: TTabSheet
@@ -202,6 +202,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 121
             Height = 21
             DataField = 'SALDO_INICIAL'
+            DataSource = DM_Robos_Financeiros.DS_ANALISES
             TabOrder = 0
           end
           object DBE_PERIODO_EM_ANOS: TDBEdit
@@ -210,6 +211,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 121
             Height = 21
             DataField = 'PERIODO_EM_ANOS'
+            DataSource = DM_Robos_Financeiros.DS_ANALISES
             TabOrder = 1
           end
           object DBE_ID_ANALISE: TDBEdit
@@ -218,6 +220,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 91
             Height = 21
             DataField = 'ID_ANALISE'
+            DataSource = DM_Robos_Financeiros.DS_ANALISES
             Enabled = False
             ReadOnly = True
             TabOrder = 2
@@ -228,6 +231,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 276
             Height = 21
             DataField = 'TITULO_DA_ANALISE'
+            DataSource = DM_Robos_Financeiros.DS_ANALISES
             TabOrder = 3
           end
           object DBE_DESCRICAO: TDBEdit
@@ -236,6 +240,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 334
             Height = 21
             DataField = 'DESCRICAO_DO_PERIODO'
+            DataSource = DM_Robos_Financeiros.DS_ANALISES
             TabOrder = 4
           end
         end
@@ -247,12 +252,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 120
         TabOrder = 2
         Visible = False
-        ColWidths = (
-          64
-          64
-          64
-          64
-          64)
       end
     end
     object Robo: TTabSheet
@@ -312,6 +311,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 91
           Height = 21
           DataField = 'ID_ANALISE'
+          DataSource = DM_Robos_Financeiros.DS_ANALISES
           Enabled = False
           ReadOnly = True
           TabOrder = 1
@@ -322,6 +322,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 276
           Height = 21
           DataField = 'TITULO_DA_ANALISE'
+          DataSource = DM_Robos_Financeiros.DS_ANALISES
           Enabled = False
           ReadOnly = True
           TabOrder = 2
@@ -332,7 +333,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 933
         Height = 548
-        ActivePage = TS_Robo_Lista
+        ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
         object TS_Robo_Lista: TTabSheet
@@ -429,6 +430,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 21
             Ctl3D = True
             DataField = 'ID_ROBO'
+            DataSource = DM_Robos_Financeiros.DS_ROBOS
             Enabled = False
             ParentCtl3D = False
             TabOrder = 0
@@ -439,6 +441,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 121
             Height = 21
             DataField = 'ID_ANALISE'
+            DataSource = DM_Robos_Financeiros.DS_ROBOS
             Enabled = False
             TabOrder = 1
           end
@@ -448,6 +451,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Width = 310
             Height = 21
             DataField = 'NOME_DO_ROBO'
+            DataSource = DM_Robos_Financeiros.DS_ROBOS
             TabOrder = 2
           end
         end
@@ -537,6 +541,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Height = 21
           Ctl3D = True
           DataField = 'ID_ROBO'
+          DataSource = DM_Robos_Financeiros.DS_ROBOS
           Enabled = False
           ParentCtl3D = False
           ReadOnly = True
@@ -548,6 +553,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 276
           Height = 21
           DataField = 'NOME_DO_ROBO'
+          DataSource = DM_Robos_Financeiros.DS_ROBOS
           Enabled = False
           ReadOnly = True
           TabOrder = 2
@@ -558,6 +564,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 91
           Height = 21
           DataField = 'ID_ANALISE'
+          DataSource = DM_Robos_Financeiros.DS_ANALISES
           Enabled = False
           ReadOnly = True
           TabOrder = 3
@@ -568,6 +575,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 276
           Height = 21
           DataField = 'TITULO_DA_ANALISE'
+          DataSource = DM_Robos_Financeiros.DS_ANALISES
           Enabled = False
           ReadOnly = True
           TabOrder = 4
@@ -617,16 +625,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'ID_ROBO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'ID_ANALISE'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'PERIODO_EM_ANOS'
                 Visible = True
               end
               item
@@ -1032,9 +1030,16 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Top = 230
             Width = 91
             Height = 21
+            Color = clGradientInactiveCaption
             DataField = 'PERDA_BRUTA'
             DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
             TabOrder = 13
           end
           object DBE_PAY_OFF: TDBEdit
@@ -1096,9 +1101,16 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Top = 410
             Width = 91
             Height = 21
+            Color = clGradientInactiveCaption
             DataField = 'CALMAR_R'
             DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
             TabOrder = 15
           end
           object DBE_RESULTADO: TDBEdit
@@ -1106,9 +1118,16 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Top = 410
             Width = 91
             Height = 21
+            Color = clGradientInactiveCaption
             DataField = 'RESULTADO'
             DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
             TabOrder = 16
           end
           object DBE_INDICE_L_X_P: TDBEdit
@@ -1116,9 +1135,16 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Top = 410
             Width = 91
             Height = 21
+            Color = clGradientInactiveCaption
             DataField = 'INDICE_L_X_P'
             DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
             TabOrder = 17
           end
           object DBE_MEDIA_LUCRO: TDBEdit
@@ -1144,9 +1170,16 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Top = 480
             Width = 91
             Height = 21
+            Color = clGradientInactiveCaption
             DataField = 'RELACAO_MEDL_X_MEDP'
             DataSource = DM_Robos_Financeiros.DS_SETUPS
             Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
             TabOrder = 18
           end
         end
@@ -1162,7 +1195,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 96
   end
   object OD_Importar_BD: TOpenDialog
-    Left = 172
-    Top = 576
+    Left = 364
+    Top = 65520
   end
 end
