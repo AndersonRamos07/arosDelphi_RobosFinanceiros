@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 162
-  Top = 175
+  Left = 265
+  Top = 239
   Caption = 'Robos Financeiros'
   ClientHeight = 670
   ClientWidth = 941
@@ -11,7 +11,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object PC_Principal: TPageControl
@@ -19,7 +18,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 941
     Height = 705
-    ActivePage = Robo
+    ActivePage = TS_Analise
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -251,7 +250,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Width = 320
         Height = 120
         TabOrder = 2
-        Visible = False
       end
     end
     object Robo: TTabSheet
@@ -326,6 +324,15 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Enabled = False
           ReadOnly = True
           TabOrder = 2
+        end
+        object B_DeletarDados: TButton
+          Left = 330
+          Top = 80
+          Width = 91
+          Height = 25
+          Caption = 'Deletar dados'
+          TabOrder = 3
+          OnClick = B_DeletarDadosClick
         end
       end
       object PC_Robo: TPageControl
@@ -635,56 +642,67 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'NOME_DO_SETUP'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_BRUTO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_LIQUIDO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PAY_OFF'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_RECUPERACAO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SHARPE'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CORRELACAO_LR'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DD_FINANCEIRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CALMAR_R'
+                Width = 64
                 Visible = True
               end
               item
@@ -695,26 +713,31 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'RESULTADO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INDICE_L_X_P'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_PREJUIZO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
+                Width = 64
                 Visible = True
               end>
           end

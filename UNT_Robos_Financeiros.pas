@@ -107,18 +107,22 @@ type
     OD_Importar_Planilha: TOpenDialog;
     SG_Importar_Planilha: TStringGrid;
     OD_Importar_BD: TOpenDialog;
+    B_DeletarDados: TButton;
     procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
     procedure SB_ImportaExcelClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure B_DeletarDadosClick(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
 
   public
     function GeneratorIncrementado(qGenerator:String) : Integer;
+    function ToString(Value: Variant): String;
+    function EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
 
   end;
 
@@ -138,6 +142,60 @@ uses DM_RobosFinanceiros,
 
 {$region 'Setando o primeiro imput do registro'}
 
+procedure TFRM_RobosFinanceiros.B_DeletarDadosClick(Sender: TObject);
+var
+   vQuery_E : TFDQuery;
+   //vID_Robo : Integer;
+   vID_AGORA : String;
+begin
+    // Deletando informações na Tabela SETUPS
+    try
+      begin
+        vID_AGORA := DBE_ID_ROBO.Text;
+          if MessageDlg('Deseja excluir todos os SETUPS de Robos com o ID: ' + vID_AGORA + '?',mtWarning, [mbYes,mbNo],0) = mrYes then
+            begin
+              vQuery_E := TFDQuery.Create(nil);
+
+              //with vQuery_E do
+              //begin
+              //   Close;
+              //   SQL.Clear;
+              //   Select count(*) as quantos from setups where id_robo=:id_asdfasdf');
+              //   Open;
+              //   minhavariavel := vQuery_E.FieldByname('Quantos').AsInteger;
+              //   Close;
+              //end;
+
+
+              with vQuery_E do
+              begin
+               Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+               Close;
+               SQL.Clear;
+               SQL.Add('DELETE FROM SETUPS WHERE ID_SETUP > 0 ');
+               SQL.Add('AND ID_ROBO = :ID_ROBO');
+
+               ParamByName('ID_ROBO').Value := vID_AGORA;
+
+               Prepare;
+               ExecSQL;
+              end;
+            end
+          else
+          begin
+            messageDLG('Os dados não serão excluídos...',mtError,[mbOK],0);
+            Abort;
+          end;
+      end;
+      finally
+        FreeAndNil(vQuery_E);
+        DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
+        DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+        showMessage('Foram excluídos os dados dos Setups');
+      end;
+end;
+
+
 procedure TFRM_RobosFinanceiros.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
 begin
   if Button in [nbInsert, nbEdit] then
@@ -154,6 +212,7 @@ begin
     PC_Robo.ActivePage := TS_Robo_Detalhes;
     DBE_NOME_DO_ROBO.SetFocus;
   end;
+
 end;
 
 procedure TFRM_RobosFinanceiros.DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
@@ -202,12 +261,12 @@ const
 var
    XLSAplicacao, AbaXLS : OLEVariant;
    RangeMatrix : Variant;
-   x, y, k, r : Integer;
+   X, Y, Col, Lin, I : Integer;
 
    vQuery_A, vQuery_R, vQuery_S : TFDQuery;
    vID_Analise, vID_Robo, vID_Setup : Integer;
    vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial : String;
-   vNomeDoRobo : String;
+   vNomeDoRobo , NOME_DA_ABA, itemDoExcel: String;
    vNomeDoSetup, vMagic: String;
    vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
    vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
@@ -215,34 +274,56 @@ var
    ClickedOK : Boolean;
 begin
 
-  vQuantosAnos := '';
-  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
-  vSaldoInicial := '';
-  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
+//  vQuantosAnos := '';
+//  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
+//  vSaldoInicial := '';
+//  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
 
    Result := False;
    XLSAplicacao := CreateOleObject('Excel.Application');
-
+   XLSAplicacao.Workbooks.Add(1);
    try
     XLSAplicacao.Visible := False;
     XLSAplicacao.Workbooks.Open(xFileXLS);
     XLSAplicacao.WorkSheets[1].Activate;
 
     AbaXLS := XLSAplicacao.Workbooks[ExtractFileName(xFileXLS)].WorkSheets[1];
-    AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate;
+    AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate; {True}
 
-    x := XLSAplicacao.ActiveCell.Row;
-    y := XLSAplicacao.ActiveCell.Column;
+    X := XLSAplicacao.ActiveCell.Row; {16}
+    Y := XLSAplicacao.ActiveCell.Column; {9}
 
-    XStringGrid.RowCount := x;
-    XStringGrid.ColCount := y;
+    XStringGrid.RowCount := X;
+    XStringGrid.ColCount := Y;
     // "RangeMatrix" é a planilha Excel em uma variável Delphi
+
     RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
 
-{$region 'Preenchendo variaveis com dados da Planilha'}
-    vTituloDaAnalise :=     RangeMatrix[2,1];
-    vDescricaoDoPeriodo :=  RangeMatrix[6,4];
-    vNomeDoRobo :=          RangeMatrix[4,4];           // linha x coluna
+{$region 'PARTE QUE ESTÁ FUNCIONANDO'}
+//    Col := 1;
+//    I := 0;
+//    repeat
+//      for Lin := 1 to X do
+//      begin
+//        XStringGrid.Cells[(Col), (Lin)] := RangeMatrix[ Lin , Col ]; { APENAS INCLUINDO OS VALORES NA GRID }
+//        itemDoExcel := ToString(RangeMatrix[ Lin , Col ]);
+//        if itemDoExcel = 'anderson' then
+//        begin
+//          NOME_DA_ABA := RangeMatrix[ Lin , Col ];
+//          Inc(I);
+//        end;
+//      end;
+//        Inc(Col, 1);
+//    until Col > Y;
+//    RangeMatrix := Unassigned;
+{$endregion}
+
+{$region 'ONDE SERÁ REALIZADA AS ATRIBUIÇÕES PARA AS VARIÁVEIS'}
+   {
+    vLucroLiquido :=          EncontrarValorNaTabela('Lucro Líquido Total:', RangeMatrix, X, Y);
+    vTituloDaAnalise :=       RangeMatrix[2,1];
+    vDescricaoDoPeriodo :=    EncontrarValorNaTabela('Período:', RangeMatrix, X, Y);  //RangeMatrix[6,4];
+    vNomeDoRobo :=            EncontrarValorNaTabela('Expert Advisor (Robô):', RangeMatrix, X, Y); //RangeMatrix[4,4];           // linha x coluna
     vNomeDoSetup :=         RangeMatrix[5,4];
     vLucroBruto :=          RangeMatrix[611,4];
     vLucroLiquido :=        RangeMatrix[610,4];
@@ -252,134 +333,200 @@ begin
     vFatorRecuperacao :=    RangeMatrix[615,4];
     vSharpe :=              RangeMatrix[615,8];
     vCorrelacaoLR :=        RangeMatrix[616,8];
-    vDDFinanceiro :=        7; //RangeMatrix[5,4];
-    vCagr :=                7; //RangeMatrix[5,4];
-    vMediaLucro :=          7; //RangeMatrix[5,4];
-    vMediaPrejuizo :=       7; //RangeMatrix[5,4];
-
+     }
 {$endregion}
 
-{$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
-    // Inserindo informações na Tabela ANALISES
-    try
-      begin
-        vQuery_A := TFDQuery.Create(nil);
-        with vQuery_A do
-        begin
-         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-         Close;
-         SQL.Clear;
-         SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
-         SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
+  EncontrarValorNaTabela('anderson', RangeMatrix, X , Y);
 
-         vID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
-         ParamByName('ID_ANALISE').Value := vID_Analise;
-         ParamByName('TITULO_DA_ANALISE').Value := vTituloDaAnalise;
-         ParamByName('DESCRICAO_DO_PERIODO').Value := vDescricaoDoPeriodo;
-         ParamByName('PERIODO_EM_ANOS').Value := StrToInt(vQuantosAnos);
-         ParamByName('SALDO_INICIAL').Value := StrToFloat(vSaldoInicial);
-
-         Prepare;
-         ExecSQL;
-        end;
-      end
     finally
-      FreeAndNil(vQuery_A);
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Close;
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Open;
-    end;
-
-    // Inserindo informações na Tabela ROBOS
-    try
-      begin
-        vQuery_R := TFDQuery.Create(nil);
-        with vQuery_R do
-        begin
-         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-         Close;
-         SQL.Clear;
-         SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
-         SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
-
-         vID_Robo := GeneratorIncrementado('NOVO_ID_ROBO');
-         ParamByName('ID_ROBO').Value := vID_Robo;
-         ParamByName('ID_ANALISE').Value := vID_Analise;
-         ParamByName('NOME_DO_ROBO').Value := vNomeDoRobo;
-
-         Prepare;
-         ExecSQL;
-        end;
-      end
-    finally
-      FreeAndNil(vQuery_R);
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Close;
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Open;
-    end;
-
-    // Inserindo informações na Tabela SETUPS
-    try
-      begin
-        vQuery_S := TFDQuery.Create(nil);
-        with vQuery_S do
-        begin
-         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-         Close;
-         SQL.Clear;
-         SQL.Add('INSERT INTO SETUPS');
-         SQL.Add(' (ID_SETUP, ID_ROBO, MAGIC, NOME_DO_SETUP, LUCRO_BRUTO, LUCRO_LIQUIDO,'); //PERDA_BRUTA
-         SQL.Add(' PAY_OFF, FATOR_LUCRO, FATOR_RECUPERACAO, SHARPE, CORRELACAO_LR, DD_FINANCEIRO,');
-         SQL.Add(' CAGR, MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P,, RELACAO_MEDL_X_MEDP
-         SQL.Add('VALUES (:ID_SETUP, :ID_ROBO, :MAGIC, :NOME_DO_SETUP, :LUCRO_BRUTO, :LUCRO_LIQUIDO, '); //, :PERDA_BRUTA
-         SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
-         SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
-
-         vID_Setup := GeneratorIncrementado('NOVO_ID_SETUP');
-         ParamByName('ID_SETUP').Value := vID_Setup;
-         ParamByName('ID_ROBO').Value := vID_Robo;
-         ParamByName('NOME_DO_SETUP').Value := vNomeDoSetup;
-         ParamByName('MAGIC').Value := vMagic;
-         ParamByName('LUCRO_BRUTO').Value := vLucroBruto;
-         ParamByName('LUCRO_LIQUIDO').Value := vLucroLiquido;
-         //ParamByName('PERDA_BRUTA').Value := vPerdaBruta;   //aqui na Tabela BD está contido um cálculo, impossibilitando a sobescrita
-         ParamByName('PAY_OFF').Value := vPayOff;
-         ParamByName('FATOR_LUCRO').Value := vFatorLucro;
-         ParamByName('FATOR_RECUPERACAO').Value := vFatorRecuperacao;
-         ParamByName('SHARPE').Value := vSharpe;
-         ParamByName('CORRELACAO_LR').Value := vCorrelacaoLR;
-         ParamByName('DD_FINANCEIRO').Value := vDDFinanceiro;
-         //ParamByName('CALMAR_R').Value := vCalmaRR;
-         ParamByName('CAGR').Value := vCagr;
-         //ParamByName('RESULTADO').Value := vResultado;
-         //ParamByName('INDICE_L_X_P').Value := vIndiceLXP;
-         ParamByName('MEDIA_LUCRO').Value := vMediaLucro;
-         ParamByName('MEDIA_PREJUIZO').Value := vMediaPrejuizo;
-         //ParamByName('RELACAO_MEDL_X_MEDP').Value := vRelacaoMLXMP;
-
-         Prepare;
-         ExecSQL;
-        end;
-      end
-    finally
-      FreeAndNil(vQuery_S);
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
-      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
-    end;
-    RangeMatrix := Unassigned;
-    finally
-      showMessage('Registrado com sucesso!');
-   end;
-      if not VarIsEmpty(XLSAplicacao) then
+      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
       begin
         XLSAplicacao.Quit;
         XLSAplicacao := Unassigned;
         AbaXLS := Unassigned;
         Result := True;
       end;
-{$endregion}
+   end;
 
-   {$endregion}
 end;
 
+{$region 'Função para buscar valores na tabela'}
+function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
+  var
+  Col, Lin, I, J : Integer;
+  Resultado, Resposta : String;
+  begin
+    Col := 1;
+    Lin := 1;
+    I := 0;
+    repeat
+      for Lin := 1 to Linha do
+      begin
+        Resultado := ToString(Tabela[ Lin , Col ]);
+        if Resultado = Valor then
+        begin
+          {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
+          for J := 1 to Coluna do
+           begin
+            if Tabela[Lin, (Col + J)] <> '' then
+            begin
+              Resposta := Tabela[Lin, (Col + J)];
+              showMessage(IntToStr(Lin) + IntToStr(Col));
+            end;
+           end;
+          {$endregion}
+          //Resposta := Tabela[ Lin , Col ];
+          //Inc(I);
+        end;
+      end;
+        Inc(Col, 1);
+    until Col > Coluna;
+    Tabela := Unassigned;
+    showMessage('Foram exatos ' + IntToStr(I) + ' ' + Valor + '(s)' + ' que apareceram');
+    showMessage(Resposta);
+  end;
+{$endregion}
+//
+//{$region 'Preenchendo variaveis com dados da Planilha'}
+//    vTituloDaAnalise :=     RangeMatrix[2,1];
+//    vDescricaoDoPeriodo :=  RangeMatrix[6,4];
+//    vNomeDoRobo :=          RangeMatrix[4,4];           // linha x coluna
+//    vNomeDoSetup :=         RangeMatrix[5,4];
+//    vLucroBruto :=          RangeMatrix[611,4];
+//    vLucroLiquido :=        RangeMatrix[610,4];
+//    //vPerdaBruta :=          RangeMatrix[612,4];
+//    vPayOff :=              RangeMatrix[614,8];
+//    vFatorLucro :=          RangeMatrix[614,4];
+//    vFatorRecuperacao :=    RangeMatrix[615,4];
+//    vSharpe :=              RangeMatrix[615,8];
+//    vCorrelacaoLR :=        RangeMatrix[616,8];
+//    vDDFinanceiro :=        7; //RangeMatrix[5,4];
+//    vCagr :=                7; //RangeMatrix[5,4];
+//    vMediaLucro :=          7; //RangeMatrix[5,4];
+//    vMediaPrejuizo :=       7; //RangeMatrix[5,4];
+//
+//{$endregion}
+//
+//{$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
+//    // Inserindo informações na Tabela ANALISES
+//    try
+//      begin
+//        vQuery_A := TFDQuery.Create(nil);
+//        with vQuery_A do
+//        begin
+//         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+//         Close;
+//         SQL.Clear;
+//         SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
+//         SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
+//
+//         vID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
+//         ParamByName('ID_ANALISE').Value := vID_Analise;
+//         ParamByName('TITULO_DA_ANALISE').Value := vTituloDaAnalise;
+//         ParamByName('DESCRICAO_DO_PERIODO').Value := vDescricaoDoPeriodo;
+//         ParamByName('PERIODO_EM_ANOS').Value := StrToInt(vQuantosAnos);
+//         ParamByName('SALDO_INICIAL').Value := StrToFloat(vSaldoInicial);
+//
+//         Prepare;
+//         ExecSQL;
+//        end;
+//      end
+//    finally
+//      FreeAndNil(vQuery_A);
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Close;
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Open;
+//    end;
+//
+//    // Inserindo informações na Tabela ROBOS
+//    try
+//      begin
+//        vQuery_R := TFDQuery.Create(nil);
+//        with vQuery_R do
+//        begin
+//         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+//         Close;
+//         SQL.Clear;
+//         SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
+//         SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
+//
+//         vID_Robo := GeneratorIncrementado('NOVO_ID_ROBO');
+//         ParamByName('ID_ROBO').Value := vID_Robo;
+//         ParamByName('ID_ANALISE').Value := vID_Analise;
+//         ParamByName('NOME_DO_ROBO').Value := vNomeDoRobo;
+//
+//         Prepare;
+//         ExecSQL;
+//        end;
+//      end
+//    finally
+//      FreeAndNil(vQuery_R);
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Close;
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Open;
+//    end;
+//
+//    // Inserindo informações na Tabela SETUPS
+//    try
+//      begin
+//        vQuery_S := TFDQuery.Create(nil);
+//        with vQuery_S do
+//        begin
+//         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+//         Close;
+//         SQL.Clear;
+//         SQL.Add('INSERT INTO SETUPS');
+//         SQL.Add(' (ID_SETUP, ID_ROBO, MAGIC, NOME_DO_SETUP, LUCRO_BRUTO, LUCRO_LIQUIDO,'); //PERDA_BRUTA
+//         SQL.Add(' PAY_OFF, FATOR_LUCRO, FATOR_RECUPERACAO, SHARPE, CORRELACAO_LR, DD_FINANCEIRO,');
+//         SQL.Add(' CAGR, MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P,, RELACAO_MEDL_X_MEDP
+//         SQL.Add('VALUES (:ID_SETUP, :ID_ROBO, :MAGIC, :NOME_DO_SETUP, :LUCRO_BRUTO, :LUCRO_LIQUIDO, '); //, :PERDA_BRUTA
+//         SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
+//         SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
+//
+//         vID_Setup := GeneratorIncrementado('NOVO_ID_SETUP');
+//         ParamByName('ID_SETUP').Value := vID_Setup;
+//         ParamByName('ID_ROBO').Value := vID_Robo;
+//         ParamByName('NOME_DO_SETUP').Value := vNomeDoSetup;
+//         ParamByName('MAGIC').Value := vMagic;
+//         ParamByName('LUCRO_BRUTO').Value := vLucroBruto;
+//         ParamByName('LUCRO_LIQUIDO').Value := vLucroLiquido;
+//         //ParamByName('PERDA_BRUTA').Value := vPerdaBruta;   //aqui na Tabela BD está contido um cálculo, impossibilitando a sobescrita
+//         ParamByName('PAY_OFF').Value := vPayOff;
+//         ParamByName('FATOR_LUCRO').Value := vFatorLucro;
+//         ParamByName('FATOR_RECUPERACAO').Value := vFatorRecuperacao;
+//         ParamByName('SHARPE').Value := vSharpe;
+//         ParamByName('CORRELACAO_LR').Value := vCorrelacaoLR;
+//         ParamByName('DD_FINANCEIRO').Value := vDDFinanceiro;
+//         //ParamByName('CALMAR_R').Value := vCalmaRR;
+//         ParamByName('CAGR').Value := vCagr;
+//         //ParamByName('RESULTADO').Value := vResultado;
+//         //ParamByName('INDICE_L_X_P').Value := vIndiceLXP;
+//         ParamByName('MEDIA_LUCRO').Value := vMediaLucro;
+//         ParamByName('MEDIA_PREJUIZO').Value := vMediaPrejuizo;
+//         //ParamByName('RELACAO_MEDL_X_MEDP').Value := vRelacaoMLXMP;
+//
+//         Prepare;
+//         ExecSQL;
+//        end;
+//      end
+//    finally
+//      FreeAndNil(vQuery_S);
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
+//      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+//    end;
+//    RangeMatrix := Unassigned;
+//    finally
+//      showMessage('Registrado com sucesso!');
+//   end;
+//      if not VarIsEmpty(XLSAplicacao) then
+//      begin
+//        XLSAplicacao.Quit;
+//        XLSAplicacao := Unassigned;
+//        AbaXLS := Unassigned;
+//        Result := True;
+//      end;
+//{$endregion}
+//
+//   {$endregion}
+//end;
 {$region 'function demonstração'}
 {
 function inserir em analise(valor, id, )
@@ -429,6 +576,23 @@ begin
       Result := Fields[0].AsInteger;
    end;
    vMinhaQuery.Free;
+end;
+{$endregion}
+
+{$region 'Função ToString : Converte Variaveis em String'}
+function TFRM_RobosFinanceiros.ToString(Value: Variant): String;
+begin
+  case TVarData(Value).VType of
+    varSmallInt,
+    varInteger   : Result := IntToStr(Value);
+    varSingle,
+    varDouble,
+    varCurrency  : Result := FloatToStr(Value);
+    varDate      : Result := FormatDateTime('dd/mm/yyyy', Value);
+    varBoolean   : if Value then Result := Value.AsString else Result := Value.AsString;
+    varString    : Result := Value;
+    else           Result := Value;
+  end;
 end;
 {$endregion}
 
