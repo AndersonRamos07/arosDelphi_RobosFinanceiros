@@ -7,7 +7,14 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
   FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Comp.UI,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
-  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
+  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
+  // uses na implementation
+  DM_RobosFinanceiros,
+  ComObj,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase;
 
 type
   TFRM_RobosFinanceiros = class(TForm)
@@ -114,6 +121,9 @@ type
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
     procedure SB_ImportaExcelClick(Sender: TObject);
     procedure B_DeletarDadosClick(Sender: TObject);
+    function SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
+    function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
+    function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -130,15 +140,7 @@ var
   FRM_RobosFinanceiros: TFRM_RobosFinanceiros;
 
 implementation
-
 {$R *.dfm}
-
-uses DM_RobosFinanceiros,
-  ComObj,
-  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
-  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
-  FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase;
 
 {$region 'Setando o primeiro imput do registro'}
 
@@ -195,7 +197,6 @@ begin
       end;
 end;
 
-
 procedure TFRM_RobosFinanceiros.DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
 begin
   if Button in [nbInsert, nbEdit] then
@@ -223,7 +224,6 @@ begin
     DBE_NOME_DO_SETUP.SetFocus;
   end;
 end;
-{$endregion}
 
 {$region 'Mostrando a Grid ao mudar a Page'}
 procedure TFRM_RobosFinanceiros.PC_PrincipalChange(Sender: TObject);
@@ -338,8 +338,272 @@ begin
                             +'** : Estão atribuidos com valores inseridos;');
 {$endregion}
 
+    {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
 
-    {$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
+    vID_Analise := SalvarAnaliseNoBanco(vQuery_A, vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial);
+
+    vID_Robo := SalvarRoboNoBanco(vQuery_R, vID_Analise, vNomeDoRobo);
+
+    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo);
+
+    {$endregion}
+
+    RangeMatrix := Unassigned;
+
+      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
+      begin
+        XLSAplicacao.Quit;
+        XLSAplicacao := Unassigned;
+        AbaXLS := Unassigned;
+        Result := True;
+      end;
+      if (tabA = True) AND (tabR = True) AND (tabS = True) then
+      showMessage('Foram registrados com sucesso!');
+      finally
+   end;
+end;
+   {$endregion}
+
+{$region 'Função para buscar valores na tabela'}
+function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : Double;
+  var
+  Col, Lin, I, J : Integer;
+  Resultado : String;
+  Resposta : Double;
+  begin
+    Col := 1;
+    Lin := 1;
+    I := 0;
+    repeat
+      for Lin := 1 to Linha do
+      begin
+        Resultado := VarToStr(Tabela[ Lin , Col ]);
+        if Resultado = Valor then
+        begin
+          {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
+//          for J := 1 to Coluna do
+//           begin
+//            if (Tabela[Lin, (Col + J)] > 0) then
+//            begin
+//              Resposta := Tabela[ Lin, (Col + J)];
+//              Exit;
+//            end;
+//           end;
+           J := 1;
+           while (VarToStr(Tabela[ Lin, (Col + J)]) = '') do
+           begin
+             Inc(J, 1);
+           end;
+           Resposta := Tabela[ Lin, (Col + J)];
+          {$endregion}
+        end;
+      end;
+        Inc(Col, 1);
+    until Col > Coluna;
+    Tabela := Unassigned;
+    Result := Resposta;
+  end;
+{$endregion}
+
+{$region 'Função para buscar descricoes na tabela'}
+function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
+  var
+  Col, Lin, I, J : Integer;
+  Resultado, Resposta : String;
+  begin
+    Col := 1;
+    Lin := 1;
+    I := 0;
+    repeat
+      for Lin := 1 to Linha do
+      begin
+        Resultado := ToString(Tabela[ Lin , Col ]);
+        if Resultado = Valor then
+        begin
+          {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
+              {$region 'Ajuda do Fernando'}
+           J := 1;
+           while Tabela[ Lin, (Col + J)] = '' do
+           begin
+             Inc(J, 1);
+           end;
+           Resposta := Tabela[ Lin, (Col + J)];
+               {$endregion}
+          {$endregion}
+        end;
+      end;
+        Inc(Col, 1);
+    until Col > Coluna;
+    Tabela := Unassigned;
+    if Resposta <> '' then
+      begin
+      Result := Resposta;
+      end
+    else
+    begin
+      showMessage('Não foi encontrado o valor correto!');
+      Abort;
+    end;
+
+  end;
+{$endregion}
+
+{$region 'Função Importada "GeneratorIncrementado()"'}
+function TFRM_RobosFinanceiros.GeneratorIncrementado(qGenerator:String) : Integer;
+var
+   vMinhaQuery : TFDQuery;
+begin
+   vMinhaQuery := TFDQuery.Create(Application);
+   vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+   Result := 0;
+   with vMinhaQuery, SQL do
+   begin
+      Close;
+      Clear;
+      Add('SELECT GEN_ID(');
+      Add(qGenerator);
+      Add(',1) FROM RDB$DATABASE');
+      Open;
+      Result := Fields[0].AsInteger;
+   end;
+   vMinhaQuery.Free;
+end;
+{$endregion}
+
+{$region 'Função ToString : Converte Variaveis em String'}
+function TFRM_RobosFinanceiros.ToString(Value: Variant): String;
+begin
+  case TVarData(Value).VType of
+    varSmallInt,
+    varInteger   : Result := IntToStr(Value);
+    varSingle,
+    varDouble,
+    varCurrency  : Result := FloatToStr(Value);
+    varDate      : Result := FormatDateTime('dd/mm/yyyy', Value);
+    varBoolean   : if Value then Result := Value.AsString else Result := Value.AsString;
+    varString    : Result := Value;
+    else           Result := Value;
+  end;
+end;
+{$endregion}
+
+function TFRM_RobosFinanceiros.SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
+ var
+  rID_Analise : Integer;
+begin
+// Inserindo informações na Tabela ANALISES
+    try
+      begin
+        aQuery := TFDQuery.Create(nil);
+        with aQuery do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
+         SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
+
+         rID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
+         ParamByName('ID_ANALISE').Value := rID_ANALISE;
+         ParamByName('TITULO_DA_ANALISE').Value := pTituloDaAnalise;
+         ParamByName('DESCRICAO_DO_PERIODO').Value := pDescricaoDoPeriodo;
+         ParamByName('PERIODO_EM_ANOS').Value := StrToInt(pQuantosAnos);
+         ParamByName('SALDO_INICIAL').Value := StrToFloat(pSaldoInicial);
+
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      FreeAndNil(aQuery);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_A.Open;
+      Result := rID_Analise;
+    end;
+end;
+
+function TFRM_RobosFinanceiros.SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
+var
+  rID_Robo : Integer;
+begin
+// Inserindo informações na Tabela ROBOS
+    try
+      begin
+        rQuery := TFDQuery.Create(nil);
+        with rQuery do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
+         SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
+
+         rID_Robo := GeneratorIncrementado('NOVO_ID_ROBO');
+         ParamByName('ID_ROBO').Value := rID_Robo;
+         ParamByName('ID_ANALISE').Value := pID_Analise;
+         ParamByName('NOME_DO_ROBO').Value := pNomeDoRobo;
+
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      FreeAndNil(rQuery);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.Open;
+      Result := rID_Robo;
+    end;
+end;
+
+function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+begin
+// Inserindo informações na Tabela SETUPS
+    try
+      begin
+        sQuery := TFDQuery.Create(nil);
+        with sQuery do
+        begin
+         Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+         Close;
+         SQL.Clear;
+         SQL.Add('INSERT INTO SETUPS');
+         SQL.Add(' (ID_SETUP, ID_ROBO, MAGIC, NOME_DO_SETUP, LUCRO_BRUTO, LUCRO_LIQUIDO,'); //PERDA_BRUTA
+         SQL.Add(' PAY_OFF, FATOR_LUCRO, FATOR_RECUPERACAO, SHARPE, CORRELACAO_LR, DD_FINANCEIRO,');
+         SQL.Add(' CAGR, MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P,, RELACAO_MEDL_X_MEDP
+         SQL.Add('VALUES (:ID_SETUP, :ID_ROBO, :MAGIC, :NOME_DO_SETUP, :LUCRO_BRUTO, :LUCRO_LIQUIDO, '); //, :PERDA_BRUTA
+         SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
+         SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
+
+         ParamByName('ID_SETUP').Value := GeneratorIncrementado('NOVO_ID_SETUP');
+         ParamByName('ID_ROBO').Value := pID_Robo;
+         ParamByName('NOME_DO_SETUP').Value := pNomeDoSetup;
+         ParamByName('MAGIC').Value := pMagic;
+         ParamByName('LUCRO_BRUTO').Value := pLucroBruto;
+         ParamByName('LUCRO_LIQUIDO').Value := pLucroLiquido;
+         ParamByName('PAY_OFF').Value := pPayOff;
+         ParamByName('FATOR_LUCRO').Value := pFatorLucro;
+         ParamByName('FATOR_RECUPERACAO').Value := pFatorRecuperacao;
+         ParamByName('SHARPE').Value := pSharpe;
+         ParamByName('CORRELACAO_LR').Value := pCorrelacaoLR;
+         ParamByName('DD_FINANCEIRO').Value := pDDFinanceiro;
+         ParamByName('CAGR').Value := pCagr;
+         ParamByName('MEDIA_LUCRO').Value := pMediaLucro;
+         ParamByName('MEDIA_PREJUIZO').Value := pMediaPrejuizo;
+
+         Prepare;
+         ExecSQL;
+        end;
+      end
+    finally
+      FreeAndNil(sQuery);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+    end;
+end;
+
+end.
+//
+{
     // Inserindo informações na Tabela ANALISES
     try
       begin
@@ -447,98 +711,8 @@ begin
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
     end;
-    RangeMatrix := Unassigned;
-    finally
-      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
-      begin
-        XLSAplicacao.Quit;
-        XLSAplicacao := Unassigned;
-        AbaXLS := Unassigned;
-        Result := True;
-      end;
-      if (tabA = True) AND (tabR = True) AND (tabS = True) then
-      showMessage('Foram registrados com sucesso!');
-   end;
-end;
-   {$endregion}
-
-
-{$region 'Função para buscar valores na tabela'}
-function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : Double;
-  var
-  Col, Lin, I, J : Integer;
-  Resultado : String;
-  Resposta : Double;
-  begin
-    Col := 1;
-    Lin := 1;
-    I := 0;
-    repeat
-      for Lin := 1 to Linha do
-      begin
-        Resultado := VarToStr(Tabela[ Lin , Col ]);
-        if Resultado = Valor then
-        begin
-          {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
-//          for J := 1 to Coluna do
-//           begin
-//            if (Tabela[Lin, (Col + J)] > 0) then
-//            begin
-//              Resposta := Tabela[ Lin, (Col + J)];
-//              Exit;
-//            end;
-//           end;
-           J := 1;
-           while (VarToStr(Tabela[ Lin, (Col + J)]) = '') do
-           begin
-             Inc(J, 1);
-           end;
-           Resposta := Tabela[ Lin, (Col + J)];
-          {$endregion}
-        end;
-      end;
-        Inc(Col, 1);
-    until Col > Coluna;
-    Tabela := Unassigned;
-    Result := Resposta;
-  end;
-{$endregion}
-
-{$region 'Função para buscar descricoes na tabela'}
-function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
-  var
-  Col, Lin, I, J : Integer;
-  Resultado, Resposta : String;
-  begin
-    Col := 1;
-    Lin := 1;
-    I := 0;
-    repeat
-      for Lin := 1 to Linha do
-      begin
-        Resultado := ToString(Tabela[ Lin , Col ]);
-        if Resultado = Valor then
-        begin
-          {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
-              {$region 'Ajuda do Fernando'}
-           J := 1;
-           while Tabela[ Lin, (Col + J)] = '' do
-           begin
-             Inc(J, 1);
-           end;
-           Resposta := Tabela[ Lin, (Col + J)];
-               {$endregion}
-          {$endregion}
-        end;
-      end;
-        Inc(Col, 1);
-    until Col > Coluna;
-    Tabela := Unassigned;
-    Result := Resposta;
-  end;
-{$endregion}
-
-{$region 'Preenchendo variaveis com dados da Planilha'}
+}
+{
 //
 //    vTituloDaAnalise :=     RangeMatrix[2,1];
 //    vDescricaoDoPeriodo :=  RangeMatrix[6,4];
@@ -557,47 +731,5 @@ function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela
 //    vMediaLucro :=          7; //RangeMatrix[5,4];
 //    vMediaPrejuizo :=       7; //RangeMatrix[5,4];
 
-{$endregion}
+}
 //
-
-{$region 'Função Importada "GeneratorIncrementado()"'}
-function TFRM_RobosFinanceiros.GeneratorIncrementado(qGenerator:String) : Integer;
-var
-   vMinhaQuery : TFDQuery;
-begin
-   vMinhaQuery := TFDQuery.Create(Application);
-   vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-   Result := 0;
-   with vMinhaQuery, SQL do
-   begin
-      Close;
-      Clear;
-      Add('SELECT GEN_ID(');
-      Add(qGenerator);
-      Add(',1) FROM RDB$DATABASE');
-      Open;
-      Result := Fields[0].AsInteger;
-   end;
-   vMinhaQuery.Free;
-end;
-{$endregion}
-
-{$region 'Função ToString : Converte Variaveis em String'}
-function TFRM_RobosFinanceiros.ToString(Value: Variant): String;
-begin
-  case TVarData(Value).VType of
-    varSmallInt,
-    varInteger   : Result := IntToStr(Value);
-    varSingle,
-    varDouble,
-    varCurrency  : Result := FloatToStr(Value);
-    varDate      : Result := FormatDateTime('dd/mm/yyyy', Value);
-    varBoolean   : if Value then Result := Value.AsString else Result := Value.AsString;
-    varString    : Result := Value;
-    else           Result := Value;
-  end;
-end;
-{$endregion}
-
-end.
-

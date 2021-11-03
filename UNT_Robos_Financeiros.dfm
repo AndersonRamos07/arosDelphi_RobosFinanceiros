@@ -1,8 +1,8 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 265
-  Top = 239
+  Left = 195
+  Top = 39
   Caption = 'Robos Financeiros'
-  ClientHeight = 670
+  ClientHeight = 620
   ClientWidth = 941
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,6 +24,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     OnChange = PC_PrincipalChange
     object TS_Analise: TTabSheet
       Caption = 'An'#225'lise'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object P_Analise: TPanel
         Left = 0
         Top = 0
