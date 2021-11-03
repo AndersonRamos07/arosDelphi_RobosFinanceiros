@@ -24,10 +24,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     OnChange = PC_PrincipalChange
     object TS_Analise: TTabSheet
       Caption = 'An'#225'lise'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object P_Analise: TPanel
         Left = 0
         Top = 0
@@ -128,6 +124,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
@@ -345,6 +345,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         TabOrder = 1
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -391,6 +395,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
@@ -598,6 +606,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         TabOrder = 1
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -745,6 +757,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30

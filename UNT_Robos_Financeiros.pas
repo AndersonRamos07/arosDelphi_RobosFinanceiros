@@ -336,7 +336,25 @@ begin
      }
 {$endregion}
 
-  EncontrarValorNaTabela('anderson', RangeMatrix, X , Y);
+//EncontrarValorNaTabela('Lucro Bruto:', RangeMatrix, X , Y);
+
+
+    vTituloDaAnalise :=     RangeMatrix[2,1];             // Sempre é o mesmo
+    vDescricaoDoPeriodo :=  EncontrarValorNaTabela('Período:', RangeMatrix, X , Y);
+    vNomeDoRobo :=          EncontrarValorNaTabela('Expert Advisor (Robô):', RangeMatrix, X , Y);
+    vNomeDoSetup :=         RangeMatrix[5,4];
+    vLucroBruto :=          EncontrarValorNaTabela('Lucro Bruto:', RangeMatrix, X , Y);
+    vLucroLiquido :=        EncontrarValorNaTabela('Lucro Líquido Total:', RangeMatrix, X , Y);
+    //vPerdaBruta :=          RangeMatrix[612,4];
+    vPayOff :=              EncontrarValorNaTabela('Retorno Esperado (Payoff):', RangeMatrix, X , Y);
+    vFatorLucro :=          EncontrarValorNaTabela('Fator de Lucro:', RangeMatrix, X , Y);
+    vFatorRecuperacao :=    EncontrarValorNaTabela('Fator de Recuperação:', RangeMatrix, X , Y);
+    vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
+    vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
+    vDDFinanceiro :=        7; //
+    vCagr :=                7; //
+    vMediaLucro :=          7; //
+    vMediaPrejuizo :=       7; //
 
     finally
       if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
@@ -368,10 +386,12 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
           {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
           for J := 1 to Coluna do
            begin
-            if Tabela[Lin, (Col + J)] <> '' then
+            if (ToString(Tabela[Lin, (Col + J)]) <> '') then
             begin
-              Resposta := Tabela[Lin, (Col + J)];
-              showMessage(IntToStr(Lin) + IntToStr(Col));
+              Resposta := Tabela[ Lin, (Col + J)];
+//              showMessage(Resposta);
+//              showMessage(IntToStr(Lin) + IntToStr(Col));
+              Exit;
             end;
            end;
           {$endregion}
@@ -382,12 +402,14 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
         Inc(Col, 1);
     until Col > Coluna;
     Tabela := Unassigned;
-    showMessage('Foram exatos ' + IntToStr(I) + ' ' + Valor + '(s)' + ' que apareceram');
-    showMessage(Resposta);
+//    showMessage('Foram exatos ' + IntToStr(I) + ' ' + Valor + '(s)' + ' que apareceram');
+//    showMessage(Resposta);
+    Result := Resposta;
   end;
 {$endregion}
+
+{$region 'Preenchendo variaveis com dados da Planilha'}
 //
-//{$region 'Preenchendo variaveis com dados da Planilha'}
 //    vTituloDaAnalise :=     RangeMatrix[2,1];
 //    vDescricaoDoPeriodo :=  RangeMatrix[6,4];
 //    vNomeDoRobo :=          RangeMatrix[4,4];           // linha x coluna
@@ -404,9 +426,9 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
 //    vCagr :=                7; //RangeMatrix[5,4];
 //    vMediaLucro :=          7; //RangeMatrix[5,4];
 //    vMediaPrejuizo :=       7; //RangeMatrix[5,4];
-//
-//{$endregion}
-//
+
+{$endregion}
+
 //{$region 'irá percorrer a planilha inserindo os dados nas variáveis'}
 //    // Inserindo informações na Tabela ANALISES
 //    try
@@ -527,35 +549,6 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
 //
 //   {$endregion}
 //end;
-{$region 'function demonstração'}
-{
-function inserir em analise(valor, id, )
-
-begin
-   star transaction.
-   insert into analises (234523452345  ) values (:asdf asdf asdf );.
-   Param bay n ame id_analise := generator incrementado
-   parma bauy n
-   param bay
-   prepare
-   execquery
-   commitretaineg
-end;
-}
-{$endregion}
-
-{$region 'procedure SBC'}
-procedure TFRM_RobosFinanceiros.SpeedButton1Click(Sender: TObject);
-begin
-{
-   fdminhatabela da analise: = insert
- //  fdminhaanalise.id_analise := generatorincrementado('novi_id_analise');
-    fdminhaanlsie.id_na lise := 77;
-   fdminha anlsie.descricaç~] := 'asbasdoip';
-   fd.post;
-   }
-end;
-{$endregion}
 
 {$region 'Função Importada "GeneratorIncrementado()"'}
 function TFRM_RobosFinanceiros.GeneratorIncrementado(qGenerator:String) : Integer;
