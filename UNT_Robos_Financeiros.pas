@@ -3,6 +3,7 @@ unit UNT_Robos_Financeiros;
 interface
 
 uses
+{$region 'USES : IMPORTS'}
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
   FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Comp.UI,
@@ -14,7 +15,9 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase,
+  Vcl.FileCtrl;
+{$endregion}
 
 type
   TFRM_RobosFinanceiros = class(TForm)
@@ -116,6 +119,11 @@ type
     SG_Importar_Planilha: TStringGrid;
     OD_Importar_BD: TOpenDialog;
     B_DeletarDados: TButton;
+    Panel1: TPanel;
+    btnListarArquivos: TButton;
+    OD_ListarArquivos: TOpenDialog;
+    chkSub: TCheckBox;
+    Memo1: TMemo;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -124,14 +132,18 @@ type
     procedure DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
     procedure SB_ImportaExcelClick(Sender: TObject);
     procedure B_DeletarDadosClick(Sender: TObject);
+    procedure btnListarArquivosClick(Sender: TObject);
+    procedure ListarArquivos(Diretorio: string; Sub:Boolean);  //teste
 {$endregion}
 {$region 'FUNCTIONS'}
     function SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
     function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
     function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+    function TemAtributo(Attr, Val: Integer): Boolean;
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
+    Function SalvarSETUPS_DO_ID_ROBO(xFileXLS, pQuantosAnos, pSaldoInicial: String): Boolean;
 
   public
     function GeneratorIncrementado(qGenerator:String) : Integer;
@@ -147,6 +159,163 @@ var
 
 implementation
 {$R *.dfm}
+
+procedure TFRM_RobosFinanceiros.ListarArquivos(Diretorio: string; Sub:Boolean);
+var
+  F: TSearchRec;
+  Ret: Integer;
+  TempNome: string;
+  vQuantosAnos, vSaldoInicial : String;
+  ClickedOK : Boolean;
+begin
+  Ret := FindFirst(Diretorio+'\*.*', faAnyFile, F);
+
+  vQuantosAnos := '';
+  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
+  vSaldoInicial := '';
+  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
+
+  try
+    while Ret = 0 do
+    begin
+      if TemAtributo(F.Attr, faDirectory) then
+      begin
+        if (F.Name <> '.') And (F.Name <> '..') then
+          if Sub = True then
+          begin
+            TempNome := Diretorio+'\' + F.Name;
+            ListarArquivos(TempNome, True);
+          end;
+      end
+      else
+      begin
+        Memo1.Lines.Add('Concluído: ' +F.Name);
+        SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name, vQuantosAnos, vSaldoInicial);
+      end;
+        Ret := FindNext(F);
+    end;
+  finally
+  begin
+    FindClose(F);
+  end;
+  end;
+end;
+
+function TFRM_RobosFinanceiros.TemAtributo(Attr, Val: Integer): Boolean;
+begin
+  Result := Attr and Val = Val;
+end;
+
+procedure TFRM_RobosFinanceiros.btnListarArquivosClick(Sender: TObject);
+var
+  diretorio : String;
+begin
+  Memo1.Lines.Clear;
+  SelectDirectory('Selecione uma pasta', 'C:\', diretorio);
+  //edtDiretorio.Text := diretorio;
+  ListarArquivos(diretorio, chkSub.Checked);
+end;
+
+{$region 'Importando os dados da planilha e salvando em SETUPS'}
+Function TFRM_RobosFinanceiros.SalvarSETUPS_DO_ID_ROBO(xFileXLS, pQuantosAnos, pSaldoInicial: String): Boolean;
+const
+   xlCellTypeLastCell = $0000000B;
+var
+   XLSAplicacao, AbaXLS : OLEVariant;
+   RangeMatrix : Variant;
+   X, Y, Col, Lin, I : Integer;
+
+   vQuery_A, vQuery_R, vQuery_S : TFDQuery;
+   vID_Analise, vID_Robo, vID_Setup : Integer;
+   vTituloDaAnalise, vDescricaoDoPeriodo : String;
+   vNomeDoRobo , NOME_DA_ABA, itemDoExcel: String;
+   vNomeDoSetup, vMagic: String;
+   vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
+   vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
+   vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo : Double;
+begin
+
+   Result := False;
+   XLSAplicacao := CreateOleObject('Excel.Application');
+   XLSAplicacao.Workbooks.Add(1);
+   try
+    XLSAplicacao.Visible := False;
+    XLSAplicacao.Workbooks.Open(xFileXLS);
+    XLSAplicacao.WorkSheets[1].Activate;
+
+    AbaXLS := XLSAplicacao.Workbooks[ExtractFileName(xFileXLS)].WorkSheets[1];
+    AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate; {True}
+
+    X := XLSAplicacao.ActiveCell.Row; {16}
+    Y := XLSAplicacao.ActiveCell.Column; {9}
+
+    // "RangeMatrix" é a planilha Excel em uma variável Delphi
+
+    RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
+
+    {$region 'ONDE SERÁ REALIZADA AS ATRIBUIÇÕES PARA AS VARIÁVEIS'}
+
+    vDescricaoDoPeriodo :=  EncontrarDescricaoNaTabela('Período:', RangeMatrix, X , Y);
+    vNomeDoRobo :=          EncontrarDescricaoNaTabela('Expert Advisor (Robô):', RangeMatrix, X , Y);
+    vNomeDoSetup :=         RangeMatrix[5,4];
+    vMagic :=               EncontrarMagicNaTabela('Parâmetros de entrada:', RangeMatrix, X , Y);
+    vLucroBruto :=          EncontrarValorNaTabela('Lucro Bruto:', RangeMatrix, X , Y);
+    vLucroLiquido :=        EncontrarValorNaTabela('Lucro Líquido Total:', RangeMatrix, X , Y);
+    vPayOff :=              EncontrarValorNaTabela('Retorno Esperado (Payoff):', RangeMatrix, X , Y);
+    vFatorLucro :=          EncontrarValorNaTabela('Fator de Lucro:', RangeMatrix, X , Y);
+    vFatorRecuperacao :=    EncontrarValorNaTabela('Fator de Recuperação:', RangeMatrix, X , Y);
+    vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
+    vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
+    vDDFinanceiro :=        7; //
+    vCagr :=                7; //
+    vMediaLucro :=          7; //
+    vMediaPrejuizo :=       7; //
+               {
+    showMessage(' Os valores encontrados são: ' + #13
+                          + 'Título da Análise *: '+ vTituloDaAnalise + ' | ' + #13
+                          +'Período: ' + vDescricaoDoPeriodo + ' ; ' + #13
+                          +'Expert Advisor (Robô): '+ vNomeDoRobo + ' ; ' + #13
+                          +'Nome do Setup *: '+ vNomeDoSetup + ' ; ' + #13
+                          +'MAGIC NUMBER: '+ vMagic + ' ; ' + #13
+                          +'Lucro Bruto: '+ FloatToStr(vLucroBruto) + ' ; ' + #13
+                          +'Lucro Líquido Total: '+ FloatToStr(vLucroLiquido) + ' ; ' + #13
+                          +'Retorno Esperado (Payoff): '+ FloatToStr(vPayOff) + ' ; ' + #13
+                          +'Fator de Lucro: '+ FloatToStr(vFatorLucro) + ' ; ' + #13
+                          +'Fator de Recuperação: '+ FloatToStr(vFatorRecuperacao) + ' ; ' + #13
+                          +'Índice de Sharpe: '+ FloatToStr(vSharpe) + ' ; ' + #13
+                          +'Correlação LR: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
+                          +'DDFinanceiro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
+                          +'CAGR **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
+                          +'Média Lucro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
+                          +'Média Prejuizo **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
+                          + #13
+                          +'* : Estão atribuidos com valores fixos;' + #13
+                          +'** : Estão atribuidos com valores inseridos;');
+               }
+{$endregion}
+
+    {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
+
+    vID_Analise := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ANALISE').AsInteger;
+    vID_Robo := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ROBO').AsInteger;
+
+    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo);
+
+    {$endregion}
+
+    RangeMatrix := Unassigned;
+
+      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
+      begin
+        XLSAplicacao.Quit;
+        XLSAplicacao := Unassigned;
+        AbaXLS := Unassigned;
+        Result := True;
+      end;
+      finally
+   end;
+end;
+   {$endregion}
 
 {$region 'Deletar dados de SETUPS'}
 procedure TFRM_RobosFinanceiros.B_DeletarDadosClick(Sender: TObject);
@@ -457,7 +626,7 @@ function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela
       end
     else
     begin
-      showMessage('Não foi encontrado o valor correto!');
+      showMessage('Não foi encontrado o valor correto!' + Valor);
       Abort;
     end;
 
@@ -506,7 +675,7 @@ function TFRM_RobosFinanceiros.EncontrarMagicNaTabela(Valor : String; Tabela : V
       end
     else
     begin
-      showMessage('Não foi encontrado o valor correto!');
+      showMessage('Não foi encontrado o valor correto!' + Valor);
       Abort;
     end;
 
@@ -553,6 +722,7 @@ end;
 {$endregion}
 
 {$region 'Funções "SalvarNoBanco" : Salva os dados nas respectivas tabelas'}
+  {$region 'ANALISES_BD'}
 function TFRM_RobosFinanceiros.SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
  var
   rID_Analise : Integer;
@@ -587,7 +757,9 @@ begin
       Result := rID_Analise;
     end;
 end;
+  {$endregion}
 
+  {$region 'ROBOS_BD'}
 function TFRM_RobosFinanceiros.SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
 var
   rID_Robo : Integer;
@@ -620,7 +792,9 @@ begin
       Result := rID_Robo;
     end;
 end;
+  {$endregion}
 
+  {$region 'SETUPS_BD'}
 function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
 begin
 // Inserindo informações na Tabela SETUPS
@@ -666,6 +840,7 @@ begin
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
     end;
 end;
-{$endregion}
 
+  {$endregion}
+{$endregion}
 end.
