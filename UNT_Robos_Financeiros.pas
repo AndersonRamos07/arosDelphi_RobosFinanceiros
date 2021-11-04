@@ -148,30 +148,38 @@ var
 implementation
 {$R *.dfm}
 
-{$region 'Deletar dados'}
+{$region 'Deletar dados de SETUPS'}
 procedure TFRM_RobosFinanceiros.B_DeletarDadosClick(Sender: TObject);
 var
    vQuery_E : TFDQuery;
    vID_AGORA : String;
+   vRegistros : Integer;
 begin
     // Deletando informações na Tabela SETUPS
     try
       begin
         vID_AGORA := DBE_ID_ROBO.Text;
-          if MessageDlg('Deseja excluir todos os SETUPS de Robos com o ID: ' + vID_AGORA + '?',mtWarning, [mbYes,mbNo],0) = mrYes then
+        try
+          vQuery_E := TFDQuery.Create(nil);
+        with vQuery_E do
+        begin
+          Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+          Close;
+          SQL.Clear;
+          SQL.Add('SELECT COUNT(*) AS QUANTOS FROM SETUPS WHERE ID_ROBO = :ID_ROBO');
+
+          ParamByName('ID_ROBO').Value := vID_AGORA;
+
+          Prepare;
+          Open;
+          vRegistros := vQuery_E.FieldByName('QUANTOS').AsInteger;
+          Close;
+        end;
+        finally
+        end;
+          if MessageDlg('Deseja excluir todos os ' + IntToStr(vRegistros) + ' SETUPS de Robos com o ID: ' + vID_AGORA + '?',mtWarning, [mbYes,mbNo],0) = mrYes then
             begin
               vQuery_E := TFDQuery.Create(nil);
-
-              //with vQuery_E do
-              //begin
-              //   Close;
-              //   SQL.Clear;
-              //   Select count(*) as quantos from setups where id_robo=:id_asdfasdf');
-              //   Open;
-              //   minhavariavel := vQuery_E.FieldByname('Quantos').AsInteger;
-              //   Close;
-              //end;
-
 
               with vQuery_E do
               begin
@@ -186,19 +194,19 @@ begin
                Prepare;
                ExecSQL;
               end;
+              showMessage('Foram excluídos os dados dos Setups');
             end
           else
           begin
-            messageDLG('Os dados não serão excluídos...',mtError,[mbOK],0);
+            MessageDlg('Os dados não foram excluídos...',mtInformation,[mbOK],0);
             Abort;
           end;
       end;
-      finally
-        FreeAndNil(vQuery_E);
-        DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
-        DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
-        showMessage('Foram excluídos os dados dos Setups');
-      end;
+    finally
+      FreeAndNil(vQuery_E);
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
+      DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+    end;
 end;
 {$endregion}
 
