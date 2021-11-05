@@ -235,6 +235,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     object FDQ_RobosFinanceiros_SCAGR: TBCDField
       FieldName = 'CAGR'
       Origin = 'CAGR'
+      currency = True
       Precision = 18
       Size = 2
     end

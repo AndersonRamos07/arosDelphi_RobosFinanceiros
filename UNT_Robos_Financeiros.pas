@@ -123,8 +123,6 @@ type
     OD_ListarArquivos: TOpenDialog;
     Memo1: TMemo;
     B_Fechar_Log: TButton;
-    Panel2: TPanel;
-    Button3: TButton;
     btnListarArquivos: TButton;
     chkSub: TCheckBox;
 {$endregion}
@@ -141,7 +139,7 @@ type
 {$region 'FUNCTIONS'}
     function SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
     function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
-    function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+    function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
     function TemAtributo(Attr, Val: Integer): Boolean;
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -265,7 +263,7 @@ var
    vNomeDoSetup, vMagic: String;
    vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
    vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
-   vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo : Double;
+   vDDFinanceiro, {vCagr,} vMediaLucro, vMediaPrejuizo : Double;
 begin
 
    Result := False;
@@ -300,7 +298,7 @@ begin
     vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
     vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
     vDDFinanceiro :=        7; //
-    vCagr :=                7; //
+//    vCagr :=                7; //
     vMediaLucro :=          7; //
     vMediaPrejuizo :=       7; //
                {
@@ -332,7 +330,7 @@ begin
     vID_Analise := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ANALISE').AsInteger;
     vID_Robo := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ROBO').AsInteger;
 
-    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo);
+    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
 
     {$endregion}
 
@@ -488,7 +486,7 @@ var
    vNomeDoSetup, vMagic: String;
    vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
    vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
-   vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo : Double;
+   vDDFinanceiro, {vCagr,} vMediaLucro, vMediaPrejuizo : Double;
    ClickedOK, tabA, tabR, tabS : Boolean;
 begin
 
@@ -532,7 +530,7 @@ begin
     vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
     vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
     vDDFinanceiro :=        7; //
-    vCagr :=                7; //
+//    vCagr :=                7; //
     vMediaLucro :=          7; //
     vMediaPrejuizo :=       7; //
                showMessage(' Os valores encontrados são: ' + #13
@@ -563,7 +561,7 @@ begin
 
     vID_Robo := SalvarRoboNoBanco(vQuery_R, vID_Analise, vNomeDoRobo);
 
-    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vCagr, vMediaLucro, vMediaPrejuizo);
+    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
 
     {$endregion}
 
@@ -830,7 +828,7 @@ end;
   {$endregion}
 
   {$region 'SETUPS_BD'}
-function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
 begin
 // Inserindo informações na Tabela SETUPS
     try
@@ -844,10 +842,10 @@ begin
          SQL.Add('INSERT INTO SETUPS');
          SQL.Add(' (ID_SETUP, ID_ROBO, MAGIC, NOME_DO_SETUP, LUCRO_BRUTO, LUCRO_LIQUIDO,'); //PERDA_BRUTA
          SQL.Add(' PAY_OFF, FATOR_LUCRO, FATOR_RECUPERACAO, SHARPE, CORRELACAO_LR, DD_FINANCEIRO,');
-         SQL.Add(' CAGR, MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P,, RELACAO_MEDL_X_MEDP
+         SQL.Add(' MEDIA_LUCRO, MEDIA_PREJUIZO)'); // CALMAR_R, RESULTADO,INDICE_L_X_P, RELACAO_MEDL_X_MEDP,  CAGR
          SQL.Add('VALUES (:ID_SETUP, :ID_ROBO, :MAGIC, :NOME_DO_SETUP, :LUCRO_BRUTO, :LUCRO_LIQUIDO, '); //, :PERDA_BRUTA
          SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
-         SQL.Add(' :CAGR, :MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP
+         SQL.Add(':MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP, :CAGR,
 
          ParamByName('ID_SETUP').Value := GeneratorIncrementado('NOVO_ID_SETUP');
          ParamByName('ID_ROBO').Value := pID_Robo;
@@ -861,7 +859,7 @@ begin
          ParamByName('SHARPE').Value := pSharpe;
          ParamByName('CORRELACAO_LR').Value := pCorrelacaoLR;
          ParamByName('DD_FINANCEIRO').Value := pDDFinanceiro;
-         ParamByName('CAGR').Value := pCagr;
+//         ParamByName('CAGR').Value := pCagr;
          ParamByName('MEDIA_LUCRO').Value := pMediaLucro;
          ParamByName('MEDIA_PREJUIZO').Value := pMediaPrejuizo;
 

@@ -20,7 +20,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1366
     Height = 705
-    ActivePage = Setup
+    ActivePage = Robo
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -40,12 +40,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 933
         object SB_ImportaExcel: TSpeedButton
           Left = 40
           Top = 56
           Width = 153
           Height = 39
+          Cursor = crHandPoint
           Caption = 'Importar Planilha'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -76,7 +76,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         ExplicitWidth = 933
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 925
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -136,7 +135,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitWidth = 925
           object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
@@ -276,7 +274,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 933
         object Label4: TLabel
           Left = 330
           Top = 10
@@ -337,11 +334,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 2
         end
         object B_DeletarDados: TButton
-          Left = 330
-          Top = 80
-          Width = 91
-          Height = 25
-          Caption = 'Deletar dados'
+          Left = 527
+          Top = 72
+          Width = 189
+          Height = 43
+          Cursor = crHandPoint
+          Caption = 'Deletar Setups para este Robo'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -351,19 +349,44 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 3
           OnClick = B_DeletarDadosClick
         end
+        object btnListarArquivos: TButton
+          Left = 40
+          Top = 56
+          Width = 153
+          Height = 39
+          Cursor = crHandPoint
+          ParentCustomHint = False
+          Caption = 'Importar Setups '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold, fsUnderline]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = btnListarArquivosClick
+        end
+        object chkSub: TCheckBox
+          Left = 62
+          Top = 101
+          Width = 145
+          Height = 17
+          Cursor = crHandPoint
+          Caption = 'Incluir Subdiret'#243'rios'
+          TabOrder = 5
+        end
       end
       object PC_Robo: TPageControl
         Left = 0
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Robo_Detalhes
+        ActivePage = TS_Robo_Lista
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 925
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -410,8 +433,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 48
           object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
@@ -482,58 +503,13 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             DataSource = DM_Robos_Financeiros.DS_ROBOS
             TabOrder = 2
           end
-          object Panel2: TPanel
-            Left = 333
-            Top = -6
-            Width = 1014
-            Height = 159
-            BevelEdges = []
-            FullRepaint = False
-            ParentColor = True
-            ShowCaption = False
-            TabOrder = 3
-            StyleElements = [seFont]
-            object Button3: TButton
-              Left = 33
-              Top = 303
-              Width = 75
-              Height = 25
-              Caption = 'Fechar Log'
-              TabOrder = 0
-              Visible = False
-              OnClick = B_Fechar_LogClick
-            end
-            object btnListarArquivos: TButton
-              Left = 72
-              Top = 73
-              Width = 104
-              Height = 25
-              Caption = 'Listar Arquivos'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 1
-              OnClick = btnListarArquivosClick
-            end
-            object chkSub: TCheckBox
-              Left = 216
-              Top = 72
-              Width = 145
-              Height = 17
-              Caption = 'Incluir Subdiret'#243'rios'
-              TabOrder = 2
-            end
-          end
         end
       end
       object Panel1: TPanel
         Left = 337
-        Top = 312
+        Top = 153
         Width = 1014
-        Height = 313
+        Height = 472
         BevelEdges = []
         FullRepaint = False
         ParentColor = True
@@ -582,7 +558,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 933
         object L_IdentificadorRobo_Setup: TLabel
           Left = 330
           Top = 60
@@ -698,13 +673,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Setup_Detalhes
+        ActivePage = TS_Setup_Lista
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitWidth = 925
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -814,11 +788,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               end
               item
                 Expanded = False
-                FieldName = 'CAGR____'
-                Visible = True
-              end
-              item
-                Expanded = False
                 FieldName = 'RESULTADO'
                 Width = 64
                 Visible = True
@@ -846,13 +815,112 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
                 FieldName = 'RELACAO_MEDL_X_MEDP'
                 Width = 64
                 Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'ID_SETUP'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'ID_ROBO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'MAGIC'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_DO_SETUP'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'LUCRO_BRUTO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'LUCRO_LIQUIDO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'PERDA_BRUTA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'PAY_OFF'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'FATOR_LUCRO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'FATOR_RECUPERACAO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'SHARPE'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CORRELACAO_LR'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DD_FINANCEIRO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CALMAR_R'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'RESULTADO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'INDICE_L_X_P'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'MEDIA_LUCRO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'MEDIA_PREJUIZO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'RELACAO_MEDL_X_MEDP'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CAGR'
+                Visible = True
               end>
           end
         end
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitWidth = 925
           object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30
