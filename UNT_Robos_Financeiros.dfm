@@ -1,9 +1,9 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 209
-  Top = 59
+  Left = -8
+  Top = -8
   Caption = 'Robos Financeiros'
-  ClientHeight = 602
-  ClientWidth = 941
+  ClientHeight = 705
+  ClientWidth = 1366
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,19 +11,22 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PC_Principal: TPageControl
     Left = 0
     Top = 0
-    Width = 941
+    Width = 1366
     Height = 705
-    ActivePage = Robo
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
-    ExplicitLeft = 48
-    ExplicitTop = 88
+    ExplicitLeft = -8
+    ExplicitTop = 48
+    ExplicitWidth = 977
     object TS_Analise: TTabSheet
       Caption = 'An'#225'lise'
       ExplicitLeft = 0
@@ -33,10 +36,11 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object P_Analise: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 129
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 933
         object SB_ImportaExcel: TSpeedButton
           Left = 40
           Top = 56
@@ -64,13 +68,15 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object PC_Analise: TPageControl
         Left = 0
         Top = 129
-        Width = 933
+        Width = 1358
         Height = 548
         ActivePage = TS_Analise_Lista
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 933
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitWidth = 925
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -130,6 +136,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitWidth = 925
           object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
@@ -252,6 +259,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Width = 320
         Height = 120
         TabOrder = 2
+        Visible = False
       end
     end
     object Robo: TTabSheet
@@ -264,10 +272,11 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object P_Robo: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 129
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 933
         object Label4: TLabel
           Left = 330
           Top = 10
@@ -333,6 +342,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Width = 91
           Height = 25
           Caption = 'Deletar dados'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 3
           OnClick = B_DeletarDadosClick
         end
@@ -340,13 +355,15 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object PC_Robo: TPageControl
         Left = 0
         Top = 129
-        Width = 933
+        Width = 1358
         Height = 548
         ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 933
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitWidth = 925
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -393,6 +410,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 48
           object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
@@ -463,38 +482,89 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             DataSource = DM_Robos_Financeiros.DS_ROBOS
             TabOrder = 2
           end
+          object Panel2: TPanel
+            Left = 333
+            Top = -6
+            Width = 1014
+            Height = 159
+            BevelEdges = []
+            FullRepaint = False
+            ParentColor = True
+            ShowCaption = False
+            TabOrder = 3
+            StyleElements = [seFont]
+            object Button3: TButton
+              Left = 33
+              Top = 303
+              Width = 75
+              Height = 25
+              Caption = 'Fechar Log'
+              TabOrder = 0
+              Visible = False
+              OnClick = B_Fechar_LogClick
+            end
+            object btnListarArquivos: TButton
+              Left = 72
+              Top = 73
+              Width = 104
+              Height = 25
+              Caption = 'Listar Arquivos'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              TabOrder = 1
+              OnClick = btnListarArquivosClick
+            end
+            object chkSub: TCheckBox
+              Left = 216
+              Top = 72
+              Width = 145
+              Height = 17
+              Caption = 'Incluir Subdiret'#243'rios'
+              TabOrder = 2
+            end
+          end
         end
       end
       object Panel1: TPanel
-        Left = 340
-        Top = 213
-        Width = 590
-        Height = 257
-        Caption = 'Panel1'
+        Left = 337
+        Top = 312
+        Width = 1014
+        Height = 313
+        BevelEdges = []
+        FullRepaint = False
+        ParentColor = True
+        ShowCaption = False
         TabOrder = 2
-        object btnListarArquivos: TButton
-          Left = 185
-          Top = 56
-          Width = 89
-          Height = 25
-          Caption = 'Listar Arquivos'
-          TabOrder = 0
-          OnClick = btnListarArquivosClick
-        end
-        object chkSub: TCheckBox
-          Left = 280
-          Top = 63
-          Width = 97
-          Height = 17
-          Caption = 'Incluir Subdiret'#243'rios'
-          TabOrder = 1
-        end
+        StyleElements = [seFont]
         object Memo1: TMemo
-          Left = 0
-          Top = 97
-          Width = 585
-          Height = 136
-          TabOrder = 2
+          Left = 3
+          Top = 0
+          Width = 1006
+          Height = 184
+          Color = clNone
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 5424460
+          Font.Height = -9
+          Font.Name = 'System'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          Visible = False
+          StyleElements = [seFont, seClient]
+        end
+        object B_Fechar_Log: TButton
+          Left = 9
+          Top = 190
+          Width = 75
+          Height = 25
+          Caption = 'Fechar Log'
+          TabOrder = 1
+          Visible = False
+          OnClick = B_Fechar_LogClick
         end
       end
     end
@@ -508,10 +578,11 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object P_Setup: TPanel
         Left = 0
         Top = 0
-        Width = 933
+        Width = 1358
         Height = 129
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 933
         object L_IdentificadorRobo_Setup: TLabel
           Left = 330
           Top = 60
@@ -625,13 +696,15 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       object PC_Setup: TPageControl
         Left = 0
         Top = 129
-        Width = 933
+        Width = 1358
         Height = 548
-        ActivePage = TS_Setup_Lista
+        ActivePage = TS_Setup_Detalhes
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 933
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
+          ExplicitWidth = 925
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -779,6 +852,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
+          ExplicitWidth = 925
           object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30
@@ -1244,20 +1318,20 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     end
   end
   object DS_ANALISES: TDataSource
-    Left = 736
-    Top = 72
+    Left = 872
+    Top = 96
   end
   object OD_Importar_Planilha: TOpenDialog
-    Left = 204
-    Top = 96
+    Left = 868
+    Top = 32
   end
   object OD_Importar_BD: TOpenDialog
-    Left = 460
-    Top = 96
+    Left = 772
+    Top = 32
   end
   object OD_ListarArquivos: TOpenDialog
     FileName = 'C:\Projetos\RobosFinanceiros\planilhasDeTeste\M4.xls'
-    Left = 652
-    Top = 80
+    Left = 772
+    Top = 96
   end
 end

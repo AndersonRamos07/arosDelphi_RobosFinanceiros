@@ -120,10 +120,13 @@ type
     OD_Importar_BD: TOpenDialog;
     B_DeletarDados: TButton;
     Panel1: TPanel;
-    btnListarArquivos: TButton;
     OD_ListarArquivos: TOpenDialog;
-    chkSub: TCheckBox;
     Memo1: TMemo;
+    B_Fechar_Log: TButton;
+    Panel2: TPanel;
+    Button3: TButton;
+    btnListarArquivos: TButton;
+    chkSub: TCheckBox;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -140,6 +143,8 @@ type
     function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
     function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pCagr, pMediaLucro, pMediaPrejuizo : Double) : Integer;
     function TemAtributo(Attr, Val: Integer): Boolean;
+    procedure B_Fechar_LogClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -160,20 +165,39 @@ var
 implementation
 {$R *.dfm}
 
+{$region 'Ao iniciar...'}
+procedure TFRM_RobosFinanceiros.FormShow(Sender: TObject);
+begin
+  FRM_RobosFinanceiros.WindowState := wsMaximized;
+end;
+{$endregion}
+
+{$region 'Listar Planilhas'}
 procedure TFRM_RobosFinanceiros.ListarArquivos(Diretorio: string; Sub:Boolean);
 var
   F: TSearchRec;
-  Ret: Integer;
+  Ret, ContadorDeRegistros : Integer;
   TempNome: string;
   vQuantosAnos, vSaldoInicial : String;
-  ClickedOK : Boolean;
+  ClickedOK, Feito : Boolean;
 begin
+  ContadorDeRegistros := 0;
+
   Ret := FindFirst(Diretorio+'\*.*', faAnyFile, F);
+
+  if Diretorio = '' then
+  Exit;
 
   vQuantosAnos := '';
   ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
   vSaldoInicial := '';
   ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
+
+  if (vQuantosAnos = '') AND (vSaldoInicial = '') then
+  showMessage('Você irá continuar com a listagem sem nenhum parametro, OK?');
+
+  Memo1.Visible := True;
+  B_Fechar_Log.Visible := True;
 
   try
     while Ret = 0 do
@@ -190,11 +214,14 @@ begin
       else
       begin
         Memo1.Lines.Add('Concluído: ' +F.Name);
-        SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name, vQuantosAnos, vSaldoInicial);
+        Feito := SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name, vQuantosAnos, vSaldoInicial);
+        if Feito then
+        Inc(ContadorDeRegistros);
       end;
         Ret := FindNext(F);
     end;
   finally
+  messageDlg('Registrados exatos ' + IntToStr(ContadorDeRegistros) + ' SETUPS!', mtConfirmation,[mbyes,mbno],0);
   begin
     FindClose(F);
   end;
@@ -212,9 +239,15 @@ var
 begin
   Memo1.Lines.Clear;
   SelectDirectory('Selecione uma pasta', 'C:\', diretorio);
-  //edtDiretorio.Text := diretorio;
   ListarArquivos(diretorio, chkSub.Checked);
 end;
+
+procedure TFRM_RobosFinanceiros.B_Fechar_LogClick(Sender: TObject);
+begin
+  Memo1.Visible := False;
+  B_Fechar_Log.Visible := False;
+end;
+{$endregion}
 
 {$region 'Importando os dados da planilha e salvando em SETUPS'}
 Function TFRM_RobosFinanceiros.SalvarSETUPS_DO_ID_ROBO(xFileXLS, pQuantosAnos, pSaldoInicial: String): Boolean;
@@ -318,6 +351,7 @@ end;
    {$endregion}
 
 {$region 'Deletar dados de SETUPS'}
+
 procedure TFRM_RobosFinanceiros.B_DeletarDadosClick(Sender: TObject);
 var
    vQuery_E : TFDQuery;
@@ -588,6 +622,7 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
     Tabela := Unassigned;
     Result := Resposta;
   end;
+
 {$endregion}
 
 {$region 'Função "EncontrarDescricaoNaTabela" : Busca por descrições'}
