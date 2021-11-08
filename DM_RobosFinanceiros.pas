@@ -41,7 +41,6 @@ type
     FDQ_RobosFinanceiros_SDD_FINANCEIRO: TBCDField;
     FDQ_RobosFinanceiros_SCALMAR_R: TBCDField;
     FDQ_RobosFinanceiros_SRESULTADO: TBCDField;
-    FDQ_RobosFinanceiros_SINDICE_L_X_P: TBCDField;
     FDQ_RobosFinanceiros_SMEDIA_LUCRO: TBCDField;
     FDQ_RobosFinanceiros_SMEDIA_PREJUIZO: TBCDField;
     FDQ_RobosFinanceiros_SRELACAO_MEDL_X_MEDP: TBCDField;
@@ -51,8 +50,10 @@ type
     FDQ_RobosFinanceiros_RNOME_DO_ROBO: TStringField;
     FDQ_RobosFinanceiros_SCAGR: TBCDField;
     IBTransactionAuxiliar: TIBTransaction;
+    FDQ_RobosFinanceiros_SINDICE_L_X_P: TBCDField;
 
     procedure DataModuleCreate(Sender: TObject);
+    procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
 //    procedure FDPhysFBDriverLink1DriverCreated(Sender: TObject);
   private
     { Private declarations }
@@ -81,7 +82,6 @@ procedure TDM_Robos_Financeiros.DataModuleCreate(Sender: TObject);
 begin
  {$region 'Realizar a conexão conforme o que consta no arquivo INI'}
   conexao := ExtractFilePath(Application.ExeName) + 'BASE_DE_DADOS.FDB';
-  //CodificarINI();
   FDC_RobosFinanceiros.Params.Database := conexao;
   {$endregion}
 
@@ -90,10 +90,11 @@ begin
   FDQ_RobosFinanceiros_S.Open;
 end;
 
-//procedure TDM_Robos_Financeiros.FDPhysFBDriverLink1DriverCreated(Sender: TObject);
-//begin
-//  FDPhysFBDriverLink1.VendorLib := ExtractFilePath(Application.ExeName) + 'fbclient.dll';
-//end;
+procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
+begin
+  FDQ_RobosFinanceiros_S.Close;
+  FDQ_RobosFinanceiros_S.Open;
+end;
 
 {$region 'Realizar a leitura do arquivo CONFIG.INI'}
 procedure TDM_Robos_Financeiros.CodificarINI;

@@ -103,6 +103,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     end
   end
   object FDQ_RobosFinanceiros_S: TFDQuery
+    AfterPost = FDQ_RobosFinanceiros_SAfterPost
     IndexFieldNames = 'ID_ROBO'
     MasterSource = DS_ROBOS
     MasterFields = 'ID_ROBO'
@@ -210,11 +211,6 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
       Precision = 18
       Size = 2
     end
-    object FDQ_RobosFinanceiros_SINDICE_L_X_P: TBCDField
-      FieldName = 'INDICE_L_X_P'
-      Origin = 'INDICE_L_X_P'
-      Precision = 18
-    end
     object FDQ_RobosFinanceiros_SMEDIA_LUCRO: TBCDField
       FieldName = 'MEDIA_LUCRO'
       Origin = 'MEDIA_LUCRO'
@@ -235,7 +231,12 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     object FDQ_RobosFinanceiros_SCAGR: TBCDField
       FieldName = 'CAGR'
       Origin = 'CAGR'
-      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object FDQ_RobosFinanceiros_SINDICE_L_X_P: TBCDField
+      FieldName = 'INDICE_L_X_P'
+      Origin = 'INDICE_L_X_P'
       Precision = 18
       Size = 2
     end

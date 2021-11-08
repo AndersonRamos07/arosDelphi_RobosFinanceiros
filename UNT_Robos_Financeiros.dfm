@@ -11,7 +11,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -20,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1366
     Height = 705
-    ActivePage = Robo
+    ActivePage = TS_Analise
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -70,7 +69,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Analise_Lista
+        ActivePage = TS_Detalhes
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
@@ -149,7 +148,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
           end
           object L_SaldoInicial_Analise: TLabel
-            Left = 548
+            Left = 540
             Top = 30
             Width = 68
             Height = 13
@@ -162,7 +161,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
           end
           object L_PeriodoEmAnos_Analise: TLabel
-            Left = 294
+            Left = 284
             Top = 30
             Width = 104
             Height = 13
@@ -203,7 +202,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
           end
           object DBE_SALDO_INICIAL: TDBEdit
-            Left = 548
+            Left = 540
             Top = 60
             Width = 121
             Height = 21
@@ -212,7 +211,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             TabOrder = 0
           end
           object DBE_PERIODO_EM_ANOS: TDBEdit
-            Left = 294
+            Left = 284
             Top = 60
             Width = 121
             Height = 21
@@ -374,6 +373,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Cursor = crHandPoint
           Caption = 'Incluir Subdiret'#243'rios'
           TabOrder = 5
+          Visible = False
         end
       end
       object PC_Robo: TPageControl
@@ -381,7 +381,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Robo_Lista
+        ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
@@ -693,7 +693,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
           end
           object DB_SETUPS: TDBGrid
-            Left = 10
+            Left = 3
             Top = 50
             Width = 1118
             Height = 308
@@ -794,12 +794,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               end
               item
                 Expanded = False
-                FieldName = 'INDICE_L_X_P'
-                Width = 64
-                Visible = True
-              end
-              item
-                Expanded = False
                 FieldName = 'MEDIA_LUCRO'
                 Width = 64
                 Visible = True
@@ -814,106 +808,18 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
                 Width = 64
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'ID_SETUP'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'ID_ROBO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'MAGIC'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'NOME_DO_SETUP'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'LUCRO_BRUTO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'LUCRO_LIQUIDO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'PERDA_BRUTA'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'PAY_OFF'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'FATOR_LUCRO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'FATOR_RECUPERACAO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'SHARPE'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'CORRELACAO_LR'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'DD_FINANCEIRO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'CALMAR_R'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'RESULTADO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'INDICE_L_X_P'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'MEDIA_LUCRO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'MEDIA_PREJUIZO'
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'RELACAO_MEDL_X_MEDP'
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CAGR'
+                Width = 64
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'INDICE_L_X_P'
+                Width = 64
                 Visible = True
               end>
           end
@@ -948,8 +854,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
           end
           object L_Magic_Setup: TLabel
-            Left = 450
-            Top = 100
+            Left = 326
+            Top = 30
             Width = 38
             Height = 13
             Caption = 'MAGIC'
@@ -1168,6 +1074,19 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold]
             ParentFont = False
           end
+          object Label1: TLabel
+            Left = 450
+            Top = 100
+            Width = 31
+            Height = 13
+            Caption = 'CAGR'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object DBE_ID_SETUP: TDBEdit
             Left = 20
             Top = 60
@@ -1189,8 +1108,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             TabOrder = 14
           end
           object DBE_MAGIC: TDBEdit
-            Left = 450
-            Top = 130
+            Left = 326
+            Top = 60
             Width = 91
             Height = 21
             DataField = 'MAGIC'
@@ -1380,6 +1299,23 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Font.Style = [fsBold, fsUnderline]
             ParentFont = False
             TabOrder = 18
+          end
+          object DBE_CAGR: TDBEdit
+            Left = 450
+            Top = 130
+            Width = 91
+            Height = 21
+            Color = clGradientInactiveCaption
+            DataField = 'CAGR'
+            DataSource = DM_Robos_Financeiros.DS_SETUPS
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold, fsUnderline]
+            ParentFont = False
+            TabOrder = 19
           end
         end
       end
