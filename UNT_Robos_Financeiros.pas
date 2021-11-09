@@ -141,7 +141,7 @@ type
 {$region 'FUNCTIONS'}
     function SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
     function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
-    function SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+    function SalvarSetupNoBanco(sQuery : TFDQuery; pIdentificador, pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
     function TemAtributo(Attr, Val: Integer): Boolean;
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -274,7 +274,7 @@ begin
 
     vID_Robo := SalvarRoboNoBanco(vQuery_R, vID_Analise, vNomeDoRobo);
 
-    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
+    SalvarSetupNoBanco(vQuery_S, 0, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
 
     {$endregion}
 
@@ -310,14 +310,6 @@ begin
   if Diretorio = '' then
   Exit;
 
-//  vQuantosAnos := '';
-//  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
-//  vSaldoInicial := '';
-//  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
-//
-//  if (vQuantosAnos = '') AND (vSaldoInicial = '') then
-//  showMessage('Você irá continuar com a listagem sem nenhum parametro, OK?');
-
   Memo1.Visible := True;
   B_Fechar_Log.Visible := True;
 
@@ -335,8 +327,8 @@ begin
       end
       else
       begin
-        Memo1.Lines.Add('Concluído: ' +F.Name);
-        Feito := SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name{, vQuantosAnos, vSaldoInicial});
+        Memo1.Lines.Add('Lendo: ...' + F.Name);
+        Feito := SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name);
       end;
       if Feito then
         Inc(ContadorDeRegistros);
@@ -373,7 +365,7 @@ end;
 {$endregion}
 
 {$region 'Importando os dados da planilha e salvando em SETUPS'}
-Function TFRM_RobosFinanceiros.SalvarSETUPS_DO_ID_ROBO(xFileXLS{, pQuantosAnos, pSaldoInicial}: String): Boolean;
+Function TFRM_RobosFinanceiros.SalvarSETUPS_DO_ID_ROBO(xFileXLS: String): Boolean;
 const
    xlCellTypeLastCell = $0000000B;
 var
@@ -454,7 +446,7 @@ begin
     vID_Analise := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ANALISE').AsInteger;
     vID_Robo := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ROBO').AsInteger;
 
-    SalvarSetupNoBanco(vQuery_S, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
+    SalvarSetupNoBanco(vQuery_S, 1, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
 
     {$endregion}
 
@@ -835,6 +827,7 @@ function TFRM_RobosFinanceiros.SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise 
 var
   rID_Robo : Integer;
 begin
+  rID_Robo := 0;
 // Inserindo informações na Tabela ROBOS
     try
       begin
@@ -866,7 +859,9 @@ end;
   {$endregion}
 
   {$region 'SETUPS_BD'}
-function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+function TFRM_RobosFinanceiros.SalvarSetupNoBanco(sQuery : TFDQuery; pIdentificador, pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;
+var
+  rID_Setup: Integer;
 begin
 // Inserindo informações na Tabela SETUPS
     try
@@ -885,7 +880,8 @@ begin
          SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
          SQL.Add(':MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP, :CAGR,
 
-         ParamByName('ID_SETUP').Value := GeneratorIncrementado('NOVO_ID_SETUP');
+         rID_Setup := GeneratorIncrementado('NOVO_ID_SETUP');
+         ParamByName('ID_SETUP').Value := rID_Setup;
          ParamByName('ID_ROBO').Value := pID_Robo;
          ParamByName('NOME_DO_SETUP').Value := pNomeDoSetup;
          ParamByName('MAGIC').Value := pMagic;
@@ -897,7 +893,6 @@ begin
          ParamByName('SHARPE').Value := pSharpe;
          ParamByName('CORRELACAO_LR').Value := pCorrelacaoLR;
          ParamByName('DD_FINANCEIRO').Value := pDDFinanceiro;
-//         ParamByName('CAGR').Value := pCagr;
          ParamByName('MEDIA_LUCRO').Value := pMediaLucro;
          ParamByName('MEDIA_PREJUIZO').Value := pMediaPrejuizo;
 
@@ -909,6 +904,10 @@ begin
       FreeAndNil(sQuery);
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Close;
       DM_Robos_Financeiros.FDQ_RobosFinanceiros_S.Open;
+      if pIdentificador = 0 then
+      begin
+      showMessage('Os dados foram registrados com sucesso!');
+      end;
     end;
 end;
 
