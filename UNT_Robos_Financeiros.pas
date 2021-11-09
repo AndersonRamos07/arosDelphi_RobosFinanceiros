@@ -244,8 +244,8 @@ begin
     vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
     vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
     vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
-    vMediaLucro :=          7; //
-    vMediaPrejuizo :=       7; //
+    vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
+    vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
                {showMessage(' Os valores encontrados são: ' + #13
                             + 'Título da Análise *: '+ vTituloDaAnalise + ' | ' + #13
                             +'Período: ' + vDescricaoDoPeriodo + ' ; ' + #13
@@ -422,9 +422,9 @@ begin
     vFatorRecuperacao :=    EncontrarValorNaTabela('Fator de Recuperação:', RangeMatrix, X , Y);
     vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
     vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
-    vDDFinanceiro :=        7; //
-    vMediaLucro :=          7; //
-    vMediaPrejuizo :=       7; //
+    vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
+    vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
+    vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
                {
     showMessage(' Os valores encontrados são: ' + #13
                           + 'Título da Análise *: '+ vTituloDaAnalise + ' | ' + #13
@@ -586,13 +586,11 @@ end;
 {$region 'Função "EncontrarValorNaTabela" : Busca por valores'}
 function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : Double;
   var
-  Col, Lin, I, J : Integer;
+  Col, Lin, J : Integer;
   Resultado : String;
   Resposta : Double;
   begin
     Col := 1;
-    Lin := 1;
-    I := 0;
     repeat
       for Lin := 1 to Linha do
       begin
@@ -600,14 +598,6 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
         if Resultado = Valor then
         begin
           {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
-//          for J := 1 to Coluna do
-//           begin
-//            if (Tabela[Lin, (Col + J)] > 0) then
-//            begin
-//              Resposta := Tabela[ Lin, (Col + J)];
-//              Exit;
-//            end;
-//           end;
            J := 1;
            while (VarToStr(Tabela[ Lin, (Col + J)]) = '') do
            begin
@@ -620,6 +610,11 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
         Inc(Col, 1);
     until Col > Coluna;
     Tabela := Unassigned;
+    if Valor = 'Média perda na Negociação:' then
+      begin
+        Result := Resposta * -1;
+      end
+      else
     Result := Resposta;
   end;
 
@@ -628,12 +623,10 @@ function TFRM_RobosFinanceiros.EncontrarValorNaTabela(Valor : String; Tabela : V
 {$region 'Função "EncontrarDescricaoNaTabela" : Busca por descrições'}
 function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
   var
-  Col, Lin, I, J : Integer;
-  Resultado, Resposta, Magic : String;
+  Col, Lin, J : Integer;
+  Resultado, Resposta : String;
   begin
     Col := 1;
-    Lin := 1;
-    I := 0;
     repeat
       for Lin := 1 to Linha do
       begin
@@ -671,12 +664,10 @@ function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela
 {$region 'Função "EncontrarMagicNaTabela"'}
 function TFRM_RobosFinanceiros.EncontrarMagicNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
   var
-  Col, Lin, I, J, sPos : Integer;
-  Resultado, Resposta, Magic : String;
+  Col, Lin, J, sPos : Integer;
+  Resultado, Resposta : String;
   begin
     Col := 1;
-    Lin := 1;
-    I := 0;
     repeat
       for Lin := 1 to Linha do
       begin
@@ -720,12 +711,10 @@ function TFRM_RobosFinanceiros.EncontrarMagicNaTabela(Valor : String; Tabela : V
 {$region 'Função "EncontrarDDFinanceiroNaTabela"'}
 function TFRM_RobosFinanceiros.EncontrarDDFinanceiroNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : Double;
   var
-  Col, Lin, I, J, sPos : Integer;
-  Resultado, Resposta, Magic : String;
+  Col, Lin, J : Integer;
+  Resultado, Resposta : String;
   begin
     Col := 1;
-    Lin := 1;
-    I := 0;
     repeat
       for Lin := 1 to Linha do
       begin
@@ -739,13 +728,7 @@ function TFRM_RobosFinanceiros.EncontrarDDFinanceiroNaTabela(Valor : String; Tab
            begin
              Inc(J, 1);
            end;
-           Col := Col + J;
-           while Pos('MagicNumber', Tabela[ (Lin + J), Col ]) = 0 do
-           begin
-             Inc(J, 1);
-           end;
-           sPos := Pos('=', Tabela[ (Lin + J), Col ]);
-           Resposta := copy(Tabela[ (Lin + J), Col ], sPos + 1, 3);
+           Resposta := Tabela[ Lin, (Col + J)];
               {$endregion}
           {$endregion}
         end;
@@ -755,7 +738,11 @@ function TFRM_RobosFinanceiros.EncontrarDDFinanceiroNaTabela(Valor : String; Tab
     Tabela := Unassigned;
     if Resposta <> '' then
       begin
-      Result := StrToFloat(Resposta);
+        Resposta := StringReplace(Resposta,' ', '', [rfReplaceAll]);
+        Resposta := copy(Resposta, 1, pos('(', Resposta)-1);
+        Resposta := StringReplace(Resposta,'.', ',', [rfReplaceAll]);
+
+        Result := Resposta.ToDouble;
       end
     else
     begin
