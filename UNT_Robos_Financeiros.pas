@@ -5,7 +5,7 @@ interface
 uses
 {$region 'USES : IMPORTS'}
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids, StrUtils,
   FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Comp.UI,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
@@ -127,6 +127,7 @@ type
     Label1: TLabel;
     DBE_CAGR: TDBEdit;
     SG_Importar_Planilha: TStringGrid;
+    SP_Importar_Setups: TSpeedButton;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -178,10 +179,11 @@ procedure TFRM_RobosFinanceiros.SB_ImportaExcelClick(Sender: TObject);
 begin
   OD_Importar_Planilha.Title := 'Selecione o Excel';
   OD_Importar_Planilha.FileName := 'Arquivo Excel';
-  OD_Importar_Planilha.Filter := '*.xls|*.xlsx';
+  OD_Importar_Planilha.Filter := '*.xls|*.xlsx|*.XLS|*.XLSX';
   if OD_Importar_Planilha.Execute = True then
    XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName);
 end;
+
 {$endregion}
 
 {$region 'Importando os dados da planilha e salvando em ANALISES, ROBOS e SETUPS'}
@@ -194,9 +196,9 @@ var
    X, Y, Col, Lin, I : Integer;
 
    vQuery_A, vQuery_R, vQuery_S : TFDQuery;
-   vID_Analise, vID_Robo, vID_Setup : Integer;
+   vID_Analise, vID_Robo : Integer;
    vTituloDaAnalise, vDescricaoDoPeriodo, vQuantosAnos, vSaldoInicial : String;
-   vNomeDoRobo , NOME_DA_ABA, itemDoExcel: String;
+   vNomeDoRobo , itemDoExcel: String;
    vNomeDoSetup, vMagic: String;
    vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
    vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
@@ -205,9 +207,9 @@ var
 begin
 
   vQuantosAnos := '';
-  ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
+  InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos); //ClickedOK := InputQuery('Definição do período ','Digite o período em anos', vQuantosAnos);
   vSaldoInicial := '';
-  ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
+  InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial); //ClickedOK := InputQuery('Definição do saldo ','Digite o saldo inicial', vSaldoInicial);
 
    Result := False;
    XLSAplicacao := CreateOleObject('Excel.Application');
@@ -246,26 +248,7 @@ begin
     vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
     vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
     vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
-               {showMessage(' Os valores encontrados são: ' + #13
-                            + 'Título da Análise *: '+ vTituloDaAnalise + ' | ' + #13
-                            +'Período: ' + vDescricaoDoPeriodo + ' ; ' + #13
-                            +'Expert Advisor (Robô): '+ vNomeDoRobo + ' ; ' + #13
-                            +'Nome do Setup *: '+ vNomeDoSetup + ' ; ' + #13
-                            +'MAGIC NUMBER: '+ vMagic + ' ; ' + #13
-                            +'Lucro Bruto: '+ FloatToStr(vLucroBruto) + ' ; ' + #13
-                            +'Lucro Líquido Total: '+ FloatToStr(vLucroLiquido) + ' ; ' + #13
-                            +'Retorno Esperado (Payoff): '+ FloatToStr(vPayOff) + ' ; ' + #13
-                            +'Fator de Lucro: '+ FloatToStr(vFatorLucro) + ' ; ' + #13
-                            +'Fator de Recuperação: '+ FloatToStr(vFatorRecuperacao) + ' ; ' + #13
-                            +'Índice de Sharpe: '+ FloatToStr(vSharpe) + ' ; ' + #13
-                            +'Correlação LR: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                            +'DDFinanceiro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                            +'CAGR **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                            +'Média Lucro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                            +'Média Prejuizo **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                            + #13
-                            +'* : Estão atribuidos com valores fixos;' + #13
-                            +'** : Estão atribuidos com valores inseridos;');}
+
 {$endregion}
 
     {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
@@ -282,6 +265,8 @@ begin
 
       if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
       begin
+        XLSAplicacao.DisplayAlerts := False;
+        XLSAplicacao.ActiveWorkBook.Close(False);
         XLSAplicacao.Quit;
         XLSAplicacao := Unassigned;
         AbaXLS := Unassigned;
@@ -300,8 +285,7 @@ var
   F: TSearchRec;
   Ret, ContadorDeRegistros : Integer;
   TempNome: string;
-//  vQuantosAnos, vSaldoInicial : String;
-  ClickedOK, Feito : Boolean;
+  Feito : Boolean;
 begin
   ContadorDeRegistros := 0;
 
@@ -316,6 +300,7 @@ begin
   try
     while Ret = 0 do
     begin
+      Feito := False;
       if TemAtributo(F.Attr, faDirectory) then
       begin
         if (F.Name <> '.') And (F.Name <> '..') then
@@ -327,8 +312,11 @@ begin
       end
       else
       begin
-        Memo1.Lines.Add('Lendo: ...' + F.Name);
-        Feito := SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name);
+        if AnsiIndexStr(LowerCase(ExtractFileExt(F.Name)), ['.xlsx', '.xls']) >= 0 then
+        begin
+          Memo1.Lines.Add('Lendo: ...' + F.Name);
+          Feito := SalvarSETUPS_DO_ID_ROBO(Diretorio + '\' + F.Name);
+        end;
       end;
       if Feito then
         Inc(ContadorDeRegistros);
@@ -339,7 +327,7 @@ begin
   begin
     FindClose(F);
   end;
-      messageDlg('Registrados exatos ' + IntToStr(ContadorDeRegistros) + ' SETUPS!', mtConfirmation,[mbyes,mbno],0);
+      showMessage('Registrados exatos ' + IntToStr(ContadorDeRegistros) + ' SETUPS!');
   end;
 end;
 
@@ -376,7 +364,7 @@ var
    vQuery_A, vQuery_R, vQuery_S : TFDQuery;
    vID_Analise, vID_Robo, vID_Setup : Integer;
    vTituloDaAnalise, vDescricaoDoPeriodo : String;
-   vNomeDoRobo , NOME_DA_ABA, itemDoExcel: String;
+   vNomeDoRobo , NOME_DA_ABA: String;
    vNomeDoSetup, vMagic: String;
    vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro: Double;
    vFatorRecuperacao, vSharpe, vCorrelacaoLR : Double;
@@ -384,85 +372,63 @@ var
 begin
 
    Result := False;
-   XLSAplicacao := CreateOleObject('Excel.Application');
-   XLSAplicacao.Workbooks.Add(1);
+
+   //XLSAplicacao.Workbooks.Add(1);
    try
-    XLSAplicacao.Visible := False;
-    XLSAplicacao.Workbooks.Open(xFileXLS);
-    XLSAplicacao.WorkSheets[1].Activate;
+     XLSAplicacao := CreateOleObject('Excel.Application');
+     XLSAplicacao.Visible := False;
+     XLSAplicacao.Workbooks.Open(xFileXLS);
+      //XLSAplicacao.WorkSheets[1].Activate;
 
-    AbaXLS := XLSAplicacao.Workbooks[ExtractFileName(xFileXLS)].WorkSheets[1];
-    AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate; {True}
+     AbaXLS := XLSAplicacao.Workbooks[ExtractFileName(xFileXLS)].WorkSheets[1];
+     AbaXLS.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Activate; {True}
 
-    X := XLSAplicacao.ActiveCell.Row; {16}
-    Y := XLSAplicacao.ActiveCell.Column; {9}
+     X := XLSAplicacao.ActiveCell.Row; {16}
+     Y := XLSAplicacao.ActiveCell.Column; {9}
 
-    // "RangeMatrix" é a planilha Excel em uma variável Delphi
+      // "RangeMatrix" é a planilha Excel em uma variável Delphi
 
-    RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
+     RangeMatrix := XLSAplicacao.Range['A1', XLSAplicacao.Cells.Item[x, y]].Value;
+     try
+      {$region 'ONDE SERÁ REALIZADA AS ATRIBUIÇÕES PARA AS VARIÁVEIS'}
 
-    {$region 'ONDE SERÁ REALIZADA AS ATRIBUIÇÕES PARA AS VARIÁVEIS'}
+      vDescricaoDoPeriodo :=  EncontrarDescricaoNaTabela('Período:', RangeMatrix, X , Y);
+      vNomeDoRobo :=          EncontrarDescricaoNaTabela('Expert Advisor (Robô):', RangeMatrix, X , Y);
+      vNomeDoSetup :=         RangeMatrix[5,4];
+      vMagic :=               EncontrarMagicNaTabela('Parâmetros de entrada:', RangeMatrix, X , Y);
+      vLucroBruto :=          EncontrarValorNaTabela('Lucro Bruto:', RangeMatrix, X , Y);
+      vLucroLiquido :=        EncontrarValorNaTabela('Lucro Líquido Total:', RangeMatrix, X , Y);
+      vPayOff :=              EncontrarValorNaTabela('Retorno Esperado (Payoff):', RangeMatrix, X , Y);
+      vFatorLucro :=          EncontrarValorNaTabela('Fator de Lucro:', RangeMatrix, X , Y);
+      vFatorRecuperacao :=    EncontrarValorNaTabela('Fator de Recuperação:', RangeMatrix, X , Y);
+      vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
+      vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
+      vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
+      vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
+      vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
 
-    vDescricaoDoPeriodo :=  EncontrarDescricaoNaTabela('Período:', RangeMatrix, X , Y);
-    vNomeDoRobo :=          EncontrarDescricaoNaTabela('Expert Advisor (Robô):', RangeMatrix, X , Y);
-    vNomeDoSetup :=         RangeMatrix[5,4];
-    vMagic :=               EncontrarMagicNaTabela('Parâmetros de entrada:', RangeMatrix, X , Y);
-    vLucroBruto :=          EncontrarValorNaTabela('Lucro Bruto:', RangeMatrix, X , Y);
-    vLucroLiquido :=        EncontrarValorNaTabela('Lucro Líquido Total:', RangeMatrix, X , Y);
-    vPayOff :=              EncontrarValorNaTabela('Retorno Esperado (Payoff):', RangeMatrix, X , Y);
-    vFatorLucro :=          EncontrarValorNaTabela('Fator de Lucro:', RangeMatrix, X , Y);
-    vFatorRecuperacao :=    EncontrarValorNaTabela('Fator de Recuperação:', RangeMatrix, X , Y);
-    vSharpe :=              EncontrarValorNaTabela('Índice de Sharpe:', RangeMatrix, X , Y);
-    vCorrelacaoLR :=        EncontrarValorNaTabela('Correlação LR :', RangeMatrix, X , Y);
-    vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
-    vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
-    vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
-               {
-    showMessage(' Os valores encontrados são: ' + #13
-                          + 'Título da Análise *: '+ vTituloDaAnalise + ' | ' + #13
-                          +'Período: ' + vDescricaoDoPeriodo + ' ; ' + #13
-                          +'Expert Advisor (Robô): '+ vNomeDoRobo + ' ; ' + #13
-                          +'Nome do Setup *: '+ vNomeDoSetup + ' ; ' + #13
-                          +'MAGIC NUMBER: '+ vMagic + ' ; ' + #13
-                          +'Lucro Bruto: '+ FloatToStr(vLucroBruto) + ' ; ' + #13
-                          +'Lucro Líquido Total: '+ FloatToStr(vLucroLiquido) + ' ; ' + #13
-                          +'Retorno Esperado (Payoff): '+ FloatToStr(vPayOff) + ' ; ' + #13
-                          +'Fator de Lucro: '+ FloatToStr(vFatorLucro) + ' ; ' + #13
-                          +'Fator de Recuperação: '+ FloatToStr(vFatorRecuperacao) + ' ; ' + #13
-                          +'Índice de Sharpe: '+ FloatToStr(vSharpe) + ' ; ' + #13
-                          +'Correlação LR: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                          +'DDFinanceiro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                          +'CAGR **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                          +'Média Lucro **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                          +'Média Prejuizo **: '+ FloatToStr(vCorrelacaoLR) + ' ; ' + #13
-                          + #13
-                          +'* : Estão atribuidos com valores fixos;' + #13
-                          +'** : Estão atribuidos com valores inseridos;');
-               }
-{$endregion}
+      {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
 
-    {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
+      vID_Analise := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ANALISE').AsInteger;
+      vID_Robo := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ROBO').AsInteger;
 
-    vID_Analise := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ANALISE').AsInteger;
-    vID_Robo := DM_Robos_Financeiros.FDQ_RobosFinanceiros_R.FieldByName('ID_ROBO').AsInteger;
+      SalvarSetupNoBanco(vQuery_S, 1, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
+      {$endregion}
+     finally
+       RangeMatrix := Unassigned;
+     end;
+   finally
+      XLSAplicacao.ActiveWorkBook.Saved:= 1;
+      XLSAplicacao.DisplayAlerts:= 0;
+      XLSAplicacao.ActiveWorkBook.Close(SaveChanges:= 0);
+      XLSAplicacao.Quit;
 
-    SalvarSetupNoBanco(vQuery_S, 1, vID_Robo, vNomeDoSetup, vMagic, vLucroBruto, vLucroLiquido, vPayOff, vFatorLucro, vFatorRecuperacao, vSharpe, vCorrelacaoLR, vDDFinanceiro, vMediaLucro, vMediaPrejuizo);
-
-    {$endregion}
-
-    RangeMatrix := Unassigned;
-
-      if not VarIsEmpty(XLSAplicacao) then                                      // Fecha o Microsoft Excel
-      begin
-        XLSAplicacao.Quit;
-        XLSAplicacao := Unassigned;
-        AbaXLS := Unassigned;
-        Result := True;
-      end;
-      finally
+      AbaXLS := Unassigned;
+      XLSAplicacao := Unassigned;
+      Result := True;
    end;
 end;
-   {$endregion}
+{$endregion}
 
 {$region 'Deletar dados de SETUPS'}
 
@@ -628,11 +594,13 @@ function TFRM_RobosFinanceiros.EncontrarDescricaoNaTabela(Valor : String; Tabela
         {$region 'Somar mais uma coluna até encontrar uma diferente de vazia'}
               {$region 'Ajuda do Fernando'}
            J := 1;
+           repeat  //24NOV2021
            while Tabela[ Lin, (Col + J)] = '' do
-           begin
-             Inc(J, 1);
-           end;
+             begin
+               Inc(J, 1);
+             end;
            Resposta := Tabela[ Lin, (Col + J)];
+           until Resposta <> '';
               {$endregion}
           {$endregion}
         end;
@@ -674,7 +642,7 @@ function TFRM_RobosFinanceiros.EncontrarMagicNaTabela(Valor : String; Tabela : V
              Inc(J, 1);
            end;
            Col := Col + J;
-           while Pos('MagicNumber', Tabela[ (Lin + J), Col ]) = 0 do
+           while (Pos('MagicNumber', Tabela[ (Lin + J), Col ]) = 0) and (Pos('Magic_Number', Tabela[ (Lin + J), Col ]) = 0) do
            begin
              Inc(J, 1);
            end;
@@ -741,7 +709,6 @@ function TFRM_RobosFinanceiros.EncontrarDDFinanceiroNaTabela(Valor : String; Tab
       showMessage('Não foi encontrado o valor correto!' + Valor);
       Abort;
     end;
-
   end;
 {$endregion}
 
@@ -752,7 +719,6 @@ var
 begin
    vMinhaQuery := TFDQuery.Create(Application);
    vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-   Result := 0;
    with vMinhaQuery, SQL do
    begin
       Close;
@@ -913,4 +879,5 @@ end;
 
   {$endregion}
 {$endregion}
+
 end.
