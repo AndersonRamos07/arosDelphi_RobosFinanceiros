@@ -1,6 +1,6 @@
 object Form3: TForm3
-  Left = 120
-  Top = 54
+  Left = 123
+  Top = 125
   Caption = 'Form3'
   ClientHeight = 441
   ClientWidth = 912
@@ -11,6 +11,7 @@ object Form3: TForm3
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMinimized
   PixelsPerInch = 96
   TextHeight = 13
   object P_Principal: TPanel

@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = -13
-  Top = 94
+  Left = -15
+  Top = 137
   Caption = 'Robos Financeiros'
   ClientHeight = 705
   ClientWidth = 1366
@@ -76,10 +76,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         ExplicitWidth = 933
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -139,10 +135,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
@@ -782,7 +774,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         end
         object chkSub: TCheckBox
           Left = 62
-          Top = 101
+          Top = 93
           Width = 145
           Height = 17
           Cursor = crHandPoint
@@ -848,10 +840,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
@@ -1098,10 +1086,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         ExplicitWidth = 933
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -1250,10 +1234,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30
