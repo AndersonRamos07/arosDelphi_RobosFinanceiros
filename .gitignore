@@ -47,4 +47,5 @@ modules/
 tokenGit*
 .trash/
 *.scc
-desktop.ini
+*.ini
+*.FDB
