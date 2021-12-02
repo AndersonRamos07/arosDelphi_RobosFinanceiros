@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Buttons;
+  Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
 
 type
   TForm3 = class(TForm)
@@ -56,7 +56,6 @@ type
     Label26: TLabel;
     Label27: TLabel;
     Label28: TLabel;
-    Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
@@ -81,6 +80,59 @@ type
     Label51: TLabel;
     Label52: TLabel;
     Label53: TLabel;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit6: TDBEdit;
+    DBEdit7: TDBEdit;
+    DBEdit8: TDBEdit;
+    DBEdit9: TDBEdit;
+    DBEdit10: TDBEdit;
+    DBEdit11: TDBEdit;
+    DBEdit12: TDBEdit;
+    DBEdit13: TDBEdit;
+    DBEdit14: TDBEdit;
+    DBEdit15: TDBEdit;
+    DBEdit16: TDBEdit;
+    DBEdit17: TDBEdit;
+    DBEdit18: TDBEdit;
+    DBEdit19: TDBEdit;
+    DBEdit20: TDBEdit;
+    DBEdit21: TDBEdit;
+    DBEdit22: TDBEdit;
+    DBEdit23: TDBEdit;
+    DBEdit24: TDBEdit;
+    DBEdit25: TDBEdit;
+    DBEdit26: TDBEdit;
+    DBEdit27: TDBEdit;
+    DBEdit28: TDBEdit;
+    DBEdit29: TDBEdit;
+    DBEdit31: TDBEdit;
+    DBEdit32: TDBEdit;
+    DBEdit33: TDBEdit;
+    DBEdit34: TDBEdit;
+    DBEdit35: TDBEdit;
+    DBEdit36: TDBEdit;
+    DBEdit37: TDBEdit;
+    DBEdit38: TDBEdit;
+    DBEdit39: TDBEdit;
+    DBEdit40: TDBEdit;
+    DBEdit41: TDBEdit;
+    DBEdit42: TDBEdit;
+    DBEdit43: TDBEdit;
+    DBEdit44: TDBEdit;
+    DBEdit45: TDBEdit;
+    DBEdit46: TDBEdit;
+    DBEdit47: TDBEdit;
+    DBEdit48: TDBEdit;
+    DBEdit49: TDBEdit;
+    DBEdit50: TDBEdit;
+    DBEdit51: TDBEdit;
+    DBEdit52: TDBEdit;
+    DBEdit53: TDBEdit;
+    DBEdit54: TDBEdit;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
@@ -89,6 +141,8 @@ type
     SpeedButton7: TSpeedButton;
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure MakeRounded(Control: TWinControl);
   private
     { Private declarations }
   public
@@ -101,5 +155,27 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm3.SpeedButton1Click(Sender: TObject);
+begin
+  showMessage('BD_PAY-OFF');
+end;
+
+procedure TForm3.MakeRounded(Control: TWinControl);
+var
+R: TRect;
+Rgn: HRGN;
+begin
+  with Control do
+  begin
+   R := ClientRect;
+   rgn := CreateRoundRectRgn(R.Left, R.Top, R.Right, R.Bottom, 20, 20);
+   Perform(EM_GETRECT, 0, lParam(@r));
+   InflateRect(r, - 5, - 5);
+   Perform(EM_SETRECTNP, 0, lParam(@r));
+   SetWindowRgn(Handle, rgn, True);
+   Invalidate;
+  end;
+end;
 
 end.
