@@ -1,7 +1,7 @@
-object Form1: TForm1
-  Left = 194
-  Top = 154
-  Caption = 'Form1'
+object FRM_LookUp: TFRM_LookUp
+  Left = 351
+  Top = 177
+  Caption = 'FRM_LookUp'
   ClientHeight = 441
   ClientWidth = 912
   Color = clBtnFace
@@ -60,5 +60,41 @@ object Form1: TForm1
       Caption = 'TabSheet2'
       ImageIndex = 1
     end
+  end
+  object DS_PAYOFF: TDataSource
+    Left = 24
+    Top = 392
+  end
+  object DS_FATOR_LUCRO: TDataSource
+    Left = 104
+    Top = 392
+  end
+  object DS_FATOR_RECUPERACAO: TDataSource
+    Left = 224
+    Top = 392
+  end
+  object DS_SHARPE: TDataSource
+    Left = 328
+    Top = 392
+  end
+  object DS_CORRELACAO: TDataSource
+    Left = 408
+    Top = 392
+  end
+  object DS_CALMAR: TDataSource
+    Left = 488
+    Top = 392
+  end
+  object DS_CAGR: TDataSource
+    Left = 552
+    Top = 392
+  end
+  object DS_DD_FINANCEIRO: TDataSource
+    Left = 632
+    Top = 392
+  end
+  object DS_RELACAO_LUCROXPERDA: TDataSource
+    Left = 760
+    Top = 392
   end
 end

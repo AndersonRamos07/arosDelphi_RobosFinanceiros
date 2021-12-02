@@ -13,7 +13,7 @@ uses
   Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
 
 type
-  TForm3 = class(TForm)
+  TFRM_RF_Selecao = class(TForm)
     P_Principal: TPanel;
     GB_R_L_X_P: TGroupBox;
     GB_CORRELACAO: TGroupBox;
@@ -85,18 +85,18 @@ type
   end;
 
 var
-  Form3: TForm3;
+  FRM_RF_Selecao: TFRM_RF_Selecao;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm3.SpeedButton1Click(Sender: TObject);
+procedure TFRM_RF_Selecao.SpeedButton1Click(Sender: TObject);
 begin
   showMessage('BD_PAY-OFF');
 end;
 
-procedure TForm3.MakeRounded(Control: TWinControl);
+procedure TFRM_RF_Selecao.MakeRounded(Control: TWinControl);
 var
 R: TRect;
 Rgn: HRGN;

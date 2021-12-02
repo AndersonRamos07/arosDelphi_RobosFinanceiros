@@ -1,7 +1,7 @@
-object Form3: TForm3
+object FRM_RF_Selecao: TFRM_RF_Selecao
   Left = 103
   Top = 193
-  Caption = 'Form3'
+  Caption = 'FRM_RF_Selecao'
   ClientHeight = 441
   ClientWidth = 912
   Color = clBtnFace
@@ -54,8 +54,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'RELA'#199#195'O LUCRO X PERDA'
       TabOrder = 0
-      ExplicitTop = 518
-      ExplicitWidth = 1364
       object SpeedButton9: TSpeedButton
         Left = 130
         Top = 10
@@ -298,8 +296,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'CORRELA'#199#195'O'
       TabOrder = 1
-      ExplicitTop = 278
-      ExplicitWidth = 1364
       object SpeedButton5: TSpeedButton
         Left = 130
         Top = 10
@@ -542,8 +538,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'SHARPE'
       TabOrder = 2
-      ExplicitTop = 218
-      ExplicitWidth = 1364
       object SpeedButton4: TSpeedButton
         Left = 130
         Top = 10
@@ -786,7 +780,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'FATOR RECUPERA'#199#195'O'
       TabOrder = 3
-      ExplicitWidth = 1364
       object SpeedButton3: TSpeedButton
         Left = 130
         Top = 10
@@ -1029,7 +1022,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'FATOR LUCRO'
       TabOrder = 4
-      ExplicitWidth = 1364
       object SpeedButton2: TSpeedButton
         Left = 130
         Top = 10
@@ -1272,7 +1264,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'PAY-OFF'
       TabOrder = 5
-      ExplicitWidth = 1364
       object SpeedButton1: TSpeedButton
         Left = 130
         Top = 10
@@ -1516,8 +1507,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'DD FINANCEIRO'
       TabOrder = 6
-      ExplicitTop = 458
-      ExplicitWidth = 1364
       object SpeedButton8: TSpeedButton
         Left = 130
         Top = 10
@@ -1760,8 +1749,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'CAGR'
       TabOrder = 7
-      ExplicitTop = 398
-      ExplicitWidth = 1364
       object SpeedButton7: TSpeedButton
         Left = 130
         Top = 10
@@ -2004,8 +1991,6 @@ object Form3: TForm3
       Align = alTop
       Caption = 'CALMA R'
       TabOrder = 8
-      ExplicitTop = 338
-      ExplicitWidth = 1364
       object SpeedButton6: TSpeedButton
         Left = 130
         Top = 10
@@ -2247,7 +2232,6 @@ object Form3: TForm3
       Height = 32
       Align = alTop
       TabOrder = 9
-      ExplicitWidth = 1364
       object Label1: TLabel
         Left = 290
         Top = 10

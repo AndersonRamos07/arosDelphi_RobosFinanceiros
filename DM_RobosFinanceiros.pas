@@ -51,6 +51,15 @@ type
     FDQ_RobosFinanceiros_SCAGR: TBCDField;
     IBTransactionAuxiliar: TIBTransaction;
     FDQ_RobosFinanceiros_SINDICE_L_X_P: TBCDField;
+    FDQ_RF_PAYOFF: TFDQuery;
+    FDQ_RF_FATOR_LUCRO: TFDQuery;
+    FDQ_RF_FATOR_RECUPERACAO: TFDQuery;
+    FDQ_RF_SHARPE: TFDQuery;
+    FDQ_RF_CORRELACAO: TFDQuery;
+    FDQ_RF_CALMAR: TFDQuery;
+    FDQ_RF_CAGR: TFDQuery;
+    FDQ_RF_DD_FINANCEIRO: TFDQuery;
+    FDQ_RF_RELACAO_LUCRO_X_PERDA: TFDQuery;
 
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);

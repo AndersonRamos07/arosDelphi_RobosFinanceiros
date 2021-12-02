@@ -1,10 +1,10 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 305
-  Top = 160
-  Height = 382
-  Width = 630
+  Left = 168
+  Top = 235
+  Height = 537
+  Width = 755
   object FDC_RobosFinanceiros: TFDConnection
     Params.Strings = (
       'User_Name=SYSDBA'
@@ -264,5 +264,68 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
       'nowait')
     Left = 512
     Top = 16
+  end
+  object FDQ_RF_PAYOFF: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM PAYOFF')
+    Left = 40
+    Top = 232
+  end
+  object FDQ_RF_FATOR_LUCRO: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM FATOR_LUCRO')
+    Left = 160
+    Top = 232
+  end
+  object FDQ_RF_FATOR_RECUPERACAO: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM FATOR_RECUPERACAO')
+    Left = 312
+    Top = 232
+  end
+  object FDQ_RF_SHARPE: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM SHARPE')
+    Left = 456
+    Top = 232
+  end
+  object FDQ_RF_CORRELACAO: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM CORRELACAO')
+    Left = 576
+    Top = 232
+  end
+  object FDQ_RF_CALMAR: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM CALMAR')
+    Left = 40
+    Top = 304
+  end
+  object FDQ_RF_CAGR: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM CAGR')
+    Left = 312
+    Top = 304
+  end
+  object FDQ_RF_DD_FINANCEIRO: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM DD_FINANCEIRO')
+    Left = 160
+    Top = 304
+  end
+  object FDQ_RF_RELACAO_LUCRO_X_PERDA: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    SQL.Strings = (
+      'SELECT * FROM RELACAO_LUCROXPERDA')
+    Left = 504
+    Top = 304
   end
 end
