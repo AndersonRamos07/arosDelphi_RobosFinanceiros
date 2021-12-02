@@ -1,10 +1,10 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 168
-  Top = 235
-  Height = 537
-  Width = 755
+  Left = 259
+  Top = 176
+  Height = 650
+  Width = 977
   object FDC_RobosFinanceiros: TFDConnection
     Params.Strings = (
       'User_Name=SYSDBA'
@@ -305,27 +305,72 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     SQL.Strings = (
       'SELECT * FROM CALMAR')
     Left = 40
-    Top = 304
+    Top = 352
   end
   object FDQ_RF_CAGR: TFDQuery
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM CAGR')
-    Left = 312
-    Top = 304
+    Left = 272
+    Top = 352
   end
   object FDQ_RF_DD_FINANCEIRO: TFDQuery
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM DD_FINANCEIRO')
     Left = 160
-    Top = 304
+    Top = 352
   end
   object FDQ_RF_RELACAO_LUCRO_X_PERDA: TFDQuery
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM RELACAO_LUCROXPERDA')
-    Left = 504
-    Top = 304
+    Left = 416
+    Top = 352
+  end
+  object DS_PAYOFF: TDataSource
+    DataSet = FDQ_RF_PAYOFF
+    Left = 40
+    Top = 280
+  end
+  object DS_FATOR_LUCRO: TDataSource
+    DataSet = FDQ_RF_FATOR_LUCRO
+    Left = 160
+    Top = 280
+  end
+  object DS_FATOR_RECUPERACAO: TDataSource
+    DataSet = FDQ_RF_FATOR_RECUPERACAO
+    Left = 312
+    Top = 280
+  end
+  object DS_SHARPE: TDataSource
+    DataSet = FDQ_RF_SHARPE
+    Left = 456
+    Top = 280
+  end
+  object DS_CORRELACAO: TDataSource
+    DataSet = FDQ_RF_CORRELACAO
+    Left = 576
+    Top = 280
+  end
+  object DS_CALMAR: TDataSource
+    DataSet = FDQ_RF_CALMAR
+    Left = 40
+    Top = 400
+  end
+  object DS_CAGR: TDataSource
+    DataSet = FDQ_RF_CAGR
+    Left = 272
+    Top = 400
+  end
+  object DS_DD_FINANCEIRO: TDataSource
+    DataSet = FDQ_RF_DD_FINANCEIRO
+    Left = 160
+    Top = 400
+  end
+  object DS_RELACAO_LUCROXPERDA: TDataSource
+    DataSet = FDQ_RF_RELACAO_LUCRO_X_PERDA
+    Left = 416
+    Top = 400
   end
 end

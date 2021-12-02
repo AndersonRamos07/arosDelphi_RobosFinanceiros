@@ -48,4 +48,6 @@ tokenGit*
 .trash/
 *.scc
 *.ini
+BD/
 *.FDB
+pastaDeTesteComExcels/

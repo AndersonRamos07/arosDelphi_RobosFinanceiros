@@ -60,6 +60,15 @@ type
     FDQ_RF_CAGR: TFDQuery;
     FDQ_RF_DD_FINANCEIRO: TFDQuery;
     FDQ_RF_RELACAO_LUCRO_X_PERDA: TFDQuery;
+    DS_PAYOFF: TDataSource;
+    DS_FATOR_LUCRO: TDataSource;
+    DS_FATOR_RECUPERACAO: TDataSource;
+    DS_SHARPE: TDataSource;
+    DS_CORRELACAO: TDataSource;
+    DS_CALMAR: TDataSource;
+    DS_CAGR: TDataSource;
+    DS_DD_FINANCEIRO: TDataSource;
+    DS_RELACAO_LUCROXPERDA: TDataSource;
 
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
@@ -93,6 +102,10 @@ begin
   conexao := ExtractFilePath(Application.ExeName) + 'BASE_DE_DADOS.FDB';
   FDC_RobosFinanceiros.Params.Database := conexao;
   {$endregion}
+
+  FDQ_RobosFinanceiros_A.Open;
+  FDQ_RobosFinanceiros_R.Open;
+  FDQ_RobosFinanceiros_S.Open;
 
   FDQ_RobosFinanceiros_A.Open;
   FDQ_RobosFinanceiros_R.Open;

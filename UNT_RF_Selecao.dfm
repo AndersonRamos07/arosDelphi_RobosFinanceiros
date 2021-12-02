@@ -1,9 +1,9 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = 103
-  Top = 193
+  Left = 111
+  Top = 40
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 441
-  ClientWidth = 912
+  ClientWidth = 1038
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,10 +16,11 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
   object P_Principal: TPanel
     Left = 0
     Top = 0
-    Width = 912
+    Width = 1038
     Height = 441
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 912
     object SB_FILTRAR: TSpeedButton
       Left = 151
       Top = 648
@@ -49,11 +50,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_R_L_X_P: TGroupBox
       Left = 1
       Top = 553
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'RELA'#199#195'O LUCRO X PERDA'
       TabOrder = 0
+      ExplicitWidth = 910
       object SpeedButton9: TSpeedButton
         Left = 130
         Top = 10
@@ -291,11 +293,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_CORRELACAO: TGroupBox
       Left = 1
       Top = 293
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'CORRELA'#199#195'O'
       TabOrder = 1
+      ExplicitWidth = 910
       object SpeedButton5: TSpeedButton
         Left = 130
         Top = 10
@@ -533,11 +536,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_SHARPE: TGroupBox
       Left = 1
       Top = 228
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'SHARPE'
       TabOrder = 2
+      ExplicitWidth = 910
       object SpeedButton4: TSpeedButton
         Left = 130
         Top = 10
@@ -775,11 +779,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_FATOR_R: TGroupBox
       Left = 1
       Top = 163
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'FATOR RECUPERA'#199#195'O'
       TabOrder = 3
+      ExplicitWidth = 910
       object SpeedButton3: TSpeedButton
         Left = 130
         Top = 10
@@ -1017,11 +1022,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_FATOR_L: TGroupBox
       Left = 1
       Top = 98
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'FATOR LUCRO'
       TabOrder = 4
+      ExplicitWidth = 910
       object SpeedButton2: TSpeedButton
         Left = 130
         Top = 10
@@ -1259,11 +1265,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_PAYOFF: TGroupBox
       Left = 1
       Top = 33
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'PAY-OFF'
       TabOrder = 5
+      ExplicitWidth = 910
       object SpeedButton1: TSpeedButton
         Left = 130
         Top = 10
@@ -1502,11 +1509,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_DD: TGroupBox
       Left = 1
       Top = 488
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'DD FINANCEIRO'
       TabOrder = 6
+      ExplicitWidth = 910
       object SpeedButton8: TSpeedButton
         Left = 130
         Top = 10
@@ -1744,11 +1752,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_CAGR: TGroupBox
       Left = 1
       Top = 423
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'CAGR'
       TabOrder = 7
+      ExplicitWidth = 910
       object SpeedButton7: TSpeedButton
         Left = 130
         Top = 10
@@ -1986,11 +1995,12 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GB_CALMAR: TGroupBox
       Left = 1
       Top = 358
-      Width = 910
+      Width = 1036
       Height = 65
       Align = alTop
       Caption = 'CALMA R'
       TabOrder = 8
+      ExplicitWidth = 910
       object SpeedButton6: TSpeedButton
         Left = 130
         Top = 10
@@ -2228,10 +2238,11 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 910
+      Width = 1036
       Height = 32
       Align = alTop
       TabOrder = 9
+      ExplicitWidth = 910
       object Label1: TLabel
         Left = 290
         Top = 10

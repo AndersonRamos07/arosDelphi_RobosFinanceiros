@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = -15
-  Top = 137
+  Left = -7
+  Top = 20
   Caption = 'Robos Financeiros'
   ClientHeight = 705
   ClientWidth = 1366
@@ -19,13 +19,10 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1366
     Height = 705
-    ActivePage = Robo
+    ActivePage = TS_Configuracoes
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
-    ExplicitLeft = -8
-    ExplicitTop = 48
-    ExplicitWidth = 977
     object TS_Analise: TTabSheet
       Caption = 'An'#225'lise'
       ExplicitLeft = 0
@@ -788,7 +785,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Robo_Lista
+        ActivePage = TS_Robo_Detalhes
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
@@ -1724,6 +1721,99 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             ParentFont = False
             TabOrder = 19
           end
+        end
+      end
+    end
+    object TS_Configuracoes: TTabSheet
+      Caption = 'Configura'#231#245'es'
+      ImageIndex = 3
+      OnShow = TS_ConfiguracoesShow
+      object PC_Parametros: TPageControl
+        Left = 40
+        Top = 56
+        Width = 681
+        Height = 369
+        ActivePage = TS_PAYOFF
+        TabOrder = 0
+        object TS_PAYOFF: TTabSheet
+          Caption = 'PayOff'
+          ExplicitWidth = 401
+          ExplicitHeight = 229
+          object Panel2: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitLeft = 16
+            ExplicitTop = 16
+            ExplicitWidth = 185
+            object DBNavigator1: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_PAYOFF
+              TabOrder = 0
+            end
+          end
+          object DBGrid1: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_PAYOFF
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
+        end
+        object TS_FATOR_LUCRO: TTabSheet
+          Caption = 'Fator Lucro'
+          ImageIndex = 1
+          ExplicitWidth = 401
+          ExplicitHeight = 229
+        end
+        object TS_FATOR_RECUPERACAO: TTabSheet
+          Caption = 'Fator Recupera'#231#227'o'
+          ImageIndex = 2
+          ExplicitWidth = 401
+          ExplicitHeight = 229
+        end
+        object TS_SHARPE: TTabSheet
+          Caption = 'Sharpe'
+          ImageIndex = 3
+          ExplicitWidth = 401
+          ExplicitHeight = 229
+        end
+        object TS_CORRELACAO: TTabSheet
+          Caption = 'Correla'#231#227'o'
+          ImageIndex = 4
+          ExplicitWidth = 401
+          ExplicitHeight = 229
+        end
+        object TS_CALMAR: TTabSheet
+          Caption = 'CalmaR'
+          ImageIndex = 5
+          ExplicitWidth = 405
+          ExplicitHeight = 233
+        end
+        object TS_CAGR: TTabSheet
+          Caption = 'CAGR'
+          ImageIndex = 6
+        end
+        object TS_DD_FINANCEIRO: TTabSheet
+          Caption = 'DD Financeiro'
+          ImageIndex = 7
+        end
+        object TS_RELACAO_LUCROXPERDA: TTabSheet
+          Caption = 'Rela'#231#227'o Lucro x Perda'
+          ImageIndex = 8
         end
       end
     end

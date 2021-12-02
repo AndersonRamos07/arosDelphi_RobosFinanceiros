@@ -128,6 +128,20 @@ type
     DBE_CAGR: TDBEdit;
     SG_Importar_Planilha: TStringGrid;
     SP_Importar_Setups: TSpeedButton;
+    TS_Configuracoes: TTabSheet;
+    PC_Parametros: TPageControl;
+    TS_PAYOFF: TTabSheet;
+    TS_FATOR_LUCRO: TTabSheet;
+    TS_FATOR_RECUPERACAO: TTabSheet;
+    TS_SHARPE: TTabSheet;
+    TS_CORRELACAO: TTabSheet;
+    TS_CALMAR: TTabSheet;
+    TS_CAGR: TTabSheet;
+    TS_DD_FINANCEIRO: TTabSheet;
+    TS_RELACAO_LUCROXPERDA: TTabSheet;
+    Panel2: TPanel;
+    DBGrid1: TDBGrid;
+    DBNavigator1: TDBNavigator;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -146,6 +160,7 @@ type
     function TemAtributo(Attr, Val: Integer): Boolean;
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure TS_ConfiguracoesShow(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -406,6 +421,8 @@ begin
       vDDFinanceiro :=        EncontrarDDFinanceiroNaTabela('Rebaixamento Máximo do Saldo :', RangeMatrix, X , Y);
       vMediaLucro :=          EncontrarValorNaTabela('Média lucro da negociação:', RangeMatrix, X , Y);
       vMediaPrejuizo :=       EncontrarValorNaTabela('Média perda na Negociação:', RangeMatrix, X , Y);
+
+      {$endregion}
 
       {$region 'IRÁ SALVAR NO BANCO OS DADOS'}
 
@@ -748,6 +765,11 @@ begin
     else           Result := Value;
   end;
 end;
+procedure TFRM_RobosFinanceiros.TS_ConfiguracoesShow(Sender: TObject);
+begin
+
+end;
+
 {$endregion}
 
 {$region 'Funções "SalvarNoBanco" : Salva os dados nas respectivas tabelas'}

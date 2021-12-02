@@ -16,15 +16,6 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     StringGrid1: TStringGrid;
-    DS_PAYOFF: TDataSource;
-    DS_FATOR_LUCRO: TDataSource;
-    DS_FATOR_RECUPERACAO: TDataSource;
-    DS_SHARPE: TDataSource;
-    DS_CORRELACAO: TDataSource;
-    DS_CALMAR: TDataSource;
-    DS_CAGR: TDataSource;
-    DS_DD_FINANCEIRO: TDataSource;
-    DS_RELACAO_LUCROXPERDA: TDataSource;
   private
     { Private declarations }
   public
