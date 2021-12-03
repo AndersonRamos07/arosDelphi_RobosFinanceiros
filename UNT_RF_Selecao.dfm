@@ -1,8 +1,8 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = 111
-  Top = 40
+  Left = 156
+  Top = 30
   Caption = 'FRM_RF_Selecao'
-  ClientHeight = 441
+  ClientHeight = 618
   ClientWidth = 1038
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,18 +11,23 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object P_Principal: TPanel
     Left = 0
     Top = 0
     Width = 1038
-    Height = 441
+    Height = 618
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = -144
+    ExplicitTop = -248
+    ExplicitWidth = 1366
+    ExplicitHeight = 705
     object SB_FILTRAR: TSpeedButton
-      Left = 151
-      Top = 648
+      Left = 223
+      Top = 552
       Width = 129
       Height = 46
       Caption = 'FILTRAR'
@@ -34,8 +39,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       ParentFont = False
     end
     object SB_CANCELAR: TSpeedButton
-      Left = 566
-      Top = 648
+      Left = 638
+      Top = 552
       Width = 129
       Height = 46
       Caption = 'CANCELAR'
@@ -48,13 +53,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_R_L_X_P: TGroupBox
       Left = 1
-      Top = 553
+      Top = 473
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'RELA'#199#195'O LUCRO X PERDA'
       TabOrder = 0
-      object SpeedButton9: TSpeedButton
+      object SB_FILTRO_RLP: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -234,6 +239,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_RLPClick
       end
       object DBEdit33: TDBEdit
         Left = 260
@@ -290,13 +296,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_CORRELACAO: TGroupBox
       Left = 1
-      Top = 293
+      Top = 253
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'CORRELA'#199#195'O'
       TabOrder = 1
-      object SpeedButton5: TSpeedButton
+      object SB_FILTRO_CO: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -476,6 +482,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_COClick
       end
       object DBEdit17: TDBEdit
         Left = 260
@@ -532,13 +539,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_SHARPE: TGroupBox
       Left = 1
-      Top = 228
+      Top = 198
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'SHARPE'
       TabOrder = 2
-      object SpeedButton4: TSpeedButton
+      object SB_FILTRO_SH: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -718,6 +725,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_SHClick
       end
       object DBEdit13: TDBEdit
         Left = 260
@@ -774,13 +782,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_FATOR_R: TGroupBox
       Left = 1
-      Top = 163
+      Top = 143
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'FATOR RECUPERA'#199#195'O'
       TabOrder = 3
-      object SpeedButton3: TSpeedButton
+      object SB_FILTRO_PR: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -960,6 +968,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_PRClick
       end
       object DBEdit9: TDBEdit
         Left = 260
@@ -1016,13 +1025,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_FATOR_L: TGroupBox
       Left = 1
-      Top = 98
+      Top = 88
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'FATOR LUCRO'
       TabOrder = 4
-      object SpeedButton2: TSpeedButton
+      object SB_FILTRO_FL: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -1202,6 +1211,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_FLClick
       end
       object DBEdit5: TDBEdit
         Left = 260
@@ -1260,11 +1270,11 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Left = 1
       Top = 33
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'PAY-OFF'
       TabOrder = 5
-      object SpeedButton1: TSpeedButton
+      object SB_FILTRO_PO: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -1444,7 +1454,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
-        OnClick = SpeedButton1Click
+        OnClick = SB_FILTRO_POClick
       end
       object DBEdit1: TDBEdit
         Left = 260
@@ -1501,13 +1511,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_DD: TGroupBox
       Left = 1
-      Top = 488
+      Top = 418
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'DD FINANCEIRO'
       TabOrder = 6
-      object SpeedButton8: TSpeedButton
+      object SB_FILTRO_DD: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -1687,6 +1697,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_DDClick
       end
       object DBEdit29: TDBEdit
         Left = 260
@@ -1743,13 +1754,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_CAGR: TGroupBox
       Left = 1
-      Top = 423
+      Top = 363
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'CAGR'
       TabOrder = 7
-      object SpeedButton7: TSpeedButton
+      object SB_FILTRO_CG: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -1929,6 +1940,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_CGClick
       end
       object DBEdit25: TDBEdit
         Left = 260
@@ -1985,13 +1997,13 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     end
     object GB_CALMAR: TGroupBox
       Left = 1
-      Top = 358
+      Top = 308
       Width = 1036
-      Height = 65
+      Height = 55
       Align = alTop
       Caption = 'CALMA R'
       TabOrder = 8
-      object SpeedButton6: TSpeedButton
+      object SB_FILTRO_CR: TSpeedButton
         Left = 130
         Top = 10
         Width = 51
@@ -2171,6 +2183,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A
           00FF008A00FF008A00FF008A00FF008A00FF008A00FF008A00FF002202400000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = SB_FILTRO_CRClick
       end
       object DBEdit21: TDBEdit
         Left = 260

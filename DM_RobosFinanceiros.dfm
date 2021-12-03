@@ -1,8 +1,8 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 30
-  Top = 25
+  Left = 1
+  Top = 34
   Height = 650
   Width = 977
   object FDC_RobosFinanceiros: TFDConnection
@@ -372,5 +372,15 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     DataSet = FDQ_RF_RELACAO_LUCRO_X_PERDA
     Left = 416
     Top = 400
+  end
+  object DS_LOOKUP: TDataSource
+    DataSet = FDQ_LOOKUP
+    Left = 208
+    Top = 496
+  end
+  object FDQ_LOOKUP: TFDQuery
+    Connection = FDC_RobosFinanceiros
+    Left = 144
+    Top = 496
   end
 end

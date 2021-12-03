@@ -72,6 +72,8 @@ type
     DS_CAGR: TDataSource;
     DS_DD_FINANCEIRO: TDataSource;
     DS_RELACAO_LUCROXPERDA: TDataSource;
+    DS_LOOKUP: TDataSource;
+    FDQ_LOOKUP: TFDQuery;
   {$endregion}
   {$region 'PROCEDURES'}
     procedure DataModuleCreate(Sender: TObject);

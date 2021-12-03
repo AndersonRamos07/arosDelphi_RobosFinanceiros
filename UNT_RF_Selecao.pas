@@ -27,17 +27,17 @@ type
     GB_CAGR: TGroupBox;
     SB_FILTRAR: TSpeedButton;
     SB_CANCELAR: TSpeedButton;
-    SpeedButton1: TSpeedButton;
+    SB_FILTRO_PO: TSpeedButton;
     DBEdit1: TDBEdit;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    SpeedButton7: TSpeedButton;
-    SpeedButton8: TSpeedButton;
-    SpeedButton9: TSpeedButton;
+    SB_FILTRO_FL: TSpeedButton;
+    SB_FILTRO_PR: TSpeedButton;
+    SB_FILTRO_SH: TSpeedButton;
+    SB_FILTRO_CO: TSpeedButton;
+    SB_FILTRO_CG: TSpeedButton;
+    SB_FILTRO_DD: TSpeedButton;
+    SB_FILTRO_RLP: TSpeedButton;
     GB_CALMAR: TGroupBox;
-    SpeedButton6: TSpeedButton;
+    SB_FILTRO_CR: TSpeedButton;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
@@ -80,8 +80,19 @@ type
     DBEdit36: TDBEdit;
     {$endregion}
     {$region 'PROCEDURES'}
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure FILTRO_TABELA(tabela:String);
     procedure MakeRounded(Control: TWinControl);
+    procedure SB_FILTRO_POClick(Sender: TObject);
+    procedure SB_FILTRO_FLClick(Sender: TObject);
+    procedure SB_FILTRO_PRClick(Sender: TObject);
+    procedure SB_FILTRO_SHClick(Sender: TObject);
+    procedure SB_FILTRO_COClick(Sender: TObject);
+    procedure SB_FILTRO_CRClick(Sender: TObject);
+    procedure SB_FILTRO_CGClick(Sender: TObject);
+    procedure SB_FILTRO_DDClick(Sender: TObject);
+    procedure SB_FILTRO_RLPClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -94,12 +105,86 @@ var
 
 implementation
 
+  uses
+    UNT_RF_LookUp;
+
 {$R *.dfm}
 
-procedure TFRM_RF_Selecao.SpeedButton1Click(Sender: TObject);
+procedure TFRM_RF_Selecao.FILTRO_TABELA(tabela:String);
 begin
-  showMessage('BD_PAY-OFF');
+  with DM_Robos_Financeiros.FDQ_LOOKUP, SQL do
+   begin
+   Close;
+   Clear;
+   Add('SELECT * FROM ');
+   Add(tabela);
+   Open;
+   end;
+
+  with FRM_Lookup do
+  begin
+  Left := (Screen.Width div 2) - (FRM_LookUp.Width div 2);
+  Top := (Screen.Height div 2) - (FRM_LookUp.Height div 2);
+  P_TABELA.Caption := tabela;
+  ShowModal;
+  end;
 end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_POClick(Sender: TObject);
+begin
+  FILTRO_TABELA('PAYOFF');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_FLClick(Sender: TObject);
+begin
+  FILTRO_TABELA('FATOR_LUCRO');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_PRClick(Sender: TObject);
+begin
+  FILTRO_TABELA('FATOR_RECUPERACAO');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_SHClick(Sender: TObject);
+begin
+  FILTRO_TABELA('SHARPE');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_COClick(Sender: TObject);
+begin
+  FILTRO_TABELA('CORRELACAO');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_CRClick(Sender: TObject);
+begin
+  FILTRO_TABELA('CALMAR');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_CGClick(Sender: TObject);
+begin
+  FILTRO_TABELA('CAGR');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_DDClick(Sender: TObject);
+begin
+  FILTRO_TABELA('DD_FINANCEIRO');
+end;
+
+procedure TFRM_RF_Selecao.SB_FILTRO_RLPClick(Sender: TObject);
+begin
+  FILTRO_TABELA('RELACAO_LUCROXPERDA');
+end;
+
+procedure TFRM_RF_Selecao.FormCreate(Sender: TObject);
+begin
+with FRM_RF_Selecao do
+  begin
+    Left := (Screen.Width div 2) - (FRM_RF_Selecao.Width div 2);
+    Top := (Screen.Height div 2) - (FRM_RF_Selecao.Height div 2);
+  end;
+end;
+
+{$region 'ARREDONDAR'}
 
 procedure TFRM_RF_Selecao.MakeRounded(Control: TWinControl);
 var
@@ -117,5 +202,7 @@ begin
    Invalidate;
   end;
 end;
+
+{$endregion}
 
 end.
