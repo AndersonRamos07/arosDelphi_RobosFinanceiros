@@ -12,9 +12,9 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFRM_RobosFinanceiros, FRM_RobosFinanceiros);
   Application.CreateForm(TFRM_RF_Selecao, FRM_RF_Selecao);
   Application.CreateForm(TFRM_LookUp, FRM_LookUp);
-  Application.CreateForm(TFRM_RobosFinanceiros, FRM_RobosFinanceiros);
   Application.CreateForm(TDM_Robos_Financeiros, DM_Robos_Financeiros);
   Application.Run;
 end.

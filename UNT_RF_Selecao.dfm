@@ -1,6 +1,6 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
   Left = 156
-  Top = 30
+  Top = 141
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 618
   ClientWidth = 1038
@@ -246,6 +246,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_RL_X_P'
+        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -259,6 +261,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -272,6 +276,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -285,6 +291,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -489,6 +497,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_CORRELACAO'
+        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -502,6 +512,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -515,6 +527,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -528,6 +542,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -732,6 +748,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_SHARPE'
+        DataSource = DM_Robos_Financeiros.DS_SHARPE
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -745,6 +763,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_SHARPE
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -758,6 +778,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_SHARPE
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -771,6 +793,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_SHARPE
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -975,6 +999,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_FATOR_RECUPERACAO'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -988,6 +1014,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1001,6 +1029,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1014,6 +1044,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1218,6 +1250,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_FATOR_LUCRO'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1231,6 +1265,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1244,6 +1280,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1257,6 +1295,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1276,9 +1316,9 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       TabOrder = 5
       object SB_FILTRO_PO: TSpeedButton
         Left = 130
-        Top = 10
+        Top = 6
         Width = 51
-        Height = 49
+        Height = 51
         Flat = True
         Glyph.Data = {
           96150000424D9615000000000000360000002800000024000000260000000100
@@ -1461,6 +1501,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_PAYOFF'
+        DataSource = DM_Robos_Financeiros.DS_PAYOFF
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1474,6 +1516,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_PAYOFF
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1487,6 +1531,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_PAYOFF
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1500,6 +1546,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_PAYOFF
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1704,6 +1752,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_DD'
+        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1717,6 +1767,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1730,6 +1782,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1743,6 +1797,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1944,9 +2000,11 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       end
       object DBEdit25: TDBEdit
         Left = 260
-        Top = 20
+        Top = 22
         Width = 79
         Height = 27
+        DataField = 'ID_CAGR'
+        DataSource = DM_Robos_Financeiros.DS_CAGR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1960,6 +2018,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_CAGR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1973,6 +2033,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_CAGR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1986,6 +2048,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_CAGR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -2190,6 +2254,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ID_CALMAR'
+        DataSource = DM_Robos_Financeiros.DS_CALMAR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -2203,6 +2269,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'DE'
+        DataSource = DM_Robos_Financeiros.DS_CALMAR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -2216,6 +2284,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'ATE'
+        DataSource = DM_Robos_Financeiros.DS_CALMAR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -2229,6 +2299,8 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         Top = 20
         Width = 79
         Height = 27
+        DataField = 'NOTA'
+        DataSource = DM_Robos_Financeiros.DS_CALMAR
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16

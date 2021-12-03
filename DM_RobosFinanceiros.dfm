@@ -2,7 +2,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 1
-  Top = 34
+  Top = 95
   Height = 650
   Width = 977
   object FDC_RobosFinanceiros: TFDConnection

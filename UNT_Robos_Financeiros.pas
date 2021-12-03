@@ -10,7 +10,7 @@ uses
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
   // uses na implementation
-  DM_RobosFinanceiros,
+  DM_RobosFinanceiros, UNT_RF_Selecao,
   ComObj,
   FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
@@ -166,6 +166,7 @@ type
     Panel10: TPanel;
     DBNavigator9: TDBNavigator;
     DBGrid9: TDBGrid;
+    SpeedButton1: TSpeedButton;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -185,6 +186,7 @@ type
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TS_SHARPEContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    procedure SpeedButton1Click(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -221,6 +223,11 @@ begin
   OD_Importar_Planilha.Filter := '*.xls|*.xlsx|*.XLS|*.XLSX';
   if OD_Importar_Planilha.Execute = True then
    XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName);
+end;
+
+procedure TFRM_RobosFinanceiros.SpeedButton1Click(Sender: TObject);
+begin
+  FRM_RF_Selecao.ShowModal;
 end;
 
 {$endregion}
