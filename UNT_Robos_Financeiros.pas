@@ -142,6 +142,30 @@ type
     Panel2: TPanel;
     DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
+    Panel3: TPanel;
+    DBNavigator2: TDBNavigator;
+    DBGrid2: TDBGrid;
+    Panel4: TPanel;
+    DBNavigator3: TDBNavigator;
+    DBGrid3: TDBGrid;
+    Panel5: TPanel;
+    DBNavigator4: TDBNavigator;
+    DBGrid4: TDBGrid;
+    Panel6: TPanel;
+    DBNavigator5: TDBNavigator;
+    DBGrid5: TDBGrid;
+    Panel7: TPanel;
+    DBNavigator6: TDBNavigator;
+    DBGrid6: TDBGrid;
+    Panel8: TPanel;
+    DBNavigator7: TDBNavigator;
+    DBGrid7: TDBGrid;
+    Panel9: TPanel;
+    DBNavigator8: TDBNavigator;
+    DBGrid8: TDBGrid;
+    Panel10: TPanel;
+    DBNavigator9: TDBNavigator;
+    DBGrid9: TDBGrid;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -160,7 +184,7 @@ type
     function TemAtributo(Attr, Val: Integer): Boolean;
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure TS_ConfiguracoesShow(Sender: TObject);
+    procedure TS_SHARPEContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -765,7 +789,8 @@ begin
     else           Result := Value;
   end;
 end;
-procedure TFRM_RobosFinanceiros.TS_ConfiguracoesShow(Sender: TObject);
+procedure TFRM_RobosFinanceiros.TS_SHARPEContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
 begin
 
 end;

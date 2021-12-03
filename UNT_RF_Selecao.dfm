@@ -20,7 +20,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     Height = 441
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 912
     object SB_FILTRAR: TSpeedButton
       Left = 151
       Top = 648
@@ -55,7 +54,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'RELA'#199#195'O LUCRO X PERDA'
       TabOrder = 0
-      ExplicitWidth = 910
       object SpeedButton9: TSpeedButton
         Left = 130
         Top = 10
@@ -298,7 +296,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'CORRELA'#199#195'O'
       TabOrder = 1
-      ExplicitWidth = 910
       object SpeedButton5: TSpeedButton
         Left = 130
         Top = 10
@@ -541,7 +538,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'SHARPE'
       TabOrder = 2
-      ExplicitWidth = 910
       object SpeedButton4: TSpeedButton
         Left = 130
         Top = 10
@@ -784,7 +780,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'FATOR RECUPERA'#199#195'O'
       TabOrder = 3
-      ExplicitWidth = 910
       object SpeedButton3: TSpeedButton
         Left = 130
         Top = 10
@@ -1027,7 +1022,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'FATOR LUCRO'
       TabOrder = 4
-      ExplicitWidth = 910
       object SpeedButton2: TSpeedButton
         Left = 130
         Top = 10
@@ -1270,7 +1264,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'PAY-OFF'
       TabOrder = 5
-      ExplicitWidth = 910
       object SpeedButton1: TSpeedButton
         Left = 130
         Top = 10
@@ -1514,7 +1507,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'DD FINANCEIRO'
       TabOrder = 6
-      ExplicitWidth = 910
       object SpeedButton8: TSpeedButton
         Left = 130
         Top = 10
@@ -1757,7 +1749,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'CAGR'
       TabOrder = 7
-      ExplicitWidth = 910
       object SpeedButton7: TSpeedButton
         Left = 130
         Top = 10
@@ -2000,7 +1991,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Align = alTop
       Caption = 'CALMA R'
       TabOrder = 8
-      ExplicitWidth = 910
       object SpeedButton6: TSpeedButton
         Left = 130
         Top = 10
@@ -2242,7 +2232,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Height = 32
       Align = alTop
       TabOrder = 9
-      ExplicitWidth = 910
       object Label1: TLabel
         Left = 290
         Top = 10

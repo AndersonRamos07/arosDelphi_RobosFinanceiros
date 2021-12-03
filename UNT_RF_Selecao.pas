@@ -3,6 +3,7 @@ unit UNT_RF_Selecao;
 interface
 
 uses
+{$region 'USES : IMPORTS'}
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   DM_RobosFinanceiros,
@@ -11,9 +12,10 @@ uses
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.IBBase, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
-
+{$endregion}
 type
   TFRM_RF_Selecao = class(TForm)
+    {$region 'ATRIBUTOS'}
     P_Principal: TPanel;
     GB_R_L_X_P: TGroupBox;
     GB_CORRELACAO: TGroupBox;
@@ -76,12 +78,15 @@ type
     DBEdit34: TDBEdit;
     DBEdit35: TDBEdit;
     DBEdit36: TDBEdit;
+    {$endregion}
+    {$region 'PROCEDURES'}
     procedure SpeedButton1Click(Sender: TObject);
     procedure MakeRounded(Control: TWinControl);
   private
     { Private declarations }
   public
     { Public declarations }
+    {$endregion}
   end;
 
 var

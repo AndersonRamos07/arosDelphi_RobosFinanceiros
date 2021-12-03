@@ -3,6 +3,7 @@ unit DM_RobosFinanceiros;
 interface
 
 uses
+{$region 'USES : IMPORTS'}
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
@@ -10,9 +11,11 @@ uses
   FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, IBX.IBDatabase,
   IniFiles;     // para realizar a leitura do arquivo *.INI
+{$endregion}
 
 type
   TDM_Robos_Financeiros = class(TDataModule)
+  {$region 'ATRIBUTOS'}
     FDC_RobosFinanceiros: TFDConnection;
     FDPhysFBDriverLink1: TFDPhysFBDriverLink;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
@@ -69,7 +72,8 @@ type
     DS_CAGR: TDataSource;
     DS_DD_FINANCEIRO: TDataSource;
     DS_RELACAO_LUCROXPERDA: TDataSource;
-
+  {$endregion}
+  {$region 'PROCEDURES'}
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
 //    procedure FDPhysFBDriverLink1DriverCreated(Sender: TObject);
@@ -79,7 +83,9 @@ type
     { Public declarations }
     user, porta, ip, fBD, conexao, conexaoFB : String;
     procedure CodificarINI();
+      {$endregion}
   end;
+
 
 var
   DM_Robos_Financeiros : TDM_Robos_Financeiros;
@@ -87,15 +93,17 @@ var
 implementation
 
 uses
+{$region 'USES : IMPORTS II'}
  Winapi.Windows, Winapi.Messages, System.Variants, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
-
+{$endregion}
 {$R *.dfm}
 
+{$region 'CREATE DO DATAMODULE'}
 procedure TDM_Robos_Financeiros.DataModuleCreate(Sender: TObject);
 begin
  {$region 'Realizar a conexão conforme o que consta no arquivo INI'}
@@ -107,16 +115,25 @@ begin
   FDQ_RobosFinanceiros_R.Open;
   FDQ_RobosFinanceiros_S.Open;
 
-  FDQ_RobosFinanceiros_A.Open;
-  FDQ_RobosFinanceiros_R.Open;
-  FDQ_RobosFinanceiros_S.Open;
+  FDQ_RF_PAYOFF.Open;
+  FDQ_RF_FATOR_LUCRO.Open;
+  FDQ_RF_FATOR_RECUPERACAO.Open;
+  FDQ_RF_SHARPE.Open;
+  FDQ_RF_CORRELACAO.Open;
+  FDQ_RF_CALMAR.Open;
+  FDQ_RF_DD_FINANCEIRO.Open;
+  FDQ_RF_CAGR.Open;
+  FDQ_RF_RELACAO_LUCRO_X_PERDA.Open;
 end;
+{$endregion}
 
+{$region 'AFTER_POST'}
 procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
 begin
   FDQ_RobosFinanceiros_S.Close;
   FDQ_RobosFinanceiros_S.Open;
 end;
+{$endregion}
 
 {$region 'Realizar a leitura do arquivo CONFIG.INI'}
 procedure TDM_Robos_Financeiros.CodificarINI;

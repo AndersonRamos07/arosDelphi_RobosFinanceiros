@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = -7
-  Top = 20
+  Left = 12
+  Top = 145
   Caption = 'Robos Financeiros'
   ClientHeight = 705
   ClientWidth = 1366
@@ -1727,18 +1727,19 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     object TS_Configuracoes: TTabSheet
       Caption = 'Configura'#231#245'es'
       ImageIndex = 3
-      OnShow = TS_ConfiguracoesShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object PC_Parametros: TPageControl
         Left = 40
         Top = 56
         Width = 681
         Height = 369
-        ActivePage = TS_PAYOFF
+        ActivePage = TS_CAGR
         TabOrder = 0
         object TS_PAYOFF: TTabSheet
           Caption = 'PayOff'
-          ExplicitWidth = 401
-          ExplicitHeight = 229
           object Panel2: TPanel
             Left = 0
             Top = 0
@@ -1746,9 +1747,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 16
-            ExplicitWidth = 185
             object DBNavigator1: TDBNavigator
               Left = 0
               Top = 2
@@ -1776,44 +1774,283 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_FATOR_LUCRO: TTabSheet
           Caption = 'Fator Lucro'
           ImageIndex = 1
-          ExplicitWidth = 401
-          ExplicitHeight = 229
+          object Panel3: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator2: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+              TabOrder = 0
+            end
+          end
+          object DBGrid2: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_FATOR_RECUPERACAO: TTabSheet
           Caption = 'Fator Recupera'#231#227'o'
           ImageIndex = 2
-          ExplicitWidth = 401
-          ExplicitHeight = 229
+          object Panel4: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator3: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+              TabOrder = 0
+            end
+          end
+          object DBGrid3: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_SHARPE: TTabSheet
           Caption = 'Sharpe'
           ImageIndex = 3
-          ExplicitWidth = 401
-          ExplicitHeight = 229
+          OnContextPopup = TS_SHARPEContextPopup
+          object Panel5: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator4: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_SHARPE
+              TabOrder = 0
+            end
+          end
+          object DBGrid4: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_SHARPE
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_CORRELACAO: TTabSheet
           Caption = 'Correla'#231#227'o'
           ImageIndex = 4
-          ExplicitWidth = 401
-          ExplicitHeight = 229
+          object Panel6: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator5: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+              TabOrder = 0
+            end
+          end
+          object DBGrid5: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_CALMAR: TTabSheet
           Caption = 'CalmaR'
           ImageIndex = 5
-          ExplicitWidth = 405
-          ExplicitHeight = 233
+          object Panel7: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator6: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_CALMAR
+              TabOrder = 0
+            end
+          end
+          object DBGrid6: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_CALMAR
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_CAGR: TTabSheet
           Caption = 'CAGR'
           ImageIndex = 6
+          object Panel8: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator7: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_CAGR
+              TabOrder = 0
+            end
+          end
+          object DBGrid7: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_CAGR
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_DD_FINANCEIRO: TTabSheet
           Caption = 'DD Financeiro'
           ImageIndex = 7
+          object Panel9: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator8: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+              TabOrder = 0
+            end
+          end
+          object DBGrid8: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
         object TS_RELACAO_LUCROXPERDA: TTabSheet
           Caption = 'Rela'#231#227'o Lucro x Perda'
           ImageIndex = 8
+          object Panel10: TPanel
+            Left = 0
+            Top = 0
+            Width = 673
+            Height = 41
+            Align = alTop
+            TabOrder = 0
+            ExplicitTop = 8
+            object DBNavigator9: TDBNavigator
+              Left = 0
+              Top = 2
+              Width = 290
+              Height = 35
+              DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+              TabOrder = 0
+            end
+          end
+          object DBGrid9: TDBGrid
+            Left = 0
+            Top = 41
+            Width = 673
+            Height = 300
+            Align = alClient
+            DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+          end
         end
       end
     end
