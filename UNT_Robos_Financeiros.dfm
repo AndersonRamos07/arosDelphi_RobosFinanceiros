@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = 12
-  Top = 145
+  Left = -5
+  Top = 134
   Caption = 'Robos Financeiros'
   ClientHeight = 705
   ClientWidth = 1366
@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1366
     Height = 705
-    ActivePage = TS_Configuracoes
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -1077,7 +1077,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1358
         Height = 548
-        ActivePage = TS_Setup_Lista
+        ActivePage = TS_Setup_Detalhes
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
@@ -2117,7 +2117,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator2: TDBNavigator
               Left = 0
               Top = 2
@@ -2152,7 +2151,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator3: TDBNavigator
               Left = 0
               Top = 2
@@ -2188,7 +2186,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator4: TDBNavigator
               Left = 0
               Top = 2
@@ -2223,7 +2220,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator5: TDBNavigator
               Left = 0
               Top = 2
@@ -2258,7 +2254,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator6: TDBNavigator
               Left = 0
               Top = 2
@@ -2293,7 +2288,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator7: TDBNavigator
               Left = 0
               Top = 2
@@ -2328,7 +2322,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator8: TDBNavigator
               Left = 0
               Top = 2
@@ -2363,7 +2356,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
             Height = 41
             Align = alTop
             TabOrder = 0
-            ExplicitTop = 8
             object DBNavigator9: TDBNavigator
               Left = 0
               Top = 2

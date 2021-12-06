@@ -13,7 +13,7 @@ object FRM_LookUp: TFRM_LookUp
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object SpeedButton1: TSpeedButton
+  object SB_AdicionarValor: TSpeedButton
     Left = 16
     Top = 50
     Width = 57
@@ -401,8 +401,8 @@ object FRM_LookUp: TFRM_LookUp
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FF}
   end
-  object SpeedButton2: TSpeedButton
-    Left = 184
+  object SB_AceitarValor: TSpeedButton
+    Left = 192
     Top = 50
     Width = 57
     Height = 55
@@ -788,9 +788,10 @@ object FRM_LookUp: TFRM_LookUp
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FF}
+    OnClick = SB_AceitarValorClick
   end
-  object SpeedButton3: TSpeedButton
-    Left = 342
+  object SB_CancelarValor: TSpeedButton
+    Left = 350
     Top = 50
     Width = 59
     Height = 55
@@ -1180,7 +1181,7 @@ object FRM_LookUp: TFRM_LookUp
   object P_TABELA: TPanel
     Left = 16
     Top = 8
-    Width = 385
+    Width = 393
     Height = 41
     Caption = 'P_TABELA'
     Font.Charset = DEFAULT_CHARSET
@@ -1192,9 +1193,9 @@ object FRM_LookUp: TFRM_LookUp
     TabOrder = 0
   end
   object DBGrid1: TDBGrid
-    Left = 16
-    Top = 104
-    Width = 385
+    Left = 8
+    Top = 111
+    Width = 401
     Height = 273
     DataSource = DM_Robos_Financeiros.DS_LOOKUP
     TabOrder = 1

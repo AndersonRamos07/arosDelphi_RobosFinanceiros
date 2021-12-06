@@ -1,6 +1,6 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = 156
-  Top = 141
+  Left = 139
+  Top = 120
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 618
   ClientWidth = 1038
@@ -21,10 +21,6 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
     Height = 618
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -144
-    ExplicitTop = -248
-    ExplicitWidth = 1366
-    ExplicitHeight = 705
     object SB_FILTRAR: TSpeedButton
       Left = 223
       Top = 552
@@ -1245,7 +1241,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_FLClick
       end
-      object DBEdit5: TDBEdit
+      object DBE_ID_FATOR_LUCRO: TDBEdit
         Left = 260
         Top = 20
         Width = 79
@@ -1260,7 +1256,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 0
       end
-      object DBEdit6: TDBEdit
+      object DBE_DE_FATOR_LUCRO: TDBEdit
         Left = 450
         Top = 20
         Width = 79
@@ -1275,7 +1271,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 1
       end
-      object DBEdit7: TDBEdit
+      object DBE_ATE_FATOR_LUCRO: TDBEdit
         Left = 650
         Top = 20
         Width = 79
@@ -1290,7 +1286,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 2
       end
-      object DBEdit8: TDBEdit
+      object DBE_NOTA_FATOR_LUCRO: TDBEdit
         Left = 850
         Top = 20
         Width = 79
@@ -1496,7 +1492,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_POClick
       end
-      object DBEdit1: TDBEdit
+      object DBE_ID_PAYOFF: TDBEdit
         Left = 260
         Top = 20
         Width = 79
@@ -1511,7 +1507,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 0
       end
-      object DBEdit2: TDBEdit
+      object DBE_DE_PAYOFF: TDBEdit
         Left = 450
         Top = 20
         Width = 79
@@ -1526,7 +1522,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 1
       end
-      object DBEdit3: TDBEdit
+      object DBE_ATE_PAYOFF: TDBEdit
         Left = 650
         Top = 20
         Width = 79
@@ -1541,7 +1537,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 2
       end
-      object DBEdit4: TDBEdit
+      object DBE_NOTA_PAYOFF: TDBEdit
         Left = 850
         Top = 20
         Width = 79
@@ -1747,7 +1743,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_DDClick
       end
-      object DBEdit29: TDBEdit
+      object DBE_ID_DD: TDBEdit
         Left = 260
         Top = 20
         Width = 79
@@ -1762,7 +1758,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 0
       end
-      object DBEdit30: TDBEdit
+      object DBE_DE_DD: TDBEdit
         Left = 450
         Top = 20
         Width = 79
@@ -1777,7 +1773,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 1
       end
-      object DBEdit31: TDBEdit
+      object DBE_ATE_DD: TDBEdit
         Left = 650
         Top = 20
         Width = 79
@@ -1792,7 +1788,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         TabOrder = 2
       end
-      object DBEdit32: TDBEdit
+      object DBE_NOTA_DD: TDBEdit
         Left = 850
         Top = 20
         Width = 79
