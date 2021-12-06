@@ -1,6 +1,6 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = 139
-  Top = 120
+  Left = -6
+  Top = 45
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 618
   ClientWidth = 1038
@@ -237,65 +237,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_RLPClick
       end
-      object DBEdit33: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_RL_X_P'
-        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+      object E_ID_RELACAO_LUCROXPERDA: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit34: TDBEdit
+      object E_DE_RELACAO_LUCROXPERDA: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit35: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+      object E_ATE_RELACAO_LUCROXPERDA: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit36: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_RELACAO_LUCROXPERDA
+      object E_NOTA_RELACAO_LUCROXPERDA: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_CORRELACAO: TGroupBox
@@ -488,65 +492,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_COClick
       end
-      object DBEdit17: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_CORRELACAO'
-        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+      object E_ID_CORRELACAO: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit18: TDBEdit
+      object E_DE_CORRELACAO: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit19: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+      object E_ATE_CORRELACAO: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit20: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_CORRELACAO
+      object E_NOTA_CORRELACAO: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_SHARPE: TGroupBox
@@ -739,65 +747,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_SHClick
       end
-      object DBEdit13: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_SHARPE'
-        DataSource = DM_Robos_Financeiros.DS_SHARPE
+      object E_ID_SHARPE: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit14: TDBEdit
+      object E_DE_SHARPE: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_SHARPE
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit15: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_SHARPE
+      object E_ATE_SHARPE: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit16: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_SHARPE
+      object E_NOTA_SHARPE: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_FATOR_R: TGroupBox
@@ -990,65 +1002,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_PRClick
       end
-      object DBEdit9: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_FATOR_RECUPERACAO'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+      object E_ID_FATOR_RECUPERACAO: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit10: TDBEdit
+      object E_DE_FATOR_RECUPERACAO: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit11: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+      object E_ATE_FATOR_RECUPERACAO: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit12: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_RECUPERACAO
+      object E_NOTA_FATOR_RECUPERACAO: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_FATOR_L: TGroupBox
@@ -1241,65 +1257,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_FLClick
       end
-      object DBE_ID_FATOR_LUCRO: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_FATOR_LUCRO'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+      object E_ID_FATOR_LUCRO: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBE_DE_FATOR_LUCRO: TDBEdit
+      object E_DE_FATOR_LUCRO: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBE_ATE_FATOR_LUCRO: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+      object E_ATE_FATOR_LUCRO: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBE_NOTA_FATOR_LUCRO: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_FATOR_LUCRO
+      object E_NOTA_FATOR_LUCRO: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_PAYOFF: TGroupBox
@@ -1492,65 +1512,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_POClick
       end
-      object DBE_ID_PAYOFF: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_PAYOFF'
-        DataSource = DM_Robos_Financeiros.DS_PAYOFF
+      object E_ID_PAYOFF: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBE_DE_PAYOFF: TDBEdit
+      object E_DE_PAYOFF: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_PAYOFF
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBE_ATE_PAYOFF: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_PAYOFF
+      object E_ATE_PAYOFF: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBE_NOTA_PAYOFF: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_PAYOFF
+      object E_NOTA_PAYOFF: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_DD: TGroupBox
@@ -1743,65 +1767,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_DDClick
       end
-      object DBE_ID_DD: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_DD'
-        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+      object E_ID_DD_FINANCEIRO: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBE_DE_DD: TDBEdit
+      object E_DE_DD_FINANCEIRO: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBE_ATE_DD: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+      object E_ATE_DD_FINANCEIRO: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBE_NOTA_DD: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_DD_FINANCEIRO
+      object E_NOTA_DD_FINANCEIRO: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_CAGR: TGroupBox
@@ -1994,65 +2022,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_CGClick
       end
-      object DBEdit25: TDBEdit
-        Left = 260
-        Top = 22
-        Width = 79
-        Height = 27
-        DataField = 'ID_CAGR'
-        DataSource = DM_Robos_Financeiros.DS_CAGR
+      object E_ID_CAGR: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit26: TDBEdit
+      object E_DE_CAGR: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_CAGR
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit27: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_CAGR
+      object E_ATE_CAGR: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit28: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_CAGR
+      object E_NOTA_CAGR: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GB_CALMAR: TGroupBox
@@ -2245,65 +2277,69 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
           0000000000000000000000000000000000000000000000000000}
         OnClick = SB_FILTRO_CRClick
       end
-      object DBEdit21: TDBEdit
-        Left = 260
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ID_CALMAR'
-        DataSource = DM_Robos_Financeiros.DS_CALMAR
+      object E_ID_CALMAR: TEdit
+        Left = 255
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
+        Text = '0,00'
       end
-      object DBEdit22: TDBEdit
+      object E_DE_CALMAR: TEdit
         Left = 450
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'DE'
-        DataSource = DM_Robos_Financeiros.DS_CALMAR
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
+        Text = '0,00'
       end
-      object DBEdit23: TDBEdit
-        Left = 650
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'ATE'
-        DataSource = DM_Robos_Financeiros.DS_CALMAR
+      object E_ATE_CALMAR: TEdit
+        Left = 645
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
+        Text = '0,00'
       end
-      object DBEdit24: TDBEdit
-        Left = 850
-        Top = 20
-        Width = 79
-        Height = 27
-        DataField = 'NOTA'
-        DataSource = DM_Robos_Financeiros.DS_CALMAR
+      object E_NOTA_CALMAR: TEdit
+        Left = 845
+        Top = 15
+        Width = 85
+        Height = 21
+        Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
+        Text = '0,00'
       end
     end
     object GroupBox1: TGroupBox
