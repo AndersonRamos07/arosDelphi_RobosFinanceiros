@@ -121,6 +121,8 @@ begin
    Open;
    end;
 
+  Application.CreateForm(TFRM_Lookup, FRM_Lookup);
+
   with FRM_Lookup do
   begin
   Left := (Screen.Width div 2) - (FRM_LookUp.Width div 2);
