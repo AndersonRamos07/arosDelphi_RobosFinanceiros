@@ -112,14 +112,7 @@ implementation
 
 procedure TFRM_RF_Selecao.FILTRO_TABELA(tabela:String);
 begin
-  with DM_Robos_Financeiros.FDQ_LOOKUP, SQL do
-   begin
-   Close;
-   Clear;
-   Add('SELECT * FROM ');
-   Add(tabela);
-   Open;
-   end;
+  DM_Robos_Financeiros.SELECT_ALL_FROM_TABLE(tabela);
 
   Application.CreateForm(TFRM_Lookup, FRM_Lookup);
 

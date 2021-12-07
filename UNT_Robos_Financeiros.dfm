@@ -1,6 +1,6 @@
 object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
-  Left = -373
-  Top = 165
+  Left = -195
+  Top = 45
   Caption = 'Robos Financeiros'
   ClientHeight = 705
   ClientWidth = 1366
@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1366
     Height = 705
-    ActivePage = Setup
+    ActivePage = TS_Configuracoes
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -2325,10 +2325,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_CAGR: TTabSheet
           Caption = 'CAGR'
           ImageIndex = 6
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel8: TPanel
             Left = 0
             Top = 0

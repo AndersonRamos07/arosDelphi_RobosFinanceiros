@@ -1195,15 +1195,124 @@ object FRM_LookUp: TFRM_LookUp
   end
   object DBGrid1: TDBGrid
     Left = 8
-    Top = 111
+    Top = 112
     Width = 401
     Height = 273
-    DataSource = DM_Robos_Financeiros.DS_LOOKUP
+    DataSource = DM_Robos_Financeiros.DS_GLOBAL
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+  end
+  object DBN_LookUp: TDBNavigator
+    Left = 88
+    Top = 24
+    Width = 240
+    Height = 25
+    DataSource = DM_Robos_Financeiros.DS_GLOBAL
+    TabOrder = 2
+    Visible = False
+  end
+  object P_ADD_LOOKUP: TPanel
+    Left = 32
+    Top = 216
+    Width = 345
+    Height = 161
+    TabOrder = 3
+    Visible = False
+    object SpeedButton1: TSpeedButton
+      Left = 192
+      Top = 96
+      Width = 105
+      Height = 38
+      Caption = 'inserir'
+      OnClick = SpeedButton1Click
+    end
+    object L_ID: TLabel
+      Left = 96
+      Top = 93
+      Width = 14
+      Height = 16
+      Caption = 'ID'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_DE: TLabel
+      Left = 48
+      Top = 31
+      Width = 16
+      Height = 16
+      Caption = 'DE'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_ATE: TLabel
+      Left = 162
+      Top = 31
+      Width = 24
+      Height = 16
+      Caption = 'AT'#201
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object L_NOTA: TLabel
+      Left = 266
+      Top = 31
+      Width = 34
+      Height = 16
+      Caption = 'NOTA'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object E_ID: TEdit
+      Left = 85
+      Top = 112
+      Width = 55
+      Height = 21
+      TabOrder = 0
+      Text = '0,00'
+    end
+    object E_DE: TEdit
+      Left = 30
+      Top = 50
+      Width = 80
+      Height = 21
+      TabOrder = 1
+      Text = '0,00'
+    end
+    object E_ATE: TEdit
+      Left = 140
+      Top = 50
+      Width = 80
+      Height = 21
+      TabOrder = 2
+      Text = '0,00'
+    end
+    object E_NOTA: TEdit
+      Left = 240
+      Top = 50
+      Width = 80
+      Height = 21
+      TabOrder = 3
+      Text = '0,00'
+    end
   end
 end

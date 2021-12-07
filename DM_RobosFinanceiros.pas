@@ -72,17 +72,15 @@ type
     DS_CAGR: TDataSource;
     DS_DD_FINANCEIRO: TDataSource;
     DS_RELACAO_LUCROXPERDA: TDataSource;
-    DS_LOOKUP: TDataSource;
-    FDQ_LOOKUP: TFDQuery;
+    DS_GLOBAL: TDataSource;
+    FDQ_GLOBAL: TFDQuery;
   {$endregion}
   {$region 'PROCEDURES'}
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
-//    procedure FDPhysFBDriverLink1DriverCreated(Sender: TObject);
+    procedure SELECT_ALL_FROM_TABLE(Tabela: String);
   private
-    { Private declarations }
   public
-    { Public declarations }
     user, porta, ip, fBD, conexao, conexaoFB : String;
     procedure CodificarINI();
       {$endregion}
@@ -150,6 +148,22 @@ begin
     fBD := arquivoIni.ReadString('Configuracoes', 'nomeBD', fBD);
     conexaoFB := ExtractFilePath(Application.ExeName) + fBD;
     arquivoIni.Free;
+end;
+{$endregion}
+
+{ ******* PROCEDURES GLOBAIS ******* }
+
+{$region 'SELECT_ALL_FROM_TABLE'}
+procedure TDM_Robos_Financeiros.SELECT_ALL_FROM_TABLE(Tabela: String);
+begin
+  with DM_Robos_Financeiros.FDQ_GLOBAL, SQL do
+   begin
+   Close;
+   Clear;
+   Add('SELECT * FROM ');
+   Add(Tabela);
+   Open;
+   end;
 end;
 {$endregion}
 
