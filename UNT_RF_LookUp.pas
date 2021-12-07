@@ -17,22 +17,24 @@ type
     SB_AceitarValor: TSpeedButton;
     SB_CancelarValor: TSpeedButton;
     DBGrid1: TDBGrid;
-    DBN_LookUp: TDBNavigator;
     P_ADD_LOOKUP: TPanel;
     E_ID: TEdit;
     E_DE: TEdit;
     E_ATE: TEdit;
     E_NOTA: TEdit;
-    SpeedButton1: TSpeedButton;
+    SB_InserirValor: TSpeedButton;
     L_ID: TLabel;
     L_DE: TLabel;
     L_ATE: TLabel;
     L_NOTA: TLabel;
+    SP_Ocultar: TSpeedButton;
     procedure SB_AceitarValorClick(Sender : TObject);
-    //procedure PreencherDBEdits(Tabela: String);
     procedure PreencherEdits(Tabela: String);
     procedure SB_AdicionarValorClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure SB_InserirValorClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure SP_OcultarClick(Sender: TObject);
+    procedure PreencherOsEdits(Tabela: String);
   private
     { Private declarations }
   public
@@ -52,7 +54,7 @@ var
   Tabela : String;
 begin
 Tabela := P_Tabela.Caption;
-PreencherEdits(Tabela);
+PreencherOsEdits(Tabela);
 Close();
 end;
 {$endregion}
@@ -60,16 +62,18 @@ end;
 {$region ''}
 procedure TFRM_LookUp.SB_AdicionarValorClick(Sender: TObject);
 begin
+  FRM_LookUp.Width := 540;
   with P_ADD_LOOKUP do
   begin
   BringToFront;
   Visible := True;
   end;
+  FocusControl(E_DE);
 end;
 
 {$endregion}
 
-procedure TFRM_LookUp.SpeedButton1Click(Sender: TObject);
+procedure TFRM_LookUp.SB_InserirValorClick(Sender: TObject);
 var
   tabela: String;
 begin
@@ -92,12 +96,23 @@ begin
    ExecSQL;
    Close;
    end;
-  FRM_RF_Selecao.FILTRO_TABELA(tabela);
+   DM_Robos_Financeiros.SELECT_ALL_FROM_TABLE(tabela);
 end;
 
 
 
+procedure TFRM_LookUp.SP_OcultarClick(Sender: TObject);
+begin
+  FRM_LookUp.Width := 430;
+  P_ADD_LOOKUP.Visible := False;
+end;
+
 {$region 'PreencherEdits()'}
+procedure TFRM_LookUp.FormCreate(Sender: TObject);
+begin
+  Width := 430;
+end;
+
 procedure TFRM_LookUp.PreencherEdits(Tabela: string);
 var
   ID_DBEdit, DE_DBEdit, ATE_DBEdit, NOTA_DBEdit: TDBEdit;
@@ -203,73 +218,30 @@ begin
 end;
 {$endregion}
 
-{$region 'DBEDITS'}
-//procedure TFRM_LookUp.PreencherDBEdits(Tabela: String);
-//var
-//  ID_DBEdit, DE_DBEdit, ATE_DBEdit, NOTA_DBEdit: TDBEdit;
-//  Nome_do_Campo, Nome_ID, Nome_DE, Nome_ATE, Nome_NOTA, Valor: String;
-//  i: Integer;
-//
-//  function getElementById(FieldName, EditName, Value : String);
-//  begin
-//    for i := 0 to FRM_RF_Selecao.ComponentCount - 1 do
-//    begin
-//      if (FRM_RF_Selecao.Components[i] is TEdit) and (TComponent(FRM_RF_Selecao.Components[i]).Name = EditName) then
-//        TEdit(FRM_RF_Selecao.Components[i]).Text := Value;
-//    end;
-//  end;
-//
-//  function preencherCampo(Campo: String);
-//  begin
-//    case AnsiIndexStr(UpperCase(Campo), ['ID', 'DE','ATE', 'NOTA']) of
-//      0 : getElementById('ID');
-//      1 : showmessage('Opcao2');
-//      2 : showmessage('Opcao3');
-//      3 :
-//    end;
-//  end;
-//
-//begin
-//   Nome_ID = 'ID';
-//   Nome_DE = 'DE';
-//   Nome_ATE = 'ATE';
-//   Nome_NOTA = 'NOTA';
-//
-//  if (Tabela = 'DD_FINANCEIRO') then
-//  begin
-//      Nome_ID := 'ID_DD';
-//      Nome_do_Campo := 'E_' + Nome_ID;
-//      Valor := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_ID).AsString;
-//      getElementById(Nome_ID, Nome_do_Campo, Valor);
-//  end
-//  else if (Tabela = 'RELACAO_LUCROXPERDA') then
-//  begin
-//      Nome_ID := 'ID_RL_X_P';
-//      Nome_do_Campo := 'E_' + Nome_ID;
-//      Valor := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//      getElementById(Nome_ID, Nome_do_Campo, Valor);
-//  end
-//  else
-//  begin
-//      Nome_ID := 'ID_' + Tabela;
-//  end;
-//    Nome_do_Campo := 'E_' + Nome_ID;
-//    Valor := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//    getElementById(Nome_ID, Nome_do_Campo, Valor);
-//
-//
-//    //ID_DBEdit.Name := 'ID_' + Tabela;
-//    //UNT_RF_Selecao.FRM_RF_Selecao.ID_DBEdit := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//    //id := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//    Nome_do_Campo := 'DE';
-//    //Nome_DE := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//    Nome_do_Campo := 'ATE';
-//    //Nome_ATE := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//    Nome_do_Campo := 'NOTA';
-//    //Nome_NOTA := DM_Robos_Financeiros.FDQ_LOOKUP.FieldByName(Nome_do_Campo).AsString;
-//
-//    //showMessage(id + ' ' + de + ' ' + ate + ' ' + nota);
-//end;
+{$region 'PreencherOsEdits'}
+procedure TFRM_LookUp.PreencherOsEdits(Tabela: String);
+var
+  Edit : TEdit;
+  Edit_ID, Edit_DE, Edit_ATE, Edit_NOTA, v_ID : String;
+
+begin
+  Edit_ID := 'E_ID_' + Tabela;
+  v_ID := 'ID_' + Tabela;
+  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_ID);
+  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName(v_ID).AsString;
+
+  Edit_DE := 'E_DE_' + Tabela;
+  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_DE);
+  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
+
+  Edit_ATE := 'E_ATE_' + Tabela;
+  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_ATE);
+  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
+
+  Edit_NOTA := 'E_NOTA_' + Tabela;
+  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_NOTA);
+  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
+end;
 {$endregion}
 
 end.

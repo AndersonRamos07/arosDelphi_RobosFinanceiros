@@ -10,6 +10,7 @@ uses
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, IBX.IBDatabase,
+  Vcl.StdCtrls,
   IniFiles;     // para realizar a leitura do arquivo *.INI
 {$endregion}
 
@@ -96,7 +97,7 @@ uses
 {$region 'USES : IMPORTS II'}
  Winapi.Windows, Winapi.Messages, System.Variants, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids,
-  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}

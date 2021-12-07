@@ -98,6 +98,8 @@ type
   public
     { Public declarations }
     {$endregion}
+
+  function GET_EDIT_BY_NAME(NomeDoEdit: String): TEdit;
   end;
 
 var
@@ -178,6 +180,21 @@ with FRM_RF_Selecao do
     Top := (Screen.Height div 2) - (FRM_RF_Selecao.Height div 2);
   end;
 end;
+
+{$region 'GET_EDIT_BY_NAME'}
+function TFRM_RF_Selecao.GET_EDIT_BY_NAME(NomeDoEdit: String): TEdit;
+var
+i: Integer;
+EndEdit: TEdit;
+begin
+for i := 0 to FRM_RF_Selecao.ComponentCount - 1 do
+  begin
+    if (FRM_RF_Selecao.Components[i] is TEdit) and (TComponent(FRM_RF_Selecao.Components[i]).Name = NomeDoEdit) then
+      EndEdit := TEdit(FRM_RF_Selecao.Components[i]);
+      Result := EndEdit;
+  end;
+end;
+{$endregion}
 
 {$region 'ARREDONDAR'}
 
