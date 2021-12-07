@@ -1356,23 +1356,9 @@ object FRM_LookUp: TFRM_LookUp
       ParentFont = False
       OnClick = SB_InserirValorClick
     end
-    object L_ID: TLabel
-      Left = 9
-      Top = 128
-      Width = 80
-      Height = 16
-      Alignment = taCenter
-      Caption = 'ID'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
     object L_DE: TLabel
       Left = 9
-      Top = 171
+      Top = 123
       Width = 80
       Height = 16
       Alignment = taCenter
@@ -1386,7 +1372,7 @@ object FRM_LookUp: TFRM_LookUp
     end
     object L_ATE: TLabel
       Left = 9
-      Top = 215
+      Top = 183
       Width = 80
       Height = 16
       Alignment = taCenter
@@ -1400,7 +1386,7 @@ object FRM_LookUp: TFRM_LookUp
     end
     object L_NOTA: TLabel
       Left = 9
-      Top = 260
+      Top = 244
       Width = 80
       Height = 16
       Alignment = taCenter
@@ -1855,40 +1841,31 @@ object FRM_LookUp: TFRM_LookUp
         F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FF}
       OnClick = SP_OcultarClick
     end
-    object E_ID: TEdit
+    object E_DE: TEdit
       Left = 9
-      Top = 150
+      Top = 142
       Width = 80
       Height = 21
       Alignment = taCenter
       TabOrder = 0
-      Text = '0'
+      Text = '0,00'
     end
-    object E_DE: TEdit
+    object E_ATE: TEdit
       Left = 9
-      Top = 190
+      Top = 202
       Width = 80
       Height = 21
       Alignment = taCenter
       TabOrder = 1
       Text = '0,00'
     end
-    object E_ATE: TEdit
+    object E_NOTA: TEdit
       Left = 9
-      Top = 234
+      Top = 263
       Width = 80
       Height = 21
       Alignment = taCenter
       TabOrder = 2
-      Text = '0,00'
-    end
-    object E_NOTA: TEdit
-      Left = 9
-      Top = 279
-      Width = 80
-      Height = 21
-      Alignment = taCenter
-      TabOrder = 3
       Text = '0,00'
     end
   end

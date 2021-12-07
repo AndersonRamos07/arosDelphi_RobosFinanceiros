@@ -193,7 +193,6 @@ type
     Function SalvarSETUPS_DO_ID_ROBO(xFileXLS: String{, pQuantosAnos, pSaldoInicial: String}): Boolean;
 
   public
-    function GeneratorIncrementado(qGenerator:String) : Integer;
     function ToString(Value: Variant): String;
     function EncontrarValorNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : Double;
     function EncontrarDescricaoNaTabela(Valor : String; Tabela : Variant; Linha, Coluna : Integer) : String;
@@ -760,27 +759,6 @@ function TFRM_RobosFinanceiros.EncontrarDDFinanceiroNaTabela(Valor : String; Tab
   end;
 {$endregion}
 
-{$region 'Função Importada "GeneratorIncrementado"'}
-function TFRM_RobosFinanceiros.GeneratorIncrementado(qGenerator:String) : Integer;
-var
-   vMinhaQuery : TFDQuery;
-begin
-   vMinhaQuery := TFDQuery.Create(Application);
-   vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-   with vMinhaQuery, SQL do
-   begin
-      Close;
-      Clear;
-      Add('SELECT GEN_ID(');
-      Add(qGenerator);
-      Add(',1) FROM RDB$DATABASE');
-      Open;
-      Result := Fields[0].AsInteger;
-   end;
-   vMinhaQuery.Free;
-end;
-{$endregion}
-
 {$region 'Função "ToString" : Converte Variaveis em String'}
 function TFRM_RobosFinanceiros.ToString(Value: Variant): String;
 begin
@@ -822,7 +800,7 @@ begin
          SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
          SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
 
-         rID_Analise := GeneratorIncrementado('NOVO_ID_ANALISE');
+         rID_Analise := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_ANALISE');
          ParamByName('ID_ANALISE').Value := rID_ANALISE;
          ParamByName('TITULO_DA_ANALISE').Value := pTituloDaAnalise;
          ParamByName('DESCRICAO_DO_PERIODO').Value := pDescricaoDoPeriodo;
@@ -860,7 +838,7 @@ begin
          SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
          SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
 
-         rID_Robo := GeneratorIncrementado('NOVO_ID_ROBO');
+         rID_Robo := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_ROBO');
          ParamByName('ID_ROBO').Value := rID_Robo;
          ParamByName('ID_ANALISE').Value := pID_Analise;
          ParamByName('NOME_DO_ROBO').Value := pNomeDoRobo;
@@ -900,7 +878,7 @@ begin
          SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
          SQL.Add(':MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP, :CAGR,
 
-         rID_Setup := GeneratorIncrementado('NOVO_ID_SETUP');
+         rID_Setup := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_SETUP');
          ParamByName('ID_SETUP').Value := rID_Setup;
          ParamByName('ID_ROBO').Value := pID_Robo;
          ParamByName('NOME_DO_SETUP').Value := pNomeDoSetup;

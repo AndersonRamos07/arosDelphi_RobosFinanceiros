@@ -85,6 +85,7 @@ type
     user, porta, ip, fBD, conexao, conexaoFB : String;
     procedure CodificarINI();
       {$endregion}
+    function GeneratorIncrementado(qGenerator:String) : Integer;
   end;
 
 
@@ -165,6 +166,27 @@ begin
    Add(Tabela);
    Open;
    end;
+end;
+{$endregion}
+
+{$region 'Função Importada "GeneratorIncrementado"'}
+function TDM_Robos_Financeiros.GeneratorIncrementado(qGenerator:String) : Integer;
+var
+   vMinhaQuery : TFDQuery;
+begin
+   vMinhaQuery := TFDQuery.Create(Application);
+   vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
+   with vMinhaQuery, SQL do
+   begin
+      Close;
+      Clear;
+      Add('SELECT GEN_ID(');
+      Add(qGenerator);
+      Add(',1) FROM RDB$DATABASE');
+      Open;
+      Result := Fields[0].AsInteger;
+   end;
+   vMinhaQuery.Free;
 end;
 {$endregion}
 

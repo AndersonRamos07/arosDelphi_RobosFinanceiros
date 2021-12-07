@@ -374,6 +374,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 400
   end
   object DS_GLOBAL: TDataSource
+    AutoEdit = False
     DataSet = FDQ_GLOBAL
     Left = 208
     Top = 496
