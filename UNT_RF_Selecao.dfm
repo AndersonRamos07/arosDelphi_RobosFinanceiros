@@ -1,6 +1,6 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = -6
-  Top = 45
+  Left = 104
+  Top = 71
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 618
   ClientWidth = 1038
@@ -33,9 +33,10 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      OnClick = SB_FILTRARClick
     end
     object SB_CANCELAR: TSpeedButton
-      Left = 638
+      Left = 802
       Top = 552
       Width = 129
       Height = 46
@@ -46,6 +47,21 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      OnClick = SB_CANCELARClick
+    end
+    object SB_RESETAR: TSpeedButton
+      Left = 519
+      Top = 552
+      Width = 129
+      Height = 46
+      Caption = 'RESETAR'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SB_RESETARClick
     end
     object GB_R_L_X_P: TGroupBox
       Left = 1
@@ -251,7 +267,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_RELACAO_LUCROXPERDA: TEdit
         Left = 450
@@ -267,7 +283,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_RELACAO_LUCROXPERDA: TEdit
         Left = 645
@@ -283,7 +299,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_RELACAO_LUCROXPERDA: TEdit
         Left = 845
@@ -299,7 +315,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_CORRELACAO: TGroupBox
@@ -506,7 +522,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_CORRELACAO: TEdit
         Left = 450
@@ -522,7 +538,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_CORRELACAO: TEdit
         Left = 645
@@ -538,7 +554,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_CORRELACAO: TEdit
         Left = 845
@@ -554,7 +570,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_SHARPE: TGroupBox
@@ -761,7 +777,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_SHARPE: TEdit
         Left = 450
@@ -777,7 +793,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_SHARPE: TEdit
         Left = 645
@@ -793,7 +809,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_SHARPE: TEdit
         Left = 845
@@ -809,7 +825,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_FATOR_R: TGroupBox
@@ -1016,7 +1032,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_FATOR_RECUPERACAO: TEdit
         Left = 450
@@ -1032,7 +1048,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_FATOR_RECUPERACAO: TEdit
         Left = 645
@@ -1048,7 +1064,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_FATOR_RECUPERACAO: TEdit
         Left = 845
@@ -1064,7 +1080,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_FATOR_L: TGroupBox
@@ -1271,7 +1287,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_FATOR_LUCRO: TEdit
         Left = 450
@@ -1287,7 +1303,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_FATOR_LUCRO: TEdit
         Left = 645
@@ -1303,7 +1319,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_FATOR_LUCRO: TEdit
         Left = 845
@@ -1319,7 +1335,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_PAYOFF: TGroupBox
@@ -1526,7 +1542,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_PAYOFF: TEdit
         Left = 450
@@ -1542,7 +1558,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_PAYOFF: TEdit
         Left = 645
@@ -1558,7 +1574,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_PAYOFF: TEdit
         Left = 845
@@ -1574,7 +1590,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_DD: TGroupBox
@@ -1781,7 +1797,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_DD_FINANCEIRO: TEdit
         Left = 450
@@ -1797,7 +1813,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_DD_FINANCEIRO: TEdit
         Left = 645
@@ -1813,7 +1829,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_DD_FINANCEIRO: TEdit
         Left = 845
@@ -1829,7 +1845,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_CAGR: TGroupBox
@@ -2036,7 +2052,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_CAGR: TEdit
         Left = 450
@@ -2052,7 +2068,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_CAGR: TEdit
         Left = 645
@@ -2068,7 +2084,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_CAGR: TEdit
         Left = 845
@@ -2084,7 +2100,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GB_CALMAR: TGroupBox
@@ -2291,7 +2307,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        Text = '0,00'
+        Text = '-'
       end
       object E_DE_CALMAR: TEdit
         Left = 450
@@ -2307,7 +2323,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        Text = '0,00'
+        Text = '-'
       end
       object E_ATE_CALMAR: TEdit
         Left = 645
@@ -2323,7 +2339,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 2
-        Text = '0,00'
+        Text = '-'
       end
       object E_NOTA_CALMAR: TEdit
         Left = 845
@@ -2339,7 +2355,7 @@ object FRM_RF_Selecao: TFRM_RF_Selecao
         ParentFont = False
         ReadOnly = True
         TabOrder = 3
-        Text = '0,00'
+        Text = '-'
       end
     end
     object GroupBox1: TGroupBox

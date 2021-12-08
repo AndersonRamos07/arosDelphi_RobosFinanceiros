@@ -1359,7 +1359,7 @@ object FRM_LookUp: TFRM_LookUp
     object L_DE: TLabel
       Left = 9
       Top = 123
-      Width = 80
+      Width = 16
       Height = 16
       Alignment = taCenter
       Caption = 'DE'
@@ -1373,7 +1373,7 @@ object FRM_LookUp: TFRM_LookUp
     object L_ATE: TLabel
       Left = 9
       Top = 183
-      Width = 80
+      Width = 24
       Height = 16
       Alignment = taCenter
       Caption = 'AT'#201
@@ -1387,7 +1387,7 @@ object FRM_LookUp: TFRM_LookUp
     object L_NOTA: TLabel
       Left = 9
       Top = 244
-      Width = 80
+      Width = 34
       Height = 16
       Alignment = taCenter
       Caption = 'NOTA'
@@ -1398,7 +1398,7 @@ object FRM_LookUp: TFRM_LookUp
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object SP_Ocultar: TSpeedButton
+    object SB_Ocultar: TSpeedButton
       Left = 16
       Top = 8
       Width = 65
@@ -1839,7 +1839,7 @@ object FRM_LookUp: TFRM_LookUp
         F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
         F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
         F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FF}
-      OnClick = SP_OcultarClick
+      OnClick = SB_OcultarClick
     end
     object E_DE: TEdit
       Left = 9

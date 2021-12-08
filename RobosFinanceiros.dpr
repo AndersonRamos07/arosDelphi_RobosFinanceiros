@@ -5,7 +5,8 @@ uses
   DM_RobosFinanceiros in 'DM_RobosFinanceiros.pas' {DM_Robos_Financeiros},
   UNT_Robos_Financeiros in 'UNT_Robos_Financeiros.pas' {FRM_RobosFinanceiros},
   UNT_RF_Selecao in 'UNT_RF_Selecao.pas' {FRM_RF_Selecao},
-  UNT_RF_LookUp in 'UNT_RF_LookUp.pas' {FRM_LookUp};
+  UNT_RF_LookUp in 'UNT_RF_LookUp.pas' {FRM_LookUp},
+  UNT_GLOBAL in 'UNT_GLOBAL.pas';
 
 {$R *.res}
 

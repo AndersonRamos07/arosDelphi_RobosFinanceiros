@@ -9,8 +9,7 @@ uses
   FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Comp.UI,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
-  // uses na implementation
-  DM_RobosFinanceiros, UNT_RF_Selecao,
+
   ComObj,
   FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
@@ -206,6 +205,9 @@ var
 
 implementation
 {$R *.dfm}
+
+uses
+  DM_RobosFinanceiros, UNT_RF_Selecao, UNT_GLOBAL;
 
 {$region 'Ao iniciar...'}
 procedure TFRM_RobosFinanceiros.FormShow(Sender: TObject);
@@ -800,7 +802,7 @@ begin
          SQL.Add('INSERT INTO ANALISES(ID_ANALISE,TITULO_DA_ANALISE, DESCRICAO_DO_PERIODO, PERIODO_EM_ANOS, SALDO_INICIAL)');
          SQL.Add('VALUES (:ID_ANALISE,:TITULO_DA_ANALISE, :DESCRICAO_DO_PERIODO, :PERIODO_EM_ANOS, :SALDO_INICIAL)');
 
-         rID_Analise := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_ANALISE');
+         rID_Analise := FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_ANALISE');
          ParamByName('ID_ANALISE').Value := rID_ANALISE;
          ParamByName('TITULO_DA_ANALISE').Value := pTituloDaAnalise;
          ParamByName('DESCRICAO_DO_PERIODO').Value := pDescricaoDoPeriodo;
@@ -838,7 +840,7 @@ begin
          SQL.Add('INSERT INTO ROBOS(ID_ROBO, ID_ANALISE, NOME_DO_ROBO)');
          SQL.Add('VALUES (:ID_ROBO, :ID_ANALISE, :NOME_DO_ROBO)');
 
-         rID_Robo := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_ROBO');
+         rID_Robo := FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_ROBO');
          ParamByName('ID_ROBO').Value := rID_Robo;
          ParamByName('ID_ANALISE').Value := pID_Analise;
          ParamByName('NOME_DO_ROBO').Value := pNomeDoRobo;
@@ -878,7 +880,7 @@ begin
          SQL.Add(':PAY_OFF, :FATOR_LUCRO, :FATOR_RECUPERACAO, :SHARPE, :CORRELACAO_LR, :DD_FINANCEIRO,');
          SQL.Add(':MEDIA_LUCRO, :MEDIA_PREJUIZO)'); // :CALMAR_R, :RESULTADO,:INDICE_L_X_P, :RELACAO_MEDL_X_MEDP, :CAGR,
 
-         rID_Setup := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_SETUP');
+         rID_Setup := FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_SETUP');
          ParamByName('ID_SETUP').Value := rID_Setup;
          ParamByName('ID_ROBO').Value := pID_Robo;
          ParamByName('NOME_DO_SETUP').Value := pNomeDoSetup;
