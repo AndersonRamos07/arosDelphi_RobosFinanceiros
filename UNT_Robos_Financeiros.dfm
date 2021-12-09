@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1102
     Height = 705
-    ActivePage = TS_Configuracoes
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -37,7 +37,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1358
         object SB_ImportaExcel: TSpeedButton
           Left = 40
           Top = 56
@@ -75,10 +74,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         ExplicitWidth = 933
         object TS_Analise_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object L_LISTA_ANALISES: TLabel
             Left = 10
             Top = 20
@@ -138,10 +133,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object L_Descricao_Analise: TLabel
             Left = 327
             Top = 108
@@ -281,7 +272,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1358
         object Label4: TLabel
           Left = 330
           Top = 10
@@ -802,10 +792,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         ExplicitWidth = 933
         object TS_Robo_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object Label8: TLabel
             Left = 20
             Top = 20
@@ -852,10 +838,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Robo_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object L_Identificador_Robo: TLabel
             Left = 20
             Top = 30
@@ -981,7 +963,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Height = 129
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1358
         object L_IdentificadorRobo_Setup: TLabel
           Left = 330
           Top = 60
@@ -1097,16 +1078,12 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Top = 129
         Width = 1094
         Height = 548
-        ActivePage = TS_Setup_Detalhes
+        ActivePage = TS_Setup_Lista
         Align = alClient
         TabOrder = 1
         ExplicitWidth = 933
         object TS_Setup_Lista: TTabSheet
           Caption = 'Lista'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object Label11: TLabel
             Left = 10
             Top = 20
@@ -1151,103 +1128,86 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'NOME_DO_SETUP'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_BRUTO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_LIQUIDO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PAY_OFF'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_LUCRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_RECUPERACAO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SHARPE'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CORRELACAO_LR'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DD_FINANCEIRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CALMAR_R'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RESULTADO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_LUCRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_PREJUIZO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CAGR'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INDICE_L_X_P'
-                Width = 64
                 Visible = True
               end>
           end
@@ -1255,10 +1215,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_Setup_Detalhes: TTabSheet
           Caption = 'Detalhes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 1350
-          ExplicitHeight = 0
           object L_Identificador_Setup: TLabel
             Left = 20
             Top = 30
@@ -2104,10 +2060,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         TabOrder = 0
         object TS_PAYOFF: TTabSheet
           Caption = 'PayOff'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel2: TPanel
             Left = 0
             Top = 0
@@ -2142,10 +2094,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_FATOR_LUCRO: TTabSheet
           Caption = 'Fator Lucro'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel3: TPanel
             Left = 0
             Top = 0
@@ -2180,10 +2128,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_FATOR_RECUPERACAO: TTabSheet
           Caption = 'Fator Recupera'#231#227'o'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel4: TPanel
             Left = 0
             Top = 0
@@ -2219,10 +2163,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           Caption = 'Sharpe'
           ImageIndex = 3
           OnContextPopup = TS_SHARPEContextPopup
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel5: TPanel
             Left = 0
             Top = 0
@@ -2257,10 +2197,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_CORRELACAO: TTabSheet
           Caption = 'Correla'#231#227'o'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel6: TPanel
             Left = 0
             Top = 0
@@ -2295,10 +2231,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_CALMAR: TTabSheet
           Caption = 'CalmaR'
           ImageIndex = 5
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel7: TPanel
             Left = 0
             Top = 0
@@ -2367,10 +2299,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_DD_FINANCEIRO: TTabSheet
           Caption = 'DD Financeiro'
           ImageIndex = 7
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel9: TPanel
             Left = 0
             Top = 0
@@ -2405,10 +2333,6 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object TS_RELACAO_LUCROXPERDA: TTabSheet
           Caption = 'Rela'#231#227'o Lucro x Perda'
           ImageIndex = 8
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Panel10: TPanel
             Left = 0
             Top = 0

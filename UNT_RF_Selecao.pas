@@ -197,6 +197,16 @@ begin
       if (TEdit(FRM_RF_Selecao.Components[i]).Text <> '-') then
       begin
         showMessage('FILTRANDO...');
+
+        if (FRM_GLOBAL.FILTRAR_VALORES(E_DE_PAYOFF.Text, E_ATE_PAYOFF.Text, E_DE_FATOR_LUCRO.Text, E_ATE_FATOR_LUCRO.Text,
+        E_DE_FATOR_RECUPERACAO.Text, E_ATE_FATOR_RECUPERACAO.Text, E_DE_SHARPE.Text, E_ATE_SHARPE.Text,
+        E_DE_CORRELACAO.Text, E_ATE_CORRELACAO.Text, E_DE_CALMAR.Text, E_ATE_CALMAR.Text, E_DE_CAGR.Text, E_ATE_CAGR.Text,
+        E_DE_DD_FINANCEIRO.Text, E_ATE_DD_FINANCEIRO.Text, E_DE_RELACAO_LUCROXPERDA.Text, E_ATE_RELACAO_LUCROXPERDA.Text) = True) then
+        begin
+          showMessage('Encontrou 1 ou mais de um registro!');
+        end
+        else
+          showMessage('Nenhum registro foi encontrado!');
         break;
       end
       else
@@ -214,12 +224,6 @@ procedure TFRM_RF_Selecao.SB_RESETARClick(Sender: TObject);
 var
 i: Integer;
 begin
-//  for i := 0 to FRM_RF_Selecao.ComponentCount - 1 do
-//  begin
-//    if (FRM_RF_Selecao.Components[i] is TDBEdit) then
-//      TDBEdit(FRM_RF_Selecao.Components[i]).Text := '-';
-//  end;
-
   for i := 0 to FRM_RF_Selecao.ComponentCount - 1 do
   begin
     if (FRM_RF_Selecao.Components[i] is TEdit) then
@@ -234,7 +238,13 @@ end;
 {$region 'SB_CANCELARClick'}
 procedure TFRM_RF_Selecao.SB_CANCELARClick(Sender: TObject);
 begin
-//  FRM_RF_Selecao.Close;
+if (FRM_GLOBAL.FILTRAR_VALORES2(E_DE_PAYOFF.Text, E_ATE_PAYOFF.Text, E_DE_FATOR_LUCRO.Text, E_ATE_FATOR_LUCRO.Text,
+        E_DE_FATOR_RECUPERACAO.Text, E_ATE_FATOR_RECUPERACAO.Text, E_DE_SHARPE.Text, E_ATE_SHARPE.Text,
+        E_DE_CORRELACAO.Text, E_ATE_CORRELACAO.Text, E_DE_CALMAR.Text, E_ATE_CALMAR.Text, E_DE_CAGR.Text, E_ATE_CAGR.Text,
+        E_DE_DD_FINANCEIRO.Text, E_ATE_DD_FINANCEIRO.Text) = True) then
+  showMessage('FOI')
+  else
+  showMessage('NÃO FOI!');
   Close();
 end;
 {$endregion}
