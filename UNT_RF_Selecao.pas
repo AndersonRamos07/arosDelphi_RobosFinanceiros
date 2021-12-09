@@ -81,7 +81,6 @@ type
     {$endregion}
     {$region 'PROCEDURES'}
     procedure FILTRO_TABELA(pTabela:String);
-    procedure MakeRounded(Control: TWinControl);
     procedure SB_FILTRO_POClick(Sender: TObject);
     procedure SB_FILTRO_FLClick(Sender: TObject);
     procedure SB_FILTRO_PRClick(Sender: TObject);
@@ -95,7 +94,6 @@ type
     procedure SB_FILTRARClick(Sender: TObject);
     procedure SB_RESETARClick(Sender: TObject);
     procedure SB_CANCELARClick(Sender: TObject);
-//    procedure SP_RESETARClick(Sender: TObject);
 
   private
   public
@@ -112,6 +110,18 @@ implementation
 
 {$R *.dfm}
 
+{$region 'FormCreate'}
+procedure TFRM_RF_Selecao.FormCreate(Sender: TObject);
+begin
+with FRM_RF_Selecao do
+  begin
+    Left := (Screen.Width div 2) - (FRM_RF_Selecao.Width div 2);
+    Top := (Screen.Height div 2) - (FRM_RF_Selecao.Height div 2);
+  end;
+end;
+{$endregion}
+
+{$region 'FILTRO_TABELA'}
 procedure TFRM_RF_Selecao.FILTRO_TABELA(pTabela:String);
 begin
   FRM_GLOBAL.SELECT_ALL_FROM_TABLE(pTabela);
@@ -126,6 +136,7 @@ begin
   ShowModal;
   end;
 end;
+{$endregion}
 
 {$region 'FILTROS'}
 procedure TFRM_RF_Selecao.SB_FILTRO_POClick(Sender: TObject);
@@ -173,15 +184,6 @@ begin
   FILTRO_TABELA('RELACAO_LUCROXPERDA');
 end;
 {$endregion}
-
-procedure TFRM_RF_Selecao.FormCreate(Sender: TObject);
-begin
-with FRM_RF_Selecao do
-  begin
-    Left := (Screen.Width div 2) - (FRM_RF_Selecao.Width div 2);
-    Top := (Screen.Height div 2) - (FRM_RF_Selecao.Height div 2);
-  end;
-end;
 
 {$region 'SB_FILTRARClick'}
 procedure TFRM_RF_Selecao.SB_FILTRARClick(Sender: TObject);
@@ -235,27 +237,6 @@ begin
 //  FRM_RF_Selecao.Close;
   Close();
 end;
-{$endregion}
-
-{$region 'ARREDONDAR'}
-
-procedure TFRM_RF_Selecao.MakeRounded(Control: TWinControl);
-var
-R: TRect;
-Rgn: HRGN;
-begin
-  with Control do
-  begin
-   R := ClientRect;
-   rgn := CreateRoundRectRgn(R.Left, R.Top, R.Right, R.Bottom, 20, 20);
-   Perform(EM_GETRECT, 0, lParam(@r));
-   InflateRect(r, - 5, - 5);
-   Perform(EM_SETRECTNP, 0, lParam(@r));
-   SetWindowRgn(Handle, rgn, True);
-   Invalidate;
-  end;
-end;
-
 {$endregion}
 
 end.
