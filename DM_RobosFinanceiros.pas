@@ -79,13 +79,12 @@ type
   {$region 'PROCEDURES'}
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
-    procedure SELECT_ALL_FROM_TABLE(Tabela: String);
   private
   public
     user, porta, ip, fBD, conexao, conexaoFB : String;
     procedure CodificarINI();
       {$endregion}
-    function GeneratorIncrementado(qGenerator:String) : Integer;
+
   end;
 
 
@@ -150,43 +149,6 @@ begin
     fBD := arquivoIni.ReadString('Configuracoes', 'nomeBD', fBD);
     conexaoFB := ExtractFilePath(Application.ExeName) + fBD;
     arquivoIni.Free;
-end;
-{$endregion}
-
-{ ******* PROCEDURES GLOBAIS ******* }
-
-{$region 'SELECT_ALL_FROM_TABLE'}
-procedure TDM_Robos_Financeiros.SELECT_ALL_FROM_TABLE(Tabela: String);
-begin
-  with DM_Robos_Financeiros.FDQ_GLOBAL, SQL do
-   begin
-   Close;
-   Clear;
-   Add('SELECT * FROM ');
-   Add(Tabela);
-   Open;
-   end;
-end;
-{$endregion}
-
-{$region 'Função Importada "GeneratorIncrementado"'}
-function TDM_Robos_Financeiros.GeneratorIncrementado(qGenerator:String) : Integer;
-var
-   vMinhaQuery : TFDQuery;
-begin
-   vMinhaQuery := TFDQuery.Create(Application);
-   vMinhaQuery.Connection := DM_Robos_Financeiros.FDC_RobosFinanceiros;
-   with vMinhaQuery, SQL do
-   begin
-      Close;
-      Clear;
-      Add('SELECT GEN_ID(');
-      Add(qGenerator);
-      Add(',1) FROM RDB$DATABASE');
-      Open;
-      Result := Fields[0].AsInteger;
-   end;
-   vMinhaQuery.Free;
 end;
 {$endregion}
 

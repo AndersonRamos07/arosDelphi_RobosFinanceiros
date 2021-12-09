@@ -3,15 +3,17 @@ unit UNT_RF_LookUp;
 interface
 
 uses
+{$region 'USES : IMPORTS'}
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ComCtrls, Vcl.Buttons, Vcl.ExtCtrls, Data.DB,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.DBCtrls, Vcl.StdCtrls, StrUtils,
-  DM_RobosFinanceiros, UNT_RF_Selecao;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.DBCtrls, Vcl.StdCtrls, StrUtils;
+{$endregion}
 
 type
   TFRM_LookUp = class(TForm)
+  {$region 'ATRIBUTOS'}
     P_TABELA: TPanel;
     SB_AdicionarValor: TSpeedButton;
     SB_AceitarValor: TSpeedButton;
@@ -25,18 +27,22 @@ type
     L_DE: TLabel;
     L_ATE: TLabel;
     L_NOTA: TLabel;
-    SP_Ocultar: TSpeedButton;
+    SB_Ocultar: TSpeedButton;
+    {$endregion}
+  {$region 'PROCEDURES'}
     procedure SB_AceitarValorClick(Sender : TObject);
-    //procedure PreencherEdits(Tabela: String);
     procedure SB_AdicionarValorClick(Sender: TObject);
     procedure SB_InserirValorClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure SP_OcultarClick(Sender: TObject);
-    procedure PreencherOsEdits(Tabela: String);
+    procedure SB_OcultarClick(Sender: TObject);
+    procedure PreencherOsEdits(pTabela: String);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure E_NOTAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
     { Public declarations }
+  {$endregion}
   end;
 
 var
@@ -44,7 +50,17 @@ var
 
 implementation
 
+  uses
+    DM_RobosFinanceiros, UNT_RF_Selecao, UNT_GLOBAL;
+
 {$R *.dfm}
+
+{$region 'FormCreate'}
+procedure TFRM_LookUp.FormCreate(Sender: TObject);
+begin
+  Width := 430;
+end;
+{$endregion}
 
 {$region 'SB_AceitarValor'}
 procedure TFRM_LookUp.SB_AceitarValorClick(Sender : TObject);
@@ -57,7 +73,7 @@ Close();
 end;
 {$endregion}
 
-{$region ''}
+{$region 'SB_AdicionarValorClick'}
 procedure TFRM_LookUp.SB_AdicionarValorClick(Sender: TObject);
 begin
   FRM_LookUp.Width := 540;
@@ -68,24 +84,24 @@ begin
   end;
   FocusControl(E_DE);
 end;
-
 {$endregion}
 
+{$region 'SB_InserirValorClick'}
 procedure TFRM_LookUp.SB_InserirValorClick(Sender: TObject);
 var
-  tabela: String;
+  vTabela: String;
 begin
-  tabela := P_TABELA.Caption;
+  vTabela := P_TABELA.Caption;
   with DM_Robos_Financeiros.FDQ_GLOBAL, SQL do
    begin
    Close;
    Clear;
    Add('INSERT INTO ');
-   Add(tabela);
-   Add(' (ID_' + tabela + ', DE, ATE, NOTA) ');
-   Add(' VALUES (:ID_' + tabela + ', :DE, :ATE, :NOTA)');
+   Add(vTabela);
+   Add(' (ID_' + vTabela + ', DE, ATE, NOTA) ');
+   Add(' VALUES (:ID_' + vTabela + ', :DE, :ATE, :NOTA)');
 
-   Params[0].AsInteger  := DM_Robos_Financeiros.GeneratorIncrementado('NOVO_ID_' + Tabela);
+   Params[0].AsInteger  := FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_' + vTabela);
    Params[1].AsFloat    := StrToFloat(E_DE.Text);
    Params[2].AsFloat    := StrToFloat(E_ATE.Text);
    Params[3].AsFloat    := StrToFloat(E_NOTA.Text);
@@ -94,180 +110,69 @@ begin
    ExecSQL;
    Close;
    end;
-   DM_Robos_Financeiros.SELECT_ALL_FROM_TABLE(tabela);
+   FRM_GLOBAL.SELECT_ALL_FROM_TABLE(vTabela);
 end;
+{$endregion}
 
-
-
-procedure TFRM_LookUp.SP_OcultarClick(Sender: TObject);
+{$region 'SB_OcultarClick'}
+procedure TFRM_LookUp.SB_OcultarClick(Sender: TObject);
 begin
   FRM_LookUp.Width := 430;
   P_ADD_LOOKUP.Visible := False;
 end;
+{$endregion}
 
-
-procedure TFRM_LookUp.FormCreate(Sender: TObject);
+{$region 'FormKeyDown'}
+procedure TFRM_LookUp.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  Width := 430;
+if Key = VK_RETURN then
+   perform(WM_NEXTDLGCTL,0,0);
 end;
+{$endregion}
+
+{$region 'E_NOTAKeyDown'}
+procedure TFRM_LookUp.E_NOTAKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  if (E_DE.Text <> '') and (E_DE.Text <> '0,00')
+    and (E_ATE.Text <> '') and (E_ATE.Text <> '0,00')
+    and (E_NOTA.Text <> '') and (E_NOTA.Text <> '0,00') then
+    begin
+      SB_InserirValor.Click;
+    end
+    else
+    begin
+      showMessage('Favor insira parâmetros válidos!');
+    end;
+end;
+{$endregion}
 
 {$region 'PreencherOsEdits'}
-procedure TFRM_LookUp.PreencherOsEdits(Tabela: String);
+procedure TFRM_LookUp.PreencherOsEdits(pTabela: String);
 var
-  Edit : TEdit;
-  Edit_ID, Edit_DE, Edit_ATE, Edit_NOTA, v_ID : String;
+  vEdit : TEdit;
+  vEdit_ID, vEdit_DE, vEdit_ATE, vEdit_NOTA, v_ID : String;
 
 begin
-  Edit_ID := 'E_ID_' + Tabela;
-  v_ID := 'ID_' + Tabela;
-  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_ID);
-  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName(v_ID).AsString;
+  vEdit_ID := 'E_ID_' + pTabela;
+  v_ID := 'ID_' + pTabela;
+  vEdit := FRM_GLOBAL.GET_EDIT_BY_NAME(FRM_RF_Selecao, vEdit_ID);
+  vEdit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName(v_ID).AsString;
 
-  Edit_DE := 'E_DE_' + Tabela;
-  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_DE);
-  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
+  vEdit_DE := 'E_DE_' + pTabela;
+  vEdit := FRM_GLOBAL.GET_EDIT_BY_NAME(FRM_RF_Selecao, vEdit_DE);
+  vEdit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
 
-  Edit_ATE := 'E_ATE_' + Tabela;
-  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_ATE);
-  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
+  vEdit_ATE := 'E_ATE_' + pTabela;
+  vEdit := FRM_GLOBAL.GET_EDIT_BY_NAME(FRM_RF_Selecao, vEdit_ATE);
+  vEdit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
 
-  Edit_NOTA := 'E_NOTA_' + Tabela;
-  Edit := FRM_RF_Selecao.GET_EDIT_BY_NAME(Edit_NOTA);
-  Edit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
+  vEdit_NOTA := 'E_NOTA_' + pTabela;
+  vEdit := FRM_GLOBAL.GET_EDIT_BY_NAME(FRM_RF_Selecao, vEdit_NOTA);
+  vEdit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
 end;
 {$endregion}
 
 end.
-//{$region 'PreencherEdits()'}
-//procedure TFRM_LookUp.PreencherEdits(Tabela: string);
-//var
-//  ID_DBEdit, DE_DBEdit, ATE_DBEdit, NOTA_DBEdit: TDBEdit;
-//  Nome_do_Campo, Nome_ID, Nome_DE, Nome_ATE, Nome_NOTA, Valor: String;
-//  i: Integer;
-//
-//begin
-//   Nome_ID := 'ID';
-//   Nome_DE := 'DE';
-//   Nome_ATE := 'ATE';
-//   Nome_NOTA := 'NOTA';
-//
-//  if (Tabela = 'PAYOFF') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_PAYOFF.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_PAYOFF').AsString;
-//      E_DE_PAYOFF.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_PAYOFF.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_PAYOFF.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'FATOR_LUCRO') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_FATOR_LUCRO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_FATOR_LUCRO').AsString;
-//      E_DE_FATOR_LUCRO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_FATOR_LUCRO.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_FATOR_LUCRO.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'FATOR_RECUPERACAO') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_FATOR_RECUPERACAO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_FATOR_RECUPERACAO').AsString;
-//      E_DE_FATOR_RECUPERACAO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_FATOR_RECUPERACAO.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_FATOR_RECUPERACAO.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'SHARPE') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_SHARPE.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_SHARPE').AsString;
-//      E_DE_SHARPE.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_SHARPE.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_SHARPE.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'CORRELACAO') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_CORRELACAO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_CORRELACAO').AsString;
-//      E_DE_CORRELACAO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_CORRELACAO.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_CORRELACAO.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'CALMAR') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_CALMAR.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_CALMAR').AsString;
-//      E_DE_CALMAR.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_CALMAR.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_CALMAR.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'CAGR') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_CAGR.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_CAGR').AsString;
-//      E_DE_CAGR.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_CAGR.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_CAGR.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'DD_FINANCEIRO') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_DD_FINANCEIRO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_DD_FINANCEIRO').AsString;
-//      E_DE_DD_FINANCEIRO.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_DD_FINANCEIRO.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_DD_FINANCEIRO.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end
-//  else if (Tabela = 'RELACAO_LUCROXPERDA') then
-//  begin
-//      with FRM_RF_Selecao do
-//      begin
-//      E_ID_RELACAO_LUCROXPERDA.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ID_RELACAO_LUCROXPERDA').AsString;
-//      E_DE_RELACAO_LUCROXPERDA.Text    := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('DE').AsString;
-//      E_ATE_RELACAO_LUCROXPERDA.Text   := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('ATE').AsString;
-//      E_NOTA_RELACAO_LUCROXPERDA.Text  := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
-//      end;
-//  end;
-//end;
-//{$endregion}
-//  FormAdd := TForm.Create(nil);
-//  with FormAdd do
-//  begin
-//  // Label
-//  LabelDE := TLabel.Create(FormAdd);
-//
-//  with LabelDE do
-//    begin
-//      Parent  := FormAdd;
-//      Name    := 'LabelDE';
-//      Caption := 'DE';
-//      Left    := 16;
-//      Top     := 12;
-//      Width   := 233;
-//    end;
-//
-//  // Edit
-//  EditDE := TEdit.Create(FormAdd);
-//
-//  with EditDE do
-//    begin
-//      Parent  := FormAdd;
-//      Name    := 'DE';
-//      Left    := 16;
-//      Top     := 32;
-//      Width   := 233;
-//    end;
-//  end;
