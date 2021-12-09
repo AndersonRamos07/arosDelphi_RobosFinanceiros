@@ -36,6 +36,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure SB_OcultarClick(Sender: TObject);
     procedure PreencherOsEdits(pTabela: String);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure E_NOTAKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -52,6 +54,13 @@ implementation
     DM_RobosFinanceiros, UNT_RF_Selecao, UNT_GLOBAL;
 
 {$R *.dfm}
+
+{$region 'FormCreate'}
+procedure TFRM_LookUp.FormCreate(Sender: TObject);
+begin
+  Width := 430;
+end;
+{$endregion}
 
 {$region 'SB_AceitarValor'}
 procedure TFRM_LookUp.SB_AceitarValorClick(Sender : TObject);
@@ -105,7 +114,7 @@ begin
 end;
 {$endregion}
 
-{$region 'SP_OcultarClick'}
+{$region 'SB_OcultarClick'}
 procedure TFRM_LookUp.SB_OcultarClick(Sender: TObject);
 begin
   FRM_LookUp.Width := 430;
@@ -113,10 +122,32 @@ begin
 end;
 {$endregion}
 
-procedure TFRM_LookUp.FormCreate(Sender: TObject);
+{$region 'FormKeyDown'}
+procedure TFRM_LookUp.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  Width := 430;
+if Key = VK_RETURN then
+   perform(WM_NEXTDLGCTL,0,0);
 end;
+{$endregion}
+
+{$region 'E_NOTAKeyDown'}
+procedure TFRM_LookUp.E_NOTAKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+  if (E_DE.Text <> '') and (E_DE.Text <> '0,00')
+    and (E_ATE.Text <> '') and (E_ATE.Text <> '0,00')
+    and (E_NOTA.Text <> '') and (E_NOTA.Text <> '0,00') then
+    begin
+      SB_InserirValor.Click;
+    end
+    else
+    begin
+      showMessage('Favor insira parâmetros válidos!');
+    end;
+end;
+{$endregion}
 
 {$region 'PreencherOsEdits'}
 procedure TFRM_LookUp.PreencherOsEdits(pTabela: String);

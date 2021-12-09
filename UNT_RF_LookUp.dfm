@@ -1849,6 +1849,7 @@ object FRM_LookUp: TFRM_LookUp
       Alignment = taCenter
       TabOrder = 0
       Text = '0,00'
+      OnKeyDown = FormKeyDown
     end
     object E_ATE: TEdit
       Left = 9
@@ -1858,6 +1859,7 @@ object FRM_LookUp: TFRM_LookUp
       Alignment = taCenter
       TabOrder = 1
       Text = '0,00'
+      OnKeyDown = FormKeyDown
     end
     object E_NOTA: TEdit
       Left = 9
@@ -1867,6 +1869,7 @@ object FRM_LookUp: TFRM_LookUp
       Alignment = taCenter
       TabOrder = 2
       Text = '0,00'
+      OnKeyDown = E_NOTAKeyDown
     end
   end
 end

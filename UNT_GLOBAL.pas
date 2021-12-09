@@ -16,11 +16,17 @@ uses
 {$endregion}
 type
   TFRM_GLOBAL = class(TForm)
+{$region 'GLOBAIS'}
   private
   public
   procedure SELECT_ALL_FROM_TABLE(pTabela: String);
   function GET_EDIT_BY_NAME(pForm: TForm; pNomeDoEdit: String): TEdit;
+{$endregion}
+{$region 'IMPORTADAS'}
   function GeneratorIncrementado(qGenerator:String) : Integer;
+  procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  procedure MakeRounded(Control: TWinControl);
+{$endregion}
   end;
 
 var
@@ -31,7 +37,8 @@ implementation
 uses
 
 DM_RobosFinanceiros;
-{ ******* PROCEDURES GLOBAIS ******* }
+
+{ ******* GLOBAIS ******* }
 
 {$region 'SELECT_ALL_FROM_TABLE'}
 procedure TFRM_GLOBAL.SELECT_ALL_FROM_TABLE(pTabela: String);
@@ -62,6 +69,8 @@ for i := 0 to pForm.ComponentCount - 1 do
 end;
 {$endregion}
 
+{ ******* IMPORTADAS ******* }
+
 {$region 'Função Importada "GeneratorIncrementado"'}
 function TFRM_GLOBAL.GeneratorIncrementado(qGenerator:String) : Integer;
 var
@@ -83,4 +92,33 @@ begin
 end;
 {$endregion}
 
+{$region 'Procedure Importada "FormKeyDown"'}
+procedure TFRM_GLOBAL.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_RETURN then
+   perform(WM_NEXTDLGCTL,0,0);
+end;
+{$endregion}
+
+{$region 'Procedure Importada "MakeRounded"'}
+
+procedure FRM_GLOBAL.MakeRounded(Control: TWinControl);
+var
+R: TRect;
+Rgn: HRGN;
+begin
+  with Control do
+  begin
+   R := ClientRect;
+   rgn := CreateRoundRectRgn(R.Left, R.Top, R.Right, R.Bottom, 20, 20);
+   Perform(EM_GETRECT, 0, lParam(@r));
+   InflateRect(r, - 5, - 5);
+   Perform(EM_SETRECTNP, 0, lParam(@r));
+   SetWindowRgn(Handle, rgn, True);
+   Invalidate;
+  end;
+end;
+
+{$endregion}
 end.
