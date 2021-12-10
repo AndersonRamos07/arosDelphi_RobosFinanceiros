@@ -12,6 +12,8 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ComCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.DBGrids, Vcl.DBCtrls, Vcl.StdCtrls,
+  DateUtils,    // para realizar a captura da Data Atual
+  ComObj,       // para realizar a exportação para arquivo *.XLS
   IniFiles;     // para realizar a leitura do arquivo *.INI
 {$endregion}
 type
@@ -20,6 +22,8 @@ type
   private
   public
   procedure SELECT_ALL_FROM_TABLE(pTabela: String);
+  procedure EXPORT_EXCEL(pQuantidade: Integer; pQuery: TFDQuery);
+
   function FILTRAR_VALORES(pDE_PAYOFF, pATE_PAYOFF, pDE_FATOR_LUCRO, pATE_FATOR_LUCRO ,pDE_FATOR_RECUPERACAO, pATE_FATOR_RECUPERACAO,
 pDE_SHARPE, pATE_SHARPE, pDE_CORRELACAO, pATE_CORRELACAO, pDE_CALMAR, pATE_CALMAR, pDE_CAGR, pATE_CAGR, pDE_DD_FINANCEIRO, pATE_DD_FINANCEIRO,
 pDE_RELACAO_LUCROXPERDA, pATE_RELACAO_LUCROXPERDA: String): Boolean;
@@ -136,7 +140,6 @@ begin
 end;
 {$endregion}
 
-
 {$region 'FILTRAR_VALORES2'}
 function TFRM_GLOBAL.FILTRAR_VALORES2(pDE_PAYOFF, pATE_PAYOFF, pDE_FATOR_LUCRO, pATE_FATOR_LUCRO ,pDE_FATOR_RECUPERACAO, pATE_FATOR_RECUPERACAO,
 pDE_SHARPE, pATE_SHARPE, pDE_CORRELACAO, pATE_CORRELACAO, pDE_CALMAR, pATE_CALMAR, pDE_CAGR, pATE_CAGR, pDE_DD_FINANCEIRO, pATE_DD_FINANCEIRO: String): Boolean;
@@ -183,9 +186,11 @@ begin
     end;
   finally
     if v_Qtde > 0  then
-      Result := True
-//     showMessage('1 ou mais registros encontrados!')
-
+    begin
+      Result := True;
+      FRM_GLOBAL.EXPORT_EXCEL(v_Qtde, DM_Robos_Financeiros.FDQ_GLOBAL);
+//    showMessage('1 ou mais registros encontrados!')
+    end
      else
       Result := False;
 //      showMessage('Nenhum registro encontrado!');
@@ -193,6 +198,77 @@ begin
 end;
 {$endregion}
 
+{$region 'EXPORT_EXCEL'}
+procedure TFRM_GLOBAL.EXPORT_EXCEL(pQuantidade: Integer; pQuery: TFDQuery);
+var
+ObjExcel, Planilha, Chart, s : Variant;
+cTitulo : string;
+i : integer;
+begin
+{$region 'EXCEL'}
+cTitulo := 'Robos Financeiros';
+ObjExcel := CreateOleObject('Excel.Application');
+ObjExcel.Visible := True;
+ObjExcel.Caption := cTitulo;
+{$endregion}
+{$region 'PLANILHA'}
+ObjExcel.Workbooks.Add;
+ObjExcel.Workbooks[1].Sheets.Add;
+ObjExcel.Workbooks[1].WorkSheets[1].Name := cTitulo;
+Planilha := objExcel.Workbooks[1].WorkSheets[cTitulo];
+{$endregion}
+{$region 'CABEÇALHO'}
+Planilha.Range['A1'] := 'Robos Financeiros - ' + FormatDateTime('dd/mm/yyyy', Today);//'10/12/2021';//DateToStr(Now);
+
+Planilha.Range['A2'] := 'Nome do Robo';
+Planilha.Range['B2'] := 'PayOff';
+Planilha.Range['C2'] := 'Fator Lucro';
+Planilha.Range['D2'] := 'Fator Recuperação';
+Planilha.Range['E2'] := 'Sharpe';
+Planilha.Range['F2'] := 'Correlação';
+Planilha.Range['G2'] := 'Calmar R';
+Planilha.Range['H2'] := 'CAGR';
+Planilha.Range['I2'] := 'DD Financeiro';
+Planilha.Range['J2'] := 'Relação Lucro x Perda';
+{$endregion}
+{$region 'CÉLULAS'}
+with pQuery do
+  begin
+  Open;
+  DisableControls;
+  Application.ProcessMessages;
+  First;
+  i := 2;
+  while not pQuery.eof do
+    begin
+    Inc(i, 1);
+    Planilha.Cells[i,1] := pQuery.FieldByName('NOME_DO_SETUP').AsString;
+    Planilha.Cells[i,2] := pQuery.FieldByName('PAY_OFF').AsString;
+    Planilha.Cells[i,3] := pQuery.FieldByName('FATOR_LUCRO').AsString;
+    Planilha.Cells[i,4] := pQuery.FieldByName('FATOR_RECUPERACAO').AsString;
+    Planilha.Cells[i,5] := pQuery.FieldByName('SHARPE').AsString;
+    Planilha.Cells[i,6] := pQuery.FieldByName('CORRELACAO_LR').AsString;
+    Planilha.Cells[i,7] := pQuery.FieldByName('CALMAR_R').AsString;
+    Planilha.Cells[i,8] := pQuery.FieldByName('CAGR').AsString;
+    Planilha.Cells[i,9] := pQuery.FieldByName('DD_FINANCEIRO').AsString;
+    Planilha.Cells[i,10] := pQuery.FieldByName('RELACAO_MEDL_X_MEDP').AsString;
+    pQuery.Next;
+    end;
+  EnableControls;
+  end;
+{$endregion}
+{$region 'FORMATANDO CABEÇALHO'}
+Planilha.Range['A1 : J1'].Mergecells := True;                            //MESCLAR
+Planilha.Range['A1','J1'].EntireColumn.AutoFit;                       //AUTO-AJUSTE_COLUNA
+Planilha.Range['A1','J2'].Font.Bold := True;                           //NEGRITO
+Planilha.Range['A1','J2'].Interior.Color := $CCE0A4;                  //COR_DE_FUNDO
+Planilha.Range['A1','J' + IntToStr(i)].Borders.LineStyle := 1;         //GRADE
+Planilha.Range['A1','J' + InttoStr(i)].RowHeight := 15;                //AJUSTE_LINHA
+Planilha.Range['A1','J' + InttoStr(i)].HorizontalAlignment := 3;                    //CENTRALIZADO
+{$endregion}
+ObjExcel.Visible := True;
+end;
+{$endregion}
 
 { ******* IMPORTADAS ******* }
 

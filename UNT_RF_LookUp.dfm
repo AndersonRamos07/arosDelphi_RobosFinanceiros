@@ -3,7 +3,7 @@ object FRM_LookUp: TFRM_LookUp
   Top = 140
   Caption = 'FRM_LookUp'
   ClientHeight = 393
-  ClientWidth = 524
+  ClientWidth = 589
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -404,8 +404,8 @@ object FRM_LookUp: TFRM_LookUp
     OnClick = SB_AdicionarValorClick
   end
   object SB_AceitarValor: TSpeedButton
-    Left = 192
-    Top = 50
+    Left = 224
+    Top = 51
     Width = 57
     Height = 55
     Flat = True
@@ -793,8 +793,8 @@ object FRM_LookUp: TFRM_LookUp
     OnClick = SB_AceitarValorClick
   end
   object SB_CancelarValor: TSpeedButton
-    Left = 350
-    Top = 50
+    Left = 417
+    Top = 51
     Width = 59
     Height = 55
     Flat = True
@@ -1183,7 +1183,7 @@ object FRM_LookUp: TFRM_LookUp
   object P_TABELA: TPanel
     Left = 16
     Top = 8
-    Width = 393
+    Width = 460
     Height = 41
     Caption = 'P_TABELA'
     Font.Charset = DEFAULT_CHARSET
@@ -1197,7 +1197,7 @@ object FRM_LookUp: TFRM_LookUp
   object DBGrid1: TDBGrid
     Left = 8
     Top = 112
-    Width = 401
+    Width = 468
     Height = 273
     DataSource = DM_Robos_Financeiros.DS_GLOBAL
     TabOrder = 1
@@ -1208,7 +1208,7 @@ object FRM_LookUp: TFRM_LookUp
     TitleFont.Style = []
   end
   object P_ADD_LOOKUP: TPanel
-    Left = 415
+    Left = 482
     Top = 8
     Width = 105
     Height = 377

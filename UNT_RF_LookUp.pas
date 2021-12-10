@@ -58,7 +58,7 @@ implementation
 {$region 'FormCreate'}
 procedure TFRM_LookUp.FormCreate(Sender: TObject);
 begin
-  Width := 430;
+  Width := 500;
 end;
 {$endregion}
 
@@ -76,7 +76,7 @@ end;
 {$region 'SB_AdicionarValorClick'}
 procedure TFRM_LookUp.SB_AdicionarValorClick(Sender: TObject);
 begin
-  FRM_LookUp.Width := 540;
+  FRM_LookUp.Width := 605;
   with P_ADD_LOOKUP do
   begin
   BringToFront;

@@ -198,10 +198,10 @@ begin
       begin
         showMessage('FILTRANDO...');
 
-        if (FRM_GLOBAL.FILTRAR_VALORES(E_DE_PAYOFF.Text, E_ATE_PAYOFF.Text, E_DE_FATOR_LUCRO.Text, E_ATE_FATOR_LUCRO.Text,
+        if (FRM_GLOBAL.FILTRAR_VALORES2(E_DE_PAYOFF.Text, E_ATE_PAYOFF.Text, E_DE_FATOR_LUCRO.Text, E_ATE_FATOR_LUCRO.Text,
         E_DE_FATOR_RECUPERACAO.Text, E_ATE_FATOR_RECUPERACAO.Text, E_DE_SHARPE.Text, E_ATE_SHARPE.Text,
         E_DE_CORRELACAO.Text, E_ATE_CORRELACAO.Text, E_DE_CALMAR.Text, E_ATE_CALMAR.Text, E_DE_CAGR.Text, E_ATE_CAGR.Text,
-        E_DE_DD_FINANCEIRO.Text, E_ATE_DD_FINANCEIRO.Text, E_DE_RELACAO_LUCROXPERDA.Text, E_ATE_RELACAO_LUCROXPERDA.Text) = True) then
+        E_DE_DD_FINANCEIRO.Text, E_ATE_DD_FINANCEIRO.Text{, E_DE_RELACAO_LUCROXPERDA.Text, E_ATE_RELACAO_LUCROXPERDA.Text}) = True) then
         begin
           showMessage('Encontrou 1 ou mais de um registro!');
         end
