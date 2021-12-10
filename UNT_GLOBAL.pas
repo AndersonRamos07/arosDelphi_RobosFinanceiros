@@ -81,7 +81,7 @@ end;
 {$endregion}
 
 {$region 'FILTRAR_VALORES'}
-function TFRM_GLOBAL.FILTRAR_VALORES(pDE_PAYOFF, pATE_PAYOFF, pDE_FATOR_LUCRO, pATE_FATOR_LUCRO ,pDE_FATOR_RECUPERACAO, pATE_FATOR_RECUPERACAO,
+function TFRM_GLOBAL.FILTRAR_VALORES(pDE_PAYOFF, pATE_PAYOFF, pDE_FATOR_LUCRO, pATE_FATOR_LUCRO, pDE_FATOR_RECUPERACAO, pATE_FATOR_RECUPERACAO,
 pDE_SHARPE, pATE_SHARPE, pDE_CORRELACAO, pATE_CORRELACAO, pDE_CALMAR, pATE_CALMAR, pDE_CAGR, pATE_CAGR, pDE_DD_FINANCEIRO, pATE_DD_FINANCEIRO,
 pDE_RELACAO_LUCROXPERDA, pATE_RELACAO_LUCROXPERDA: String): Boolean;
 var
@@ -102,7 +102,7 @@ begin
       Add('AND CALMAR_R > :DE_CALMAR AND CALMAR_R < :ATE_CALMAR');
       Add('AND CAGR > :DE_CAGR AND CAGR < :ATE_CAGR');
       Add('AND DD_FINANCEIRO > :DE_DD_FINANCEIRO AND DD_FINANCEIRO < :ATE_DD_FINANCEIRO');
-      Add('AND RELACAO_LUCROXPERDA > :DE_RELACAO_LUCROXPERDA AND RELACAO_LUCROXPERDA < :ATE_RELACAO_LUCROXPERDA');
+      Add('AND INDICE_L_X_P > :DE_RELACAO_LUCROXPERDA AND INDICE_L_X_P < :ATE_RELACAO_LUCROXPERDA');
 
       ParamByName('DE_PAYOFF').Value := StrToFloat(pDE_PAYOFF);
       ParamByName('ATE_PAYOFF').Value := StrToFloat(pATE_PAYOFF);
@@ -130,9 +130,12 @@ begin
     end;
   finally
     if v_Qtde > 0  then
-      Result := True
+      begin
+      Result := True;
+      if (Application.MessageBox('Deseja exportar os valores?','Exportar Planilha',MB_ICONQUESTION + MB_YESNOCANCEL + MB_APPLMODAL) = IDYES) then
+        FRM_GLOBAL.EXPORT_EXCEL(v_Qtde, DM_Robos_Financeiros.FDQ_GLOBAL);
+      end
 //     showMessage('1 ou mais registros encontrados!')
-
      else
       Result := False;
 //      showMessage('Nenhum registro encontrado!');
@@ -208,7 +211,6 @@ begin
 {$region 'EXCEL'}
 cTitulo := 'Robos Financeiros';
 ObjExcel := CreateOleObject('Excel.Application');
-ObjExcel.Visible := True;
 ObjExcel.Caption := cTitulo;
 {$endregion}
 {$region 'PLANILHA'}
