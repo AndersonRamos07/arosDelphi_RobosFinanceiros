@@ -20,7 +20,7 @@ uses
 
 type
   TFRM_RobosFinanceiros = class(TForm)
-{$region 'ATRIBUTOS'}
+  {$region 'ATRIBUTOS'}
     PC_Principal: TPageControl;
     TS_Analise: TTabSheet;
     Robo: TTabSheet;
@@ -167,7 +167,7 @@ type
     DBGrid9: TDBGrid;
     SB_Configuracoes: TSpeedButton;
 {$endregion}
-{$region 'PROCEDURES'}
+  {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
     procedure DBN_ANALISESClick(Sender: TObject; Button: TNavigateBtn);
     procedure DBN_ROBOSClick(Sender: TObject; Button: TNavigateBtn);
@@ -176,8 +176,8 @@ type
     procedure B_DeletarDadosClick(Sender: TObject);
     procedure btnListarArquivosClick(Sender: TObject);
     procedure ListarArquivos(Diretorio: string; Sub:Boolean);  //teste
-{$endregion}
-{$region 'FUNCTIONS'}
+  {$endregion}
+  {$region 'FUNCTIONS'}
     function SalvarAnaliseNoBanco(aQuery : TFDQuery; pTituloDaAnalise, pDescricaoDoPeriodo, pQuantosAnos, pSaldoInicial : String) : Integer;
     function SalvarRoboNoBanco(rQuery : TFDQuery; pID_Analise : Integer; pNomeDoRobo : String) : Integer;
     function SalvarSetupNoBanco(sQuery : TFDQuery; pIdentificador, pID_Robo : Integer; pNomeDoSetup, pMagic : String; pLucroBruto, pLucroLiquido, pPayOff, pFatorLucro, pFatorRecuperacao, pSharpe, pCorrelacaoLR, pDDFinanceiro, pMediaLucro, pMediaPrejuizo : Double) : Integer;

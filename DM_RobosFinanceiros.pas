@@ -93,9 +93,7 @@ type
     user, porta, ip, fBD, conexao, conexaoFB : String;
     procedure CodificarINI();
       {$endregion}
-
   end;
-
 
 var
   DM_Robos_Financeiros : TDM_Robos_Financeiros;
@@ -213,6 +211,4 @@ begin
 end;
 
 {$endregion}
-
-
 end.

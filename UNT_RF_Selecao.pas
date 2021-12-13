@@ -12,74 +12,75 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
 {$endregion}
+
 type
   TFRM_RF_Selecao = class(TForm)
-    {$region 'ATRIBUTOS'}
-    P_Principal: TPanel;
-    GB_R_L_X_P: TGroupBox;
-    GB_CORRELACAO: TGroupBox;
-    GB_SHARPE: TGroupBox;
-    GB_FATOR_R: TGroupBox;
-    GB_FATOR_L: TGroupBox;
-    GB_PAYOFF: TGroupBox;
-    GB_DD: TGroupBox;
-    GB_CAGR: TGroupBox;
-    SB_FILTRAR: TSpeedButton;
-    SB_CANCELAR: TSpeedButton;
-    SB_FILTRO_PO: TSpeedButton;
-    SB_FILTRO_FL: TSpeedButton;
-    SB_FILTRO_PR: TSpeedButton;
-    SB_FILTRO_SH: TSpeedButton;
-    SB_FILTRO_CO: TSpeedButton;
-    SB_FILTRO_CG: TSpeedButton;
-    SB_FILTRO_DD: TSpeedButton;
-    SB_FILTRO_RLP: TSpeedButton;
-    GB_CALMAR: TGroupBox;
-    SB_FILTRO_CR: TSpeedButton;
-    GroupBox1: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    E_ID_PAYOFF: TEdit;
-    E_DE_PAYOFF: TEdit;
-    E_ATE_PAYOFF: TEdit;
-    E_NOTA_PAYOFF: TEdit;
-    E_ID_FATOR_LUCRO: TEdit;
-    E_DE_FATOR_LUCRO: TEdit;
-    E_ATE_FATOR_LUCRO: TEdit;
-    E_NOTA_FATOR_LUCRO: TEdit;
-    E_ID_FATOR_RECUPERACAO: TEdit;
-    E_DE_FATOR_RECUPERACAO: TEdit;
-    E_ATE_FATOR_RECUPERACAO: TEdit;
-    E_NOTA_FATOR_RECUPERACAO: TEdit;
-    E_ID_SHARPE: TEdit;
-    E_DE_SHARPE: TEdit;
-    E_ATE_SHARPE: TEdit;
-    E_NOTA_SHARPE: TEdit;
-    E_ID_CORRELACAO: TEdit;
-    E_DE_CORRELACAO: TEdit;
-    E_ATE_CORRELACAO: TEdit;
-    E_NOTA_CORRELACAO: TEdit;
-    E_ID_CALMAR: TEdit;
-    E_DE_CALMAR: TEdit;
-    E_ATE_CALMAR: TEdit;
-    E_NOTA_CALMAR: TEdit;
-    E_ID_CAGR: TEdit;
-    E_DE_CAGR: TEdit;
-    E_ATE_CAGR: TEdit;
-    E_NOTA_CAGR: TEdit;
-    E_ID_DD_FINANCEIRO: TEdit;
-    E_DE_DD_FINANCEIRO: TEdit;
-    E_ATE_DD_FINANCEIRO: TEdit;
-    E_NOTA_DD_FINANCEIRO: TEdit;
-    E_ID_RELACAO_LUCROXPERDA: TEdit;
-    E_DE_RELACAO_LUCROXPERDA: TEdit;
-    E_ATE_RELACAO_LUCROXPERDA: TEdit;
-    E_NOTA_RELACAO_LUCROXPERDA: TEdit;
-    SB_RESETAR: TSpeedButton;
-    {$endregion}
-    {$region 'PROCEDURES'}
+  {$region 'ATRIBUTOS'}
+  P_Principal: TPanel;
+  GB_R_L_X_P: TGroupBox;
+  GB_CORRELACAO: TGroupBox;
+  GB_SHARPE: TGroupBox;
+  GB_FATOR_R: TGroupBox;
+  GB_FATOR_L: TGroupBox;
+  GB_PAYOFF: TGroupBox;
+  GB_DD: TGroupBox;
+  GB_CAGR: TGroupBox;
+  SB_FILTRAR: TSpeedButton;
+  SB_CANCELAR: TSpeedButton;
+  SB_FILTRO_PO: TSpeedButton;
+  SB_FILTRO_FL: TSpeedButton;
+  SB_FILTRO_PR: TSpeedButton;
+  SB_FILTRO_SH: TSpeedButton;
+  SB_FILTRO_CO: TSpeedButton;
+  SB_FILTRO_CG: TSpeedButton;
+  SB_FILTRO_DD: TSpeedButton;
+  SB_FILTRO_RLP: TSpeedButton;
+  GB_CALMAR: TGroupBox;
+  SB_FILTRO_CR: TSpeedButton;
+  GroupBox1: TGroupBox;
+  Label1: TLabel;
+  Label2: TLabel;
+  Label3: TLabel;
+  Label4: TLabel;
+  E_ID_PAYOFF: TEdit;
+  E_DE_PAYOFF: TEdit;
+  E_ATE_PAYOFF: TEdit;
+  E_NOTA_PAYOFF: TEdit;
+  E_ID_FATOR_LUCRO: TEdit;
+  E_DE_FATOR_LUCRO: TEdit;
+  E_ATE_FATOR_LUCRO: TEdit;
+  E_NOTA_FATOR_LUCRO: TEdit;
+  E_ID_FATOR_RECUPERACAO: TEdit;
+  E_DE_FATOR_RECUPERACAO: TEdit;
+  E_ATE_FATOR_RECUPERACAO: TEdit;
+  E_NOTA_FATOR_RECUPERACAO: TEdit;
+  E_ID_SHARPE: TEdit;
+  E_DE_SHARPE: TEdit;
+  E_ATE_SHARPE: TEdit;
+  E_NOTA_SHARPE: TEdit;
+  E_ID_CORRELACAO: TEdit;
+  E_DE_CORRELACAO: TEdit;
+  E_ATE_CORRELACAO: TEdit;
+  E_NOTA_CORRELACAO: TEdit;
+  E_ID_CALMAR: TEdit;
+  E_DE_CALMAR: TEdit;
+  E_ATE_CALMAR: TEdit;
+  E_NOTA_CALMAR: TEdit;
+  E_ID_CAGR: TEdit;
+  E_DE_CAGR: TEdit;
+  E_ATE_CAGR: TEdit;
+  E_NOTA_CAGR: TEdit;
+  E_ID_DD_FINANCEIRO: TEdit;
+  E_DE_DD_FINANCEIRO: TEdit;
+  E_ATE_DD_FINANCEIRO: TEdit;
+  E_NOTA_DD_FINANCEIRO: TEdit;
+  E_ID_RELACAO_LUCROXPERDA: TEdit;
+  E_DE_RELACAO_LUCROXPERDA: TEdit;
+  E_ATE_RELACAO_LUCROXPERDA: TEdit;
+  E_NOTA_RELACAO_LUCROXPERDA: TEdit;
+  SB_RESETAR: TSpeedButton;
+  {$endregion}
+  {$region 'PROCEDURES'}
     procedure FILTRO_TABELA(pTabela:String);
     procedure SB_FILTRO_POClick(Sender: TObject);
     procedure SB_FILTRO_FLClick(Sender: TObject);
@@ -239,5 +240,4 @@ begin
   Close();
 end;
 {$endregion}
-
 end.

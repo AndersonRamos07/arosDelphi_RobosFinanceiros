@@ -174,5 +174,4 @@ begin
   vEdit.Text := DM_Robos_Financeiros.FDQ_GLOBAL.FieldByName('NOTA').AsString;
 end;
 {$endregion}
-
 end.

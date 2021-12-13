@@ -1,6 +1,7 @@
 unit UNT_GLOBAL;
 
 interface
+
 uses
 {$region 'USES : IMPORTS'}
   IBX.IBDatabase, Data.DB,
@@ -16,9 +17,10 @@ uses
   ComObj,       // para realizar a exportação para arquivo *.XLS
   IniFiles;     // para realizar a leitura do arquivo *.INI
 {$endregion}
+
 type
   TFRM_GLOBAL = class(TForm)
-{$region 'GLOBAIS'}
+  {$region 'GLOBAIS'}
   private
   public
   procedure SELECT_ALL_FROM_TABLE(pTabela: String);
@@ -33,7 +35,7 @@ pDE_SHARPE, pATE_SHARPE, pDE_CORRELACAO, pATE_CORRELACAO, pDE_CALMAR, pATE_CALMA
 
   function GET_EDIT_BY_NAME(pForm: TForm; pNomeDoEdit: String): TEdit;
 {$endregion}
-{$region 'IMPORTADAS'}
+  {$region 'IMPORTADAS'}
   function GeneratorIncrementado(qGenerator:String) : Integer;
   procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   procedure MakeRounded(Control: TWinControl);
