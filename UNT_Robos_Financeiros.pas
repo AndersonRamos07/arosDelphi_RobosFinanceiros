@@ -165,7 +165,7 @@ type
     Panel10: TPanel;
     DBNavigator9: TDBNavigator;
     DBGrid9: TDBGrid;
-    SpeedButton1: TSpeedButton;
+    SB_Configuracoes: TSpeedButton;
 {$endregion}
 {$region 'PROCEDURES'}
     procedure PC_PrincipalChange(Sender: TObject);
@@ -185,7 +185,7 @@ type
     procedure B_Fechar_LogClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TS_SHARPEContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure SB_ConfiguracoesClick(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -225,12 +225,6 @@ begin
   if OD_Importar_Planilha.Execute = True then
    XlsToStringGrid(SG_Importar_Planilha, OD_Importar_Planilha.FileName);
 end;
-
-procedure TFRM_RobosFinanceiros.SpeedButton1Click(Sender: TObject);
-begin
-  FRM_RF_Selecao.ShowModal;
-end;
-
 {$endregion}
 
 {$region 'Importando os dados da planilha e salvando em ANALISES, ROBOS e SETUPS'}
@@ -563,7 +557,6 @@ begin
     PC_Robo.ActivePage := TS_Robo_Detalhes;
     DBE_NOME_DO_ROBO.SetFocus;
   end;
-
 end;
 
 procedure TFRM_RobosFinanceiros.DBN_SETUPSClick(Sender: TObject; Button: TNavigateBtn);
@@ -916,6 +909,13 @@ begin
 end;
 
   {$endregion}
+{$endregion}
+
+{$region 'SB_Configuracoes'}
+procedure TFRM_RobosFinanceiros.SB_ConfiguracoesClick(Sender: TObject);
+begin
+  FRM_RF_Selecao.ShowModal;
+end;
 {$endregion}
 
 end.

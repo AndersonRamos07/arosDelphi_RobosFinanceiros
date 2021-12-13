@@ -79,6 +79,15 @@ type
   {$region 'PROCEDURES'}
     procedure DataModuleCreate(Sender: TObject);
     procedure FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
+    procedure FDQ_RF_PAYOFFBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_FATOR_LUCROBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_FATOR_RECUPERACAOBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_SHARPEBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_CORRELACAOBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_CALMARBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_CAGRBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_DD_FINANCEIROBeforePost(DataSet: TDataSet);
+    procedure FDQ_RF_RELACAO_LUCRO_X_PERDABeforePost(DataSet: TDataSet);
   private
   public
     user, porta, ip, fBD, conexao, conexaoFB : String;
@@ -98,7 +107,8 @@ uses
  Winapi.Windows, Winapi.Messages, System.Variants, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons;
+  cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
+  UNT_GLOBAL;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 {$endregion}
@@ -129,6 +139,7 @@ end;
 {$endregion}
 
 {$region 'AFTER_POST'}
+
 procedure TDM_Robos_Financeiros.FDQ_RobosFinanceiros_SAfterPost(DataSet: TDataSet);
 begin
   FDQ_RobosFinanceiros_S.Close;
@@ -151,5 +162,57 @@ begin
     arquivoIni.Free;
 end;
 {$endregion}
+
+{$region 'BEFORE_POST'}
+procedure TDM_Robos_Financeiros.FDQ_RF_PAYOFFBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_PAYOFF');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_FATOR_LUCROBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_FATOR_LUCRO');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_FATOR_RECUPERACAOBeforePost(
+  DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_FATOR_RECUPERACAO');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_SHARPEBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_SHARPE');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_CORRELACAOBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_CORRELACAO');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_CALMARBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_CALMAR');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_CAGRBeforePost(DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_CAGR');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_DD_FINANCEIROBeforePost(
+  DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_DD_FINANCEIRO');
+end;
+
+procedure TDM_Robos_Financeiros.FDQ_RF_RELACAO_LUCRO_X_PERDABeforePost(
+  DataSet: TDataSet);
+begin
+  FRM_GLOBAL.GeneratorIncrementado('NOVO_ID_RELACAO_LUCRO_X_PERDA');
+end;
+
+{$endregion}
+
 
 end.

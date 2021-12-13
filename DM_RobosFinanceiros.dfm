@@ -1,8 +1,8 @@
 object DM_Robos_Financeiros: TDM_Robos_Financeiros
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 142
-  Top = 188
+  Left = 350
+  Top = 45
   Height = 650
   Width = 977
   object FDC_RobosFinanceiros: TFDConnection
@@ -266,6 +266,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 16
   end
   object FDQ_RF_PAYOFF: TFDQuery
+    BeforePost = FDQ_RF_PAYOFFBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM PAYOFF')
@@ -273,6 +274,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 232
   end
   object FDQ_RF_FATOR_LUCRO: TFDQuery
+    BeforePost = FDQ_RF_FATOR_LUCROBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM FATOR_LUCRO')
@@ -280,6 +282,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 232
   end
   object FDQ_RF_FATOR_RECUPERACAO: TFDQuery
+    BeforePost = FDQ_RF_FATOR_RECUPERACAOBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM FATOR_RECUPERACAO')
@@ -287,6 +290,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 232
   end
   object FDQ_RF_SHARPE: TFDQuery
+    BeforePost = FDQ_RF_SHARPEBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM SHARPE')
@@ -294,6 +298,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 232
   end
   object FDQ_RF_CORRELACAO: TFDQuery
+    BeforePost = FDQ_RF_CORRELACAOBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM CORRELACAO')
@@ -301,6 +306,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 232
   end
   object FDQ_RF_CALMAR: TFDQuery
+    BeforePost = FDQ_RF_CALMARBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM CALMAR')
@@ -308,6 +314,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 352
   end
   object FDQ_RF_CAGR: TFDQuery
+    BeforePost = FDQ_RF_CAGRBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM CAGR')
@@ -315,6 +322,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 352
   end
   object FDQ_RF_DD_FINANCEIRO: TFDQuery
+    BeforePost = FDQ_RF_DD_FINANCEIROBeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM DD_FINANCEIRO')
@@ -322,6 +330,7 @@ object DM_Robos_Financeiros: TDM_Robos_Financeiros
     Top = 352
   end
   object FDQ_RF_RELACAO_LUCRO_X_PERDA: TFDQuery
+    BeforePost = FDQ_RF_RELACAO_LUCRO_X_PERDABeforePost
     Connection = FDC_RobosFinanceiros
     SQL.Strings = (
       'SELECT * FROM RELACAO_LUCROXPERDA')

@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1102
     Height = 705
-    ActivePage = Setup
+    ActivePage = TS_Configuracoes
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -1128,86 +1128,103 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
               item
                 Expanded = False
                 FieldName = 'NOME_DO_SETUP'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_BRUTO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'LUCRO_LIQUIDO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERDA_BRUTA'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PAY_OFF'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'FATOR_RECUPERACAO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SHARPE'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CORRELACAO_LR'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DD_FINANCEIRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CALMAR_R'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RESULTADO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_LUCRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'MEDIA_PREJUIZO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'RELACAO_MEDL_X_MEDP'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'CAGR'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INDICE_L_X_P'
+                Width = 64
                 Visible = True
               end>
           end
@@ -1715,7 +1732,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
       ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
-      object SpeedButton1: TSpeedButton
+      object SB_Configuracoes: TSpeedButton
         Left = 0
         Top = 0
         Width = 50
@@ -2049,14 +2066,14 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        OnClick = SpeedButton1Click
+        OnClick = SB_ConfiguracoesClick
       end
       object PC_Parametros: TPageControl
         Left = 40
         Top = 56
         Width = 681
         Height = 369
-        ActivePage = TS_CAGR
+        ActivePage = TS_RELACAO_LUCROXPERDA
         TabOrder = 0
         object TS_PAYOFF: TTabSheet
           Caption = 'PayOff'
