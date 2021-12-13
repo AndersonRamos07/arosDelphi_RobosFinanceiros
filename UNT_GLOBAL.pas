@@ -224,7 +224,7 @@ Planilha := objExcel.Workbooks[1].WorkSheets[cTitulo];
 {$region 'CABEÇALHO'}
 Planilha.Range['A1'] := 'Robos Financeiros - ' + FormatDateTime('dd/mm/yyyy', Today);//'10/12/2021';//DateToStr(Now);
 
-Planilha.Range['A2'] := 'Nome do Robo';
+Planilha.Range['A2'] := 'Magic Number';
 Planilha.Range['B2'] := 'PayOff';
 Planilha.Range['C2'] := 'Fator Lucro';
 Planilha.Range['D2'] := 'Fator Recuperação';
@@ -246,7 +246,7 @@ with pQuery do
   while not pQuery.eof do
     begin
     Inc(i, 1);
-    Planilha.Cells[i,1] := pQuery.FieldByName('NOME_DO_SETUP').AsString;
+    Planilha.Cells[i,1] := pQuery.FieldByName('MAGIC').AsString;
     Planilha.Cells[i,2] := pQuery.FieldByName('PAY_OFF').AsString;
     Planilha.Cells[i,3] := pQuery.FieldByName('FATOR_LUCRO').AsString;
     Planilha.Cells[i,4] := pQuery.FieldByName('FATOR_RECUPERACAO').AsString;
@@ -255,7 +255,7 @@ with pQuery do
     Planilha.Cells[i,7] := pQuery.FieldByName('CALMAR_R').AsString;
     Planilha.Cells[i,8] := pQuery.FieldByName('CAGR').AsString;
     Planilha.Cells[i,9] := pQuery.FieldByName('DD_FINANCEIRO').AsString;
-    Planilha.Cells[i,10] := pQuery.FieldByName('RELACAO_MEDL_X_MEDP').AsString;
+    Planilha.Cells[i,10] := pQuery.FieldByName('INDICE_L_X_P').AsString;
     pQuery.Next;
     end;
   EnableControls;

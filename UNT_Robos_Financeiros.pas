@@ -693,7 +693,7 @@ function TFRM_RobosFinanceiros.EncontrarMagicNaTabela(Valor : String; Tabela : V
              Inc(J, 1);
            end;
            sPos := Pos('=', Tabela[ (Lin + J), Col ]);
-           Resposta := copy(Tabela[ (Lin + J), Col ], sPos + 1, 3);
+           Resposta := copy(Tabela[ (Lin + J), Col ], sPos + 1, 15);
               {$endregion}
           {$endregion}
         end;

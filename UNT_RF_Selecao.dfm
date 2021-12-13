@@ -1,6 +1,6 @@
 object FRM_RF_Selecao: TFRM_RF_Selecao
-  Left = 104
-  Top = 71
+  Left = 105
+  Top = 112
   Caption = 'FRM_RF_Selecao'
   ClientHeight = 618
   ClientWidth = 1038

@@ -19,7 +19,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1102
     Height = 705
-    ActivePage = TS_Configuracoes
+    ActivePage = Setup
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
