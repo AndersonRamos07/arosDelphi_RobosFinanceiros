@@ -11,6 +11,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -19,7 +20,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     Top = 0
     Width = 1102
     Height = 705
-    ActivePage = Setup
+    ActivePage = TS_Configuracoes
     Align = alTop
     TabOrder = 0
     OnChange = PC_PrincipalChange
@@ -56,8 +57,8 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         object DBN_ANALISES: TDBNavigator
           Left = 0
           Top = 10
-          Width = 240
-          Height = 25
+          Width = 540
+          Height = 41
           DataSource = DM_Robos_Financeiros.DS_ANALISES
           TabOrder = 0
           OnClick = DBN_ANALISESClick
@@ -273,7 +274,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Align = alTop
         TabOrder = 0
         object Label4: TLabel
-          Left = 330
+          Left = 545
           Top = 10
           Width = 73
           Height = 13
@@ -288,7 +289,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentFont = False
         end
         object Label32: TLabel
-          Left = 440
+          Left = 655
           Top = 10
           Width = 92
           Height = 13
@@ -716,7 +717,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           OnClick = DBN_ROBOSClick
         end
         object DBE_IDENTIFICADOR_RA: TDBEdit
-          Left = 330
+          Left = 545
           Top = 30
           Width = 91
           Height = 21
@@ -727,7 +728,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 1
         end
         object DBE_TITULO_DA_ANALISE_RA: TDBEdit
-          Left = 440
+          Left = 655
           Top = 30
           Width = 276
           Height = 21
@@ -964,7 +965,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
         Align = alTop
         TabOrder = 0
         object L_IdentificadorRobo_Setup: TLabel
-          Left = 330
+          Left = 545
           Top = 60
           Width = 73
           Height = 13
@@ -977,7 +978,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentFont = False
         end
         object L_NomeDoRobo_Setup: TLabel
-          Left = 440
+          Left = 655
           Top = 60
           Width = 81
           Height = 13
@@ -990,7 +991,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentFont = False
         end
         object L_IdentificadorAnalise_Setup: TLabel
-          Left = 330
+          Left = 545
           Top = 10
           Width = 73
           Height = 13
@@ -1005,7 +1006,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           ParentFont = False
         end
         object L_TituloDaAnalise_Setup: TLabel
-          Left = 440
+          Left = 655
           Top = 10
           Width = 92
           Height = 13
@@ -1027,7 +1028,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           OnClick = DBN_SETUPSClick
         end
         object DBE_IDENTIFICADOR_SR: TDBEdit
-          Left = 330
+          Left = 545
           Top = 80
           Width = 91
           Height = 21
@@ -1040,7 +1041,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 1
         end
         object DBE_NOME_DO_ROBO_SR: TDBEdit
-          Left = 440
+          Left = 655
           Top = 80
           Width = 276
           Height = 21
@@ -1051,7 +1052,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 2
         end
         object DBE_IDENTIFICADOR_SA: TDBEdit
-          Left = 330
+          Left = 545
           Top = 30
           Width = 91
           Height = 21
@@ -1062,7 +1063,7 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
           TabOrder = 3
         end
         object DBE_TITULO_DA_ANALISE_SA: TDBEdit
-          Left = 440
+          Left = 655
           Top = 30
           Width = 276
           Height = 21
@@ -2385,20 +2386,20 @@ object FRM_RobosFinanceiros: TFRM_RobosFinanceiros
     end
   end
   object DS_ANALISES: TDataSource
-    Left = 872
+    Left = 1048
     Top = 96
   end
   object OD_Importar_Planilha: TOpenDialog
-    Left = 868
+    Left = 1044
     Top = 32
   end
   object OD_Importar_BD: TOpenDialog
-    Left = 772
+    Left = 948
     Top = 32
   end
   object OD_ListarArquivos: TOpenDialog
     FileName = 'C:\Projetos\RobosFinanceiros\planilhasDeTeste\M4.xls'
-    Left = 772
+    Left = 948
     Top = 96
   end
 end

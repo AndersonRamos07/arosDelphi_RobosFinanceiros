@@ -10,7 +10,7 @@ uses
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, Vcl.StdCtrls,
   cxNavigator, cxDBNavigator, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.Buttons,
 
-  ComObj,
+  {Buttons,} ComObj,
   FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
   FireDAC.Phys.FBDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
@@ -186,6 +186,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure TS_SHARPEContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
     procedure SB_ConfiguracoesClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     function XlsToStringGrid(XStringGrid: TStringGrid; xFileXLS: string): Boolean;
@@ -200,6 +201,9 @@ type
 {$endregion}
   end;
 
+type
+  TDBNavigatorWCap = class (TDBNavigator);
+
 var
   FRM_RobosFinanceiros: TFRM_RobosFinanceiros;
 
@@ -210,6 +214,75 @@ uses
   DM_RobosFinanceiros, UNT_RF_Selecao, UNT_GLOBAL;
 
 {$region 'Ao iniciar...'}
+procedure legendarNavigator(pForm: TForm);
+var
+i: Integer;
+
+function addCaptionDBN(dbnGlobal: TDBNavigator):Boolean;
+var
+  B: TNavigateBtn;
+begin
+for B := Low(TNavigateBtn) to High(TNavigateBtn) do
+    with TDBNavigatorWCap(dbnGlobal).Buttons[B] do
+    begin
+        case Index of
+        nbFirst : Caption := 'Primeiro';
+        nbPrior : Caption := 'Anterior';
+        nbNext : Caption := 'Próximo';
+        nbLast : Caption := 'Último';
+        nbInsert : Caption := 'Novo';
+        nbDelete : Caption := 'Excluir';
+        nbEdit : Caption := 'Editar';
+        nbPost : Caption := 'Salvar';
+        nbCancel : Caption := 'Cancelar';
+        nbRefresh : Caption := 'Atualizar';
+      end;
+      Layout := blGlyphTop;
+      Hint := Caption;
+      ShowHint := True;
+    end;
+    TDBNavigatorWCap(dbnGlobal).Height := 41;
+    TDBNavigatorWCap(dbnGlobal).Width := 540;
+    Result := True;
+end;
+
+begin
+for i := 0 to pForm.ComponentCount - 1 do
+  begin
+    if (pForm.Components[i] is TDBNavigator) then
+     begin
+     addCaptionDBN(TDBNavigator(pForm.Components[i]));
+     end;
+  end;
+end;
+
+procedure TFRM_RobosFinanceiros.FormCreate(Sender: TObject);
+//var
+//  B: TNavigateBtn;
+begin
+
+legendarNavigator(FRM_RobosFinanceiros);
+//    for B := Low(TNavigateBtn) to High(TNavigateBtn) do
+//    with TDBNavigatorWCap(DBN_ANALISES).Buttons[B] do
+//    begin
+//        case Index of
+//        nbFirst : Caption := 'Primeiro';
+//        nbPrior : Caption := 'Anterior';
+//        nbNext : Caption := 'Próximo';
+//        nbLast : Caption := 'Último';
+//        nbInsert : Caption := 'Novo';
+//        nbDelete : Caption := 'Excluir';
+//        nbEdit : Caption := 'Editar';
+//        nbPost : Caption := 'Salvar';
+//        nbCancel : Caption := 'Cancelar';
+//        nbRefresh : Caption := 'Atualizar';
+//      end;
+//      Layout := blGlyphTop;
+//      Hint := Caption;
+//      ShowHint := True;
+//    end;
+end;
+
 procedure TFRM_RobosFinanceiros.FormShow(Sender: TObject);
 begin
   FRM_RobosFinanceiros.WindowState := wsMaximized;
